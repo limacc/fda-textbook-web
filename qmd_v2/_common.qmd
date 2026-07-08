@@ -1,0 +1,36 @@
+```{r include=FALSE}
+# 챕터 공통 setup - chunk 라벨 없음 (Book mode에서 여러 챕터 동시 포함 시 중복 방지)
+source("../Work/_common.R")
+render_mode <- Sys.getenv("RENDER_MODE", unset = "complete")
+book_mode <- Sys.getenv("BOOK_MODE", unset = "0") == "1"
+
+if (book_mode) {
+  knitr::opts_chunk$set(
+    echo = FALSE,
+    warning = FALSE,
+    message = FALSE,
+    fig.width = 9,
+    fig.height = 5.5,
+    dpi = 300,   # 책 인쇄용 해상도 (사령관 지시, 2026-06-06)
+    comment = ""
+  )
+
+  # Console text (cat/print output) is rendered by Pandoc as shaded verbatim
+  # blocks in DOCX. In book mode, keep structured outputs (flextable, kable,
+  # ggplot) and suppress raw console text so reviewer-facing files do not
+  # contain grey "#>" boxes.
+  .default_output_hook <- knitr::knit_hooks$get("output")
+  knitr::knit_hooks$set(output = function(x, options) {
+    if (isTRUE(options$keep_console)) {
+      return(.default_output_hook(x, options))
+    }
+    # CQI-014: raw 블록(flextable의 openxml 표 등)은 절대 삼키면 안 된다.
+    # 이 훅이 모든 출력을 ""로 지우는 바람에 flextable 표가 docx에서 증발했다.
+    # 콘솔 텍스트만 차단하고, raw fence는 통과시킨다.
+    if (grepl("```{=", x, fixed = TRUE)) {
+      return(.default_output_hook(x, options))
+    }
+    ""
+  })
+}
+```

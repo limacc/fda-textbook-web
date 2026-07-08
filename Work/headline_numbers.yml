@@ -1,0 +1,26 @@
+# headline_numbers.yml  — Paper 10
+# Generated: 2026-04-30 10:14:37
+# Usage in qmd: `r hn$variable_name`
+
+n_firmyear_raw: "34,608"
+n_firmyear_window: "34,608"
+n_first_events: "222"
+n_regression: "19,425"
+n_daily_firms: "222"
+n_firth_sample: "NA"
+car_tau0_pct: -5.5
+car_m1p1_pct: -4.6
+n_events_car: 220
+n_matched_events: "146"
+n_unmatched_events: "5"
+pct_matched: 65.8
+smd_max_before: 0.429
+smd_max_after: 0.101
+delta_car_m1p1_pct: "NA"
+delta_car_0p60_pct: "NA"
+n_car_with_data: 0
+n_sector_firms_known: 20
+sector_coverage_pct: 0.8
+zero_ret_ratio_event: 51.3
+mean_vol_event: 2.037
+price_limit_rate_event: 1.8
