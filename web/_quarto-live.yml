@@ -1,0 +1,14 @@
+project:
+  type: book
+book:
+  title: "AI powered SW 기반 재무데이터분석 (웹 인터랙티브판)"
+  chapters: [ch10_web.qmd]
+format:
+  live-html:
+    theme: cosmo
+    toc: true
+engine: knitr
+filters: [live]
+resources: [data/]
+webr:
+  packages: [dplyr, tidyr, ggplot2, stringr, gt, broom]
