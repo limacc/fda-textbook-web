@@ -1,0 +1,43 @@
+---
+chapter-id: "Cover"
+chapter-num: "00"
+chapter-title: "AI powered SW 기반 재무데이터분석"
+format:
+  live-html:
+    theme: cosmo
+    toc: true
+lang: ko
+engine: knitr
+filters: [live]
+execute:
+  echo: false
+  warning: false
+  message: false
+  error: false
+webr:
+  packages: [dplyr, tidyr, ggplot2, stringr, gt, broom]
+resources: [data/]
+---
+
+# AI powered SW 기반 재무데이터분석
+
+> **AI 저술 교재 — BookOS**
+
+이 교재는 AI가 저술하고 인간이 감수한 재무데이터분석 입문서입니다.
+각 장의 R 코드를 브라우저에서 직접 실행하며 학습할 수 있습니다.
+
+## 목차
+
+1. [분석 환경과 재현성 — 코드가 어디서나 돌아야 한다](01_web.html)
+2. [사고의 알고리즘 — 데이터 분석의 사고 프레임](02_web.html)
+3. [SSOT — 단일 진실 공급원](03_web.html)
+4. [데이터 정제 — 결측·이상치·Winsorize](04_web.html)
+5. [파생 변수 — 재무비율과 특징 공학](05_web.html)
+6. [방법 선택 — 어떤 분석을 쓸 것인가](06_web.html)
+7. [거시 관점 — 패널 데이터의 구조](07_web.html)
+8. [기술통계와 비교 — 두 집단의 차이](08_web.html)
+9. [상관관계 — 관계의 존재를 확인하다](09_web.html)
+10. [회귀분석, 누락변수, 그리고 진단](ch10_web.html)
+11. [로지스틱 회귀 — 이분 변수의 예측](11_web.html)
+12. [인과추론과 연구 주제](12_web.html)
+13. [최종 보고서 — 숫자에서 설득으로](13_web.html)

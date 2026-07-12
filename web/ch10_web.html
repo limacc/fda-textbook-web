@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ch10_web</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="ch10_web_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch10_web_files/libs/quarto-html/quarto.js"></script>
+<script src="ch10_web_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch10_web_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ch10_web_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ch10_web_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch10_web_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ch10_web_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ch10_web_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ch10_web_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="ch10_web_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="ch10_web_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script type="module" src="ch10_web_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="ch10_web_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link href="ch10_web_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="ch10_web_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#직선을-믿기-전에-회귀분석-누락변수-그리고-진단" id="toc-직선을-믿기-전에-회귀분석-누락변수-그리고-진단" class="nav-link active" data-scroll-target="#직선을-믿기-전에-회귀분석-누락변수-그리고-진단">직선을 믿기 전에 — 회귀분석, 누락변수, 그리고 진단</a>
+  <ul class="collapse">
+  <li><a href="#사례로-시작하기" id="toc-사례로-시작하기" class="nav-link" data-scroll-target="#사례로-시작하기">사례로 시작하기</a></li>
+  <li><a href="#핵심-키워드" id="toc-핵심-키워드" class="nav-link" data-scroll-target="#핵심-키워드">핵심 키워드</a></li>
+  <li><a href="#학습-목표" id="toc-학습-목표" class="nav-link" data-scroll-target="#학습-목표">학습 목표</a></li>
+  <li><a href="#dikw-4단계-파이프라인" id="toc-dikw-4단계-파이프라인" class="nav-link" data-scroll-target="#dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</a></li>
+  <li><a href="#데이터-출처와-수집" id="toc-데이터-출처와-수집" class="nav-link" data-scroll-target="#데이터-출처와-수집">데이터 출처와 수집</a></li>
+  <li><a href="#회귀의-본질-통제된-비교" id="toc-회귀의-본질-통제된-비교" class="nav-link" data-scroll-target="#회귀의-본질-통제된-비교">회귀의 본질 — 통제된 비교</a></li>
+  <li><a href="#보고서의-회귀를-재현하다-단순회귀" id="toc-보고서의-회귀를-재현하다-단순회귀" class="nav-link" data-scroll-target="#보고서의-회귀를-재현하다-단순회귀">보고서의 회귀를 재현하다 — 단순회귀</a></li>
+  <li><a href="#누락변수편의-반대신문이-시작된다" id="toc-누락변수편의-반대신문이-시작된다" class="nav-link" data-scroll-target="#누락변수편의-반대신문이-시작된다">누락변수편의 — 반대신문이 시작된다</a>
+  <ul class="collapse">
+  <li><a href="#직관-누가-esg-평가를-받는가" id="toc-직관-누가-esg-평가를-받는가" class="nav-link" data-scroll-target="#직관-누가-esg-평가를-받는가">직관 — 누가 ESG 평가를 받는가</a></li>
+  <li><a href="#실험-보조회귀로-편의의-방향을-가늠한다" id="toc-실험-보조회귀로-편의의-방향을-가늠한다" class="nav-link" data-scroll-target="#실험-보조회귀로-편의의-방향을-가늠한다">실험 — 보조회귀로 편의의 방향을 가늠한다</a></li>
+  <li><a href="#검증-통제변수를-한-칸씩-쌓는다" id="toc-검증-통제변수를-한-칸씩-쌓는다" class="nav-link" data-scroll-target="#검증-통제변수를-한-칸씩-쌓는다">검증 — 통제변수를 한 칸씩 쌓는다</a></li>
+  <li><a href="#나쁜-통제-길목을-막는-실수" id="toc-나쁜-통제-길목을-막는-실수" class="nav-link" data-scroll-target="#나쁜-통제-길목을-막는-실수">나쁜 통제 — 길목을 막는 실수</a></li>
+  <li><a href="#다중공선성-통제변수끼리-겹칠-때" id="toc-다중공선성-통제변수끼리-겹칠-때" class="nav-link" data-scroll-target="#다중공선성-통제변수끼리-겹칠-때">다중공선성 — 통제변수끼리 겹칠 때</a></li>
+  </ul></li>
+  <li><a href="#잔차가-말해주는-것-증거-감식" id="toc-잔차가-말해주는-것-증거-감식" class="nav-link" data-scroll-target="#잔차가-말해주는-것-증거-감식">잔차가 말해주는 것 — 증거 감식</a>
+  <ul class="collapse">
+  <li><a href="#강건-표준오차와-클러스터-표준오차-불확실성을-다시-계산하라" id="toc-강건-표준오차와-클러스터-표준오차-불확실성을-다시-계산하라" class="nav-link" data-scroll-target="#강건-표준오차와-클러스터-표준오차-불확실성을-다시-계산하라">강건 표준오차와 클러스터 표준오차 — 불확실성을 다시 계산하라</a></li>
+  <li><a href="#한-단계-더-업종이-빠지면-무엇이-남는가" id="toc-한-단계-더-업종이-빠지면-무엇이-남는가" class="nav-link" data-scroll-target="#한-단계-더-업종이-빠지면-무엇이-남는가">한 단계 더 — 업종이 빠지면 무엇이 남는가</a></li>
+  <li><a href="#분석가의-번역-이-숫자는-투자위원회에서-어떻게-말하는가" id="toc-분석가의-번역-이-숫자는-투자위원회에서-어떻게-말하는가" class="nav-link" data-scroll-target="#분석가의-번역-이-숫자는-투자위원회에서-어떻게-말하는가">분석가의 번역 — 이 숫자는 투자위원회에서 어떻게 말하는가</a></li>
+  <li><a href="#완성-예시-검증-메모-전문" id="toc-완성-예시-검증-메모-전문" class="nav-link" data-scroll-target="#완성-예시-검증-메모-전문">완성 예시 — 검증 메모 전문</a></li>
+  </ul></li>
+  <li><a href="#r로-직접-해보기" id="toc-r로-직접-해보기" class="nav-link" data-scroll-target="#r로-직접-해보기">R로 직접 해보기</a></li>
+  <li><a href="#ai-협업-프로토콜-결론을-대신-쓰게-하지-말고-반증-후보를-늘려라" id="toc-ai-협업-프로토콜-결론을-대신-쓰게-하지-말고-반증-후보를-늘려라" class="nav-link" data-scroll-target="#ai-협업-프로토콜-결론을-대신-쓰게-하지-말고-반증-후보를-늘려라">AI 협업 프로토콜 — 결론을 대신 쓰게 하지 말고, 반증 후보를 늘려라</a></li>
+  <li><a href="#정리-함정-다음-장" id="toc-정리-함정-다음-장" class="nav-link" data-scroll-target="#정리-함정-다음-장">정리, 함정, 다음 장</a></li>
+  <li><a href="#주차-pbl-진짜-원인을-찾아라" id="toc-주차-pbl-진짜-원인을-찾아라" class="nav-link" data-scroll-target="#주차-pbl-진짜-원인을-찾아라">주차 PBL — 진짜 원인을 찾아라</a></li>
+  <li><a href="#이-장의-자료" id="toc-이-장의-자료" class="nav-link" data-scroll-target="#이-장의-자료">이 장의 자료</a></li>
+  <li><a href="#연습문제" id="toc-연습문제" class="nav-link" data-scroll-target="#연습문제">연습문제</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="직선을-믿기-전에-회귀분석-누락변수-그리고-진단" class="level1">
+<h1>직선을 믿기 전에 — 회귀분석, 누락변수, 그리고 진단</h1>
+<blockquote class="blockquote">
+<p>“모든 모형은 틀렸다. 그러나 어떤 모형은 유용하다.” — George E. P. Box</p>
+</blockquote>
+<section id="사례로-시작하기" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="사례로-시작하기">사례로 시작하기</h2>
+<p>한 외부 리서치 기관이 보고서를 발표한다. 제목은 선명하다. “ESG 평가를 받은 기업의 수익성이 더 높다.” 근거는 회귀분석 한 줄이다 — ESG 평가 대상 기업의 ROA가 미평가 기업보다 높다는 것. 보고서는 결론으로 직행한다. “따라서 ESG 펀드 비중을 확대해야 한다.”</p>
+<p>KG Asset의 운용회의에서 이 보고서가 화면에 띄워졌을 때, 팀장은 신입 분석가 김자산에게 짧게 물었다. “이 회귀, 믿어도 되나?”</p>
+<p>자산은 머뭇거렸다. 계수는 양수였고, 표본도 수만 건이었다. 무엇을 더 따져야 하는가? 그날 자산이 배운 것은 질문을 바꾸는 법이었다. “ESG 평가를 받았기 <em>때문에</em> 수익성이 높은가, 아니면 애초에 크고 안정적인 기업이 평가 대상으로 <em>선택되었기</em> 때문에 그렇게 보이는가?” 평가기관은 자료가 풍부한 대형 상장사부터 평가한다. 대기업은 평균적으로 사업 포트폴리오가 넓고 자금조달 여력이 커, 평가를 받지 않아도 수익성이 안정적으로 보일 가능성이 있다. 그렇다면 보고서가 발견한 것은 ESG 평가대상 여부와 ROA의 진짜 조건부 차이인가, 아니면 대기업 효과가 ESG 평가 더미에 붙어 나온 착시인가?</p>
+<p>이 장의 목적은 ESG의 선악을 판정하는 것이 아니다. 목적은 더 근본적이다. <strong>비교 가능한 기업끼리 비교하지 않으면, 회귀계수는 그럴듯한 숫자의 탈을 쓴 착시가 된다.</strong> 이 장은 ESG 성과 분석이 아니라 선택편의와 통제된 비교의 훈련이다.</p>
+<p>이 장은 말하자면 한 편의 재판이다. 외부 보고서의 주장이 피고석에 앉아 있고, 회귀분석이 증인으로 출석한다. 그러나 증인의 말을 그대로 믿는 법정은 없다. 반대신문으로 증언의 빈틈을 찌르고(누락변수편의), 증인들끼리 입을 맞췄는지 확인하고(다중공선성·VIF), 증거물을 감식반에 넘겨 위조 여부를 검사한다(잔차 진단·강건 표준오차). 전 장(9장)에서 상관계수가 “관계의 존재”까지만 증언할 수 있다는 것을 보았다면, 이 장의 재판은 그 관계가 <strong>다른 변수를 고정한 뒤에도 살아남는가</strong>를 묻는다. 판결까지의 절차가 곧 이 장의 목차다.</p>
+</section>
+<section id="핵심-키워드" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="핵심-키워드">핵심 키워드</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="aehrpppogn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aehrpppogn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#aehrpppogn thead, #aehrpppogn tbody, #aehrpppogn tfoot, #aehrpppogn tr, #aehrpppogn td, #aehrpppogn th {
+  border-style: none;
+}
+
+#aehrpppogn p {
+  margin: 0;
+  padding: 0;
+}
+
+#aehrpppogn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#aehrpppogn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#aehrpppogn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#aehrpppogn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#aehrpppogn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#aehrpppogn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#aehrpppogn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#aehrpppogn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#aehrpppogn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#aehrpppogn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#aehrpppogn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#aehrpppogn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#aehrpppogn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#aehrpppogn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#aehrpppogn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#aehrpppogn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#aehrpppogn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#aehrpppogn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#aehrpppogn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#aehrpppogn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#aehrpppogn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#aehrpppogn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#aehrpppogn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#aehrpppogn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#aehrpppogn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#aehrpppogn .gt_left {
+  text-align: left;
+}
+
+#aehrpppogn .gt_center {
+  text-align: center;
+}
+
+#aehrpppogn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#aehrpppogn .gt_font_normal {
+  font-weight: normal;
+}
+
+#aehrpppogn .gt_font_bold {
+  font-weight: bold;
+}
+
+#aehrpppogn .gt_font_italic {
+  font-style: italic;
+}
+
+#aehrpppogn .gt_super {
+  font-size: 65%;
+}
+
+#aehrpppogn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#aehrpppogn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#aehrpppogn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#aehrpppogn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#aehrpppogn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#aehrpppogn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#aehrpppogn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#aehrpppogn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#aehrpppogn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">표 10.1 이 장의 핵심 키워드</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="a#" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">#</th>
+<th id="a키워드" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">키워드</th>
+<th id="a한-줄-핵심" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">한 줄 핵심</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="#">1</td>
+<td class="gt_row gt_left" headers="키워드">통제된 비교 (Ceteris Paribus)</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">회귀의 본질 — 다른 조건을 고정하고 한 변수의 조건부 차이만 분리한다</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="#">2</td>
+<td class="gt_row gt_left" headers="키워드">단순회귀 vs 다중회귀</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">통제변수가 없는 회귀는 비교가 아니라 단순한 평균 차이다</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="#">3</td>
+<td class="gt_row gt_left" headers="키워드">누락변수편의 (OVB)</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">Y에 영향을 주면서 X와 상관된 변수를 빠뜨리면 계수가 체계적으로 왜곡된다</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="#">4</td>
+<td class="gt_row gt_left" headers="키워드">보조회귀 (Auxiliary Regression)</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">누락변수와 X의 관계를 측정해 편의의 방향과 크기를 가늠하는 도구</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="#">5</td>
+<td class="gt_row gt_left" headers="키워드">다중공선성과 VIF</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">통제변수끼리 정보가 겹치면 계수는 불안정해진다 — VIF로 진단한다</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="#">6</td>
+<td class="gt_row gt_left" headers="키워드">잔차 진단 (Residual Diagnostics)</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">모형이 설명하지 못한 잔차에 가정 위반의 흔적이 남는다</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="#">7</td>
+<td class="gt_row gt_left" headers="키워드">강건·클러스터 표준오차</td>
+<td class="gt_row gt_left" headers="한 줄 핵심">이분산과 기업 내 반복 관측을 반영해 불확실성을 현실적으로 다시 계산한다</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="학습-목표" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="학습-목표">학습 목표</h2>
+<p>이 장을 마치면 다음 여섯 가지를 할 수 있다.</p>
+<ol type="1">
+<li>단순회귀와 다중회귀의 차이를 “통제된 비교”의 관점에서 설명할 수 있다.</li>
+<li>통제변수를 단계적으로 추가하며 핵심 계수의 이동을 추적하고, 그 이동을 누락변수편의로 해석할 수 있다.</li>
+<li>보조회귀로 편의의 방향을 가늠하되, 그것이 최종 추정이 아님을 설명할 수 있다.</li>
+<li>좋은 통제와 나쁜 통제를 구분하고, VIF의 다중공선성 진단과 누락변수편의를 혼동하지 않는다.</li>
+<li>잔차 그림으로 이분산·영향점·관측치 의존성의 가능성을 점검할 수 있다.</li>
+<li>HC1·기업 클러스터 표준오차를 비교하고, 분석 결과를 1쪽 검증 메모로 번역할 수 있다.</li>
+</ol>
+</section>
+<section id="dikw-4단계-파이프라인" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>이 장에서의 모습</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>데이터 (D)</td>
+<td>기업-연도 패널 — ROA, ESG 평가 여부, 기업 규모, 부채비율</td>
+</tr>
+<tr class="even">
+<td>정보 (I)</td>
+<td>집단 간 평균 차이와 상관 — “ESG 평가 기업의 ROA가 더 높다”</td>
+</tr>
+<tr class="odd">
+<td>지식 (K)</td>
+<td>통제된 비교 — “규모와 레버리지를 고정해도 그 차이가 남는가?”</td>
+</tr>
+<tr class="even">
+<td>지혜 (W)</td>
+<td>투자 판단 — “이 관계를 근거로 자금을 움직여도 되는가, 더 따져야 하는가?”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="데이터-출처와-수집" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="데이터-출처와-수집">데이터 출처와 수집</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="gjuotuglsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gjuotuglsx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gjuotuglsx thead, #gjuotuglsx tbody, #gjuotuglsx tfoot, #gjuotuglsx tr, #gjuotuglsx td, #gjuotuglsx th {
+  border-style: none;
+}
+
+#gjuotuglsx p {
+  margin: 0;
+  padding: 0;
+}
+
+#gjuotuglsx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gjuotuglsx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gjuotuglsx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gjuotuglsx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gjuotuglsx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gjuotuglsx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gjuotuglsx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gjuotuglsx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gjuotuglsx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gjuotuglsx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gjuotuglsx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gjuotuglsx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gjuotuglsx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gjuotuglsx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gjuotuglsx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjuotuglsx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gjuotuglsx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gjuotuglsx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gjuotuglsx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjuotuglsx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gjuotuglsx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjuotuglsx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gjuotuglsx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjuotuglsx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gjuotuglsx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gjuotuglsx .gt_left {
+  text-align: left;
+}
+
+#gjuotuglsx .gt_center {
+  text-align: center;
+}
+
+#gjuotuglsx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gjuotuglsx .gt_font_normal {
+  font-weight: normal;
+}
+
+#gjuotuglsx .gt_font_bold {
+  font-weight: bold;
+}
+
+#gjuotuglsx .gt_font_italic {
+  font-style: italic;
+}
+
+#gjuotuglsx .gt_super {
+  font-size: 65%;
+}
+
+#gjuotuglsx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gjuotuglsx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gjuotuglsx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gjuotuglsx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gjuotuglsx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gjuotuglsx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gjuotuglsx .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#gjuotuglsx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#gjuotuglsx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="4" class="gt_heading gt_title gt_font_normal gt_bottom_border">표 10.2 이 장의 데이터 출처</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="a데이터" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">데이터</th>
+<th id="a출처" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">출처</th>
+<th id="a핵심-변수" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">핵심 변수</th>
+<th id="a이-장의-역할" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">이 장의 역할</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="데이터">재무제표 패널</td>
+<td class="gt_row gt_left" headers="출처">DataGuide 5.0 (KOSPI·KOSDAQ 상장기업)</td>
+<td class="gt_row gt_left" headers="핵심 변수">자산총계, 부채총계, 당기순이익</td>
+<td class="gt_row gt_left" headers="이 장의 역할">종속변수 ROA의 원천</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="데이터">ESG 등급</td>
+<td class="gt_row gt_left" headers="출처">KCGS 등급 (DataGuide 제공)</td>
+<td class="gt_row gt_left" headers="핵심 변수">ESG등급, is_esg_rated(평가 여부 더미)</td>
+<td class="gt_row gt_left" headers="이 장의 역할">핵심 설명변수</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="데이터">파생 변수</td>
+<td class="gt_row gt_left" headers="출처">3~5장에서 구축한 SSOT 파이프라인</td>
+<td class="gt_row gt_left" headers="핵심 변수">ROA, Size(log 자산), 부채비율_Win</td>
+<td class="gt_row gt_left" headers="이 장의 역할">통제변수와 정제된 분석 표본</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>분석 표본은 3장에서 구축하고 4~5장에서 정제한 SSOT 데이터셋이다. 전 장들과 같은 데이터를 쓰는 이유는 단순하다 — 분석 단계마다 데이터가 바뀌면, 결과 차이가 방법의 차이인지 데이터의 차이인지 구분할 수 없기 때문이다.</p>
+</section>
+<section id="회귀의-본질-통제된-비교" class="level2">
+<h2 class="anchored" data-anchor-id="회귀의-본질-통제된-비교">회귀의 본질 — 통제된 비교</h2>
+<p>평균 비교는 질문이 하나다. “두 집단이 다른가?” 회귀분석은 질문이 다르다. “<strong>다른 조건이 같다면</strong>, 이 변수가 달라질 때 결과가 얼마나 달라지는가?”</p>
+<p>이 차이를 처음으로 체계화한 사람이 19세기의 Francis Galton이다. 그는 아버지 키와 아들 키의 관계를 직선으로 요약하면서, 극단적으로 큰 아버지의 아들은 평균 쪽으로 “되돌아온다(regress)”는 사실을 발견했다. 회귀(regression)라는 이름은 여기서 왔다. 직선 하나로 관계를 요약한다는 발상은 그대로지만, 현대 재무분석에서 회귀의 진짜 쓸모는 직선 자체가 아니라 <strong>조건부 비교</strong>에 있다.</p>
+<p>통제변수를 넣는다는 것은 비교 대상을 같은 체급으로 맞추는 일이다. 권투에서 헤비급과 플라이급을 한 링에 올려놓고 “누가 더 강한가”를 묻지 않는 것과 같은 이치다. 그런데 한 단계 더 깊이 들어가면, 회귀가 하려는 일은 체급 분류보다 훨씬 야심차다. 평균 비교는 눈에 보이는 현실을 비교하지만, 회귀분석은 <strong>눈에 보이지 않는 평행우주를 근사하려는 시도</strong>다. 우리가 진짜 묻고 싶은 것은 “평가받은 대기업 A와 평가받지 않은 중소기업 B 중 누가 수익성이 높은가”가 아니다. “규모와 재무구조는 그대로 둔 채 <strong>ESG 평가 하나만 받지 않은 평행우주의 A기업</strong>이 있다면, 그 우주의 ROA는 얼마나 다를 것인가”다. 현실에 평행우주는 없다. 그래서 통제변수를 방정식에 밀어 넣는다 — 데이터 공간 안에서 A와 체급이 똑같은 기업들을 수학적으로 빚어내 가상의 링에 세우는 작업이다. 통제를 잊은 분석가는 체급이 다른 허수아비와 싸우고, 통제를 마친 분석가만이 비로소 자신이 묻고 싶었던 질문과 대면한다.</p>
+<p>수식으로 쓰면 다중회귀모형은 다음과 같다.</p>
+<pre><code>ROA_i = β0 + β1·ESGRated_i + β2·Size_i + β3·Leverage_i + ε_i</code></pre>
+<p>여기서 β1의 의미는 “ESG 평가 여부만 다른 두 기업을 비교하되, <strong>규모(Size)와 레버리지(Leverage)가 같은 기업끼리</strong> 비교했을 때의 ROA 차이”다. 회귀의 핵심은 직선이 아니라 <strong>비교대상의 설계</strong>다.</p>
+<p>그렇다면 통제변수를 빼면 어떻게 되는가? 그것이 이 장의 첫 번째 실험이다.</p>
+</section>
+<section id="보고서의-회귀를-재현하다-단순회귀" class="level2">
+<h2 class="anchored" data-anchor-id="보고서의-회귀를-재현하다-단순회귀">보고서의 회귀를 재현하다 — 단순회귀</h2>
+<p>먼저 데이터를 불러와 분석 표본을 만든다. 4장에서 배운 Winsorize를 ROA에 그대로 적용한다 — 극단 기업 몇 곳이 회귀선을 끌고 가는 것을 막기 위해서다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① SSOT 데이터 적재 (경로는 setup에서 ssot_path로 확정)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ssot_raw <span class="ot">&lt;-</span> <span class="fu">read_book_csv</span>(ssot_path)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 4장의 Winsorize 함수 — 1%·99% 분위수로 극단값을 눌러준다</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>winsorize <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.99</span>)) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">quantile</span>(x, probs[<span class="dv">1</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  hi <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">quantile</span>(x, probs[<span class="dv">2</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pmin</span>(<span class="fu">pmax</span>(x, lo), hi)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 분석 표본: 필요한 변수만 고르고, 결측을 제거한다</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>reg_df <span class="ot">&lt;-</span> ssot_raw <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    코드, 코드명, 회계연도,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    ESG평가 <span class="ot">=</span> is_esg_rated,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ROA, Size,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    부채비율 <span class="ot">=</span> 부채비율_Win</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>(ROA, Size, 부채비율, ESG평가) <span class="sc">|&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">ROA_w =</span> <span class="fu">winsorize</span>(ROA))</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> R이 처음이라면 이 블록을 세 덩어리로 읽으면 된다. ①에서 <code>read_book_csv()</code>가 CSV 파일을 읽어 표 형태의 데이터(데이터프레임)로 만들고, 화살표 <code>&lt;-</code>가 그 결과에 <code>ssot_raw</code>라는 이름을 붙인다 — <code>&lt;-</code>는 “오른쪽 결과를 왼쪽 이름에 저장하라”는 R의 할당 연산자다. ②는 함수를 직접 만드는 장면이다. <code>function(x, ...)</code>로 “x를 받아 이렇게 처리하라”는 절차를 정의했고, 내용은 4장에서 배운 그대로 — 하위 1%보다 작은 값은 1% 지점으로, 상위 99%보다 큰 값은 99% 지점으로 눌러준다. ③의 <code>|&gt;</code>는 파이프 연산자로, 왼쪽의 결과를 오른쪽 함수에 재료로 넘긴다. 따라서 ③은 왼쪽에서 오른쪽으로 문장처럼 읽힌다 — “<code>ssot_raw</code>를 받아서, 필요한 변수만 고르고(<code>transmute</code>), 분석 변수에 결측이 있는 행을 버리고(<code>drop_na</code>), Winsorize된 ROA를 새 변수로 추가한다(<code>mutate</code>).” 그리고 이 블록의 의미를 한 층 위에서 보자 — 이것은 단순한 전처리가 아니라 <strong>분석가가 통제할 세계(<code>reg_df</code>)의 경계를 긋는 선언</strong>이다. 극단값이 회귀선을 끌고 가지 못하게 방어벽을 치고, 표본을 하나로 고정해 모든 모형(M1~M4)이 <em>같은 기업들</em> 위에서 겨루게 만든다. 분석 단계마다 표본이 바뀌면, 결론의 차이가 모형 때문인지 데이터 때문인지 영원히 알 수 없게 된다.</p>
+<p>분석 표본은 2010년부터 2024년까지, 기업 667개사의 기업-연도 관측치 10,000건이다. 이 가운데 ESG 평가를 받은 관측치의 비중은 40.47%다. 변수의 분포부터 확인한다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-7f1da77a{}.cl-7f13d4f2{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f13d506{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f18bc7e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f18bc92{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f18d588{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f18d592{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f18d593{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f18d59c{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f18d5a6{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f18d5a7{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7f1da77a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-7f18d588"><p class="cl-7f18bc7e"><span class="cl-7f13d4f2">변수</span></p></th><th class="cl-7f18d592"><p class="cl-7f18bc92"><span class="cl-7f13d4f2">평균</span></p></th><th class="cl-7f18d592"><p class="cl-7f18bc92"><span class="cl-7f13d4f2">표준편차</span></p></th><th class="cl-7f18d592"><p class="cl-7f18bc92"><span class="cl-7f13d4f2">최소</span></p></th><th class="cl-7f18d592"><p class="cl-7f18bc92"><span class="cl-7f13d4f2">중앙값</span></p></th><th class="cl-7f18d592"><p class="cl-7f18bc92"><span class="cl-7f13d4f2">최대</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7f18d593"><p class="cl-7f18bc7e"><span class="cl-7f13d4f2">ROA_w</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.027</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.074</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">-0.343</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.022</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.221</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f18d593"><p class="cl-7f18bc7e"><span class="cl-7f13d4f2">Size</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">20.152</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">1.671</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">14.230</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">19.404</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">26.967</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f18d593"><p class="cl-7f18bc7e"><span class="cl-7f13d4f2">부채비율</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.437</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.170</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.081</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.395</span></p></td><td class="cl-7f18d59c"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.906</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f18d5a6"><p class="cl-7f18bc7e"><span class="cl-7f13d4f2">ESG평가</span></p></td><td class="cl-7f18d5a7"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.405</span></p></td><td class="cl-7f18d5a7"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.491</span></p></td><td class="cl-7f18d5a7"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.000</span></p></td><td class="cl-7f18d5a7"><p class="cl-7f18bc92"><span class="cl-7f13d506">0.000</span></p></td><td class="cl-7f18d5a7"><p class="cl-7f18bc92"><span class="cl-7f13d506">1.000</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>재판의 첫 순서는 제출된 증거의 재현이다. 외부 보고서의 회귀를 그대로 다시 돌린다 — 통제변수 없이, ROA를 ESG 평가 여부에만 회귀시킨다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ROA_w <span class="sc">~</span> ESG평가, <span class="at">data =</span> reg_df)   <span class="co"># ① 단순회귀: ROA_w를 ESG평가로 설명</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>m1_tidy <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(m1)                  <span class="co"># ② 결과를 깔끔한 표로 정리</span></span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①의 <code>lm()</code>이 회귀분석을 수행하는 함수다(linear model의 약자). 물결표 <code>~</code>가 들어간 <code>ROA_w ~ ESG평가</code>는 “ROA_w를 ESG평가로 설명하라”는 모형 공식이고, <code>data = reg_df</code>는 그 변수들을 어느 데이터에서 찾을지 알려준다. ②의 <code>broom::tidy()</code>는 회귀 결과를 계수·표준오차·t값·p값이 정돈된 작은 표로 바꿔준다 — <code>패키지명::함수명</code> 표기는 “broom이라는 도구상자에서 tidy라는 도구를 꺼내 쓴다”는 뜻이다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-7f41227c{}.cl-7f38bf56{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f38bf74{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f3cd85c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f3cd870{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f3cec8e{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f3ceca2{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f3ceca3{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f3cecac{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f3cecad{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f3cecb6{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7f41227c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-7f3cec8e"><p class="cl-7f3cd85c"><span class="cl-7f38bf56">항</span></p></th><th class="cl-7f3ceca2"><p class="cl-7f3cd870"><span class="cl-7f38bf56">계수</span></p></th><th class="cl-7f3ceca2"><p class="cl-7f3cd870"><span class="cl-7f38bf56">표준오차</span></p></th><th class="cl-7f3ceca2"><p class="cl-7f3cd870"><span class="cl-7f38bf56">t값</span></p></th><th class="cl-7f3ceca2"><p class="cl-7f3cd870"><span class="cl-7f38bf56">p값</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7f3ceca3"><p class="cl-7f3cd85c"><span class="cl-7f38bf56">(Intercept)</span></p></td><td class="cl-7f3cecac"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0.0242</span></p></td><td class="cl-7f3cecac"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0.0010</span></p></td><td class="cl-7f3cecac"><p class="cl-7f3cd870"><span class="cl-7f38bf74">25.32</span></p></td><td class="cl-7f3cecac"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f3cecad"><p class="cl-7f3cd85c"><span class="cl-7f38bf56">ESG평가</span></p></td><td class="cl-7f3cecb6"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0.0075</span></p></td><td class="cl-7f3cecb6"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0.0015</span></p></td><td class="cl-7f3cecb6"><p class="cl-7f3cd870"><span class="cl-7f38bf74">4.97</span></p></td><td class="cl-7f3cecb6"><p class="cl-7f3cd870"><span class="cl-7f38bf74">0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>결과는 보고서와 같은 그림이다. ESG 평가 더미의 계수는 0.0075 — ESG 평가 기업의 ROA가 미평가 기업보다 평균 +0.75%p 높다는 뜻이고, 통계적으로도 보고서의 손을 들어주는 듯 보인다. 여기서 멈추면 보고서의 결론에 도장을 찍게 된다.</p>
+<p>그런데 p값에 대해 본질을 하나 짚고 가자. p값은 단 하나의 질문에 답한다 — “차이가 없다는 가정이 맞다면, 지금처럼 크거나 더 극단적인 차이가 관측될 가능성이 얼마나 되는가.” p값은 누락변수가 있는지, 비교대상이 맞는지, 인과관계가 있는지를 말해주지 않는다. 모형 밖에서 덩치 큰 기업들이 ROA를 끌어올리고 있는 구조에 대해 p값은 완벽하게 눈을 감는다. 통제되지 않은 회귀에서의 유의성은 아직 찾지 못한 누락변수들이 무대 뒤에 서 있다는 경고음에 가깝다 — 0.05냐 0.10이냐의 선 긋기보다 이 사실이 백 배 중요하다.</p>
+<p>그러나 자산은 팀장의 질문을 기억한다. “이 회귀, 믿어도 되나?” 단순회귀의 계수는 사실 <strong>두 집단의 평균 차이</strong>와 같다. 즉 M1은 회귀의 옷을 입은 평균 비교일 뿐이고, 8장에서 배운 t검정과 본질적으로 같은 정보를 준다. “통제된 비교”는 아직 시작도 하지 않았다.</p>
+</section>
+<section id="누락변수편의-반대신문이-시작된다" class="level2">
+<h2 class="anchored" data-anchor-id="누락변수편의-반대신문이-시작된다">누락변수편의 — 반대신문이 시작된다</h2>
+<section id="직관-누가-esg-평가를-받는가" class="level3">
+<h3 class="anchored" data-anchor-id="직관-누가-esg-평가를-받는가">직관 — 누가 ESG 평가를 받는가</h3>
+<p>누락변수편의(Omitted Variable Bias, OVB)는 어떤 변수 Z가 <strong>모형에서 빠져 있다는 전제</strong> 위에서, 두 조건이 동시에 성립할 때 생긴다. 첫째, Z가 종속변수 Y와 관련되어 있어야 한다. 둘째, Z가 핵심 설명변수 X와도 관련되어 있어야 한다. 이때 X의 계수는 Z의 몫까지 떠안는다.</p>
+<p>덧붙여, 평가 여부 0/1 더미 자체의 한계도 알고 시작하자 — 이 더미는 형식적으로만 ESG를 내세우는 기업과 실질이 우수한 기업을 모두 ’1’이라는 같은 바구니에 담는다. 그래서 계수에는 잡음이 섞이며, 등급 <em>수준</em>을 쓰는 후속 분석(이 장 끝 메모의 권고 ②)이 필요해진다.</p>
+<p>ESG 사례에서 가장 의심스러운 Z는 <strong>기업 규모</strong>다. ESG 평가 기관은 평가 수요와 자료 접근성 때문에 대형 상장사부터 평가한다(X와 상관). 그리고 대형사는 평균적으로 사업 포트폴리오가 넓고 수익성이 안정적으로 나타나는 경향이 있다(Y와 관련). 그렇다면 M1의 계수는 ESG 평가대상 여부와 ROA의 조건부 차이가 아니라, 기업 규모에서 온 차이가 함께 섞인 숫자일 수 있다.</p>
+<p>수식으로 정리하면, 참 모형이 ROA_i = β0 + β1·ESGRated_i + β2·Size_i + ε_i 인데 Size를 빠뜨리고 추정하면, 단순회귀 계수의 기댓값은 다음과 같이 왜곡된다.</p>
+<pre><code>E[β̂1(단순회귀)] = β1 + β2 × δ
+
+  δ : 보조회귀 Size_i = α + δ·ESGRated_i + u_i 의 기울기
+      (ESG 평가 기업이 미평가 기업보다 평균적으로 얼마나 큰가)</code></pre>
+<p>단순회귀가 보여주는 계수는 진실이 아니라 <strong>진짜 차이(β1)와 거품(β2×δ)의 합</strong>이다. 곱셈의 두 인수를 뜯어보자. β2는 무대 뒤에 있는 변수(기업 규모)와 ROA가 함께 움직이는 단순 기울기이고, δ는 겉으로 드러난 주인공(ESG 평가 더미)이 그 변수와 얼마나 강하게 묶여 있는가다. Size와 ROA의 관계가 강할수록, 그리고 Size와 ESG 평가 여부가 강하게 묶여 있을수록, 단순회귀의 ESG 계수에는 규모의 그림자가 더 많이 섞인다. 분석가의 임무는 보조회귀로 그 묶임(δ)을 측정해 거품의 방향을 가늠하는 일이다.</p>
+</section>
+<section id="실험-보조회귀로-편의의-방향을-가늠한다" class="level3">
+<h3 class="anchored" data-anchor-id="실험-보조회귀로-편의의-방향을-가늠한다">실험 — 보조회귀로 편의의 방향을 가늠한다</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 보조회귀: ESG 평가 기업은 얼마나 더 큰가?</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(Size <span class="sc">~</span> ESG평가, <span class="at">data =</span> reg_df)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(aux)<span class="sc">$</span>estimate[<span class="dv">2</span>]   <span class="co"># δ: 규모 격차</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ② Size와 ROA 사이의 단순 기울기 (β2의 거친 근사)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>m_size <span class="ot">&lt;-</span> <span class="fu">lm</span>(ROA_w <span class="sc">~</span> Size, <span class="at">data =</span> reg_df)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>beta_size <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(m_size)<span class="sc">$</span>estimate[<span class="dv">2</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 편의의 근사 크기 = β₂ × δ</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>bias_approx <span class="ot">&lt;-</span> beta_size <span class="sc">*</span> delta</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> 같은 <code>lm()</code>을 다른 질문에 재사용하는 장면이다. ①은 종속변수 자리에 ROA가 아니라 <strong>Size</strong>를 놓았다 — “ESG 평가 기업이 평균적으로 얼마나 더 큰가”를 재는 보조회귀다. <code>$estimate[2]</code>는 tidy가 만든 표에서 estimate 열의 두 번째 값(절편 다음, 즉 ESG평가의 계수)을 꺼내라는 뜻이다. ②로 Size와 ROA 사이의 단순 기울기를 재고, ③에서 두 숫자를 곱하면 — 본문 수식 그대로 — 누락변수편의의 근사치가 나온다. 복잡한 이론이 곱셈 한 줄로 내려앉는 순간이다.</p>
+<p>보조회귀의 기울기 δ는 2.042 — ESG 평가 기업의 로그 자산이 미평가 기업보다 평균 2.042만큼 크다. Size와 ROA의 단순 기울기는 0.0057이므로, 거품의 근사 크기는 β2×δ ≈ 0.0116다. 부호가 말해주는 바는 분명하다 — Size를 빠뜨린 M1은 ESG 평가 계수를 <strong>과대 추정</strong>하고 있을 가능성이 높다.</p>
+<p>단, 이 계산은 최종 판정이 아니다. 보조회귀는 <strong>편의의 방향을 비추는 손전등</strong>이지, 인과를 증명하는 현미경이 아니다 — 여기서 쓴 β2조차 Size와 ROA의 단순 기울기일 뿐 참 모형의 계수가 아니다. 판결은 통제변수를 실제로 추가했을 때 핵심 계수가 어떻게 움직이는지, 즉 다음 절의 M1→M4 계수 이동에서 내려야 한다.</p>
+</section>
+<section id="검증-통제변수를-한-칸씩-쌓는다" class="level3">
+<h3 class="anchored" data-anchor-id="검증-통제변수를-한-칸씩-쌓는다">검증 — 통제변수를 한 칸씩 쌓는다</h3>
+<p>추측은 끝났다. 이제 통제변수를 단계적으로 추가하며 계수가 실제로 어떻게 움직이는지 본다. 왜 하필 이 셋인가 — Size(체급), 부채비율(재무 위험), 연도(거시경제 충격)는 기업 ROA를 흔드는 가장 거대한 세 축이면서, 동시에 ESG 평가 여부와도 묶여 있을 후보들이기 때문이다. 이 셋을 묶어두지 않으면 ESG 평가 계수는 식별되지 않는다. 한 번에 다 넣지 않고 한 칸씩 쌓는 이유는, <strong>계수의 이동 경로 자체가 정보</strong>이기 때문이다.</p>
+<div class="cell">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJjb2RlIjoiIyDilIDilIAgV2ViUiDsnbjthLDrnpnti7DruIwg4oCUIOu4jOudvOyasOyggOyXkOyEnCDsp4HsoJEg7Iuk7ZaJIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuIyDrjbDsnbTthLAg66Gc65OcIChkYXRhL3Nzb3Rfd2ViLmNzdiwg7JW9IDEwLDAwMO2WiSlcbmQgPC0gcmVhZC5jc3YoXCJkYXRhL3Nzb3Rfd2ViLmNzdlwiLCBjaGVjay5uYW1lcyA9IEZBTFNFKVxuZCA8LSBkW2NvbXBsZXRlLmNhc2VzKGRbLCBjKFwiUk9BXCIsIFwiU2l6ZVwiLCBcIuu2gOyxhOu5hOycqF9XaW5cIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiaXNfZXNnX3JhdGVkXCIsIFwi7ZqM6rOE7Jew64+EXCIpXSksIF1cbmQkUk9BX3cgICA8LSB3aXRoKGQsIHtcbiAgbG8gPC0gcXVhbnRpbGUoUk9BLCAwLjAxLCBuYS5ybSA9IFRSVUUpXG4gIGhpIDwtIHF1YW50aWxlKFJPQSwgMC45OSwgbmEucm0gPSBUUlVFKVxuICBwbWluKHBtYXgoUk9BLCBsbyksIGhpKVxufSlcbmQkRVNH7Y+J6rCAICA8LSBkJGlzX2VzZ19yYXRlZFxuZCTrtoDssYTruYTsnKggPC0gZCTrtoDssYTruYTsnKhfV2luXG5cbiMgTTQ6IOq3nOuqqCArIOu2gOyxhOu5hOycqCArIOyXsOuPhCDqs6DsoJXtmqjqs7xcbm00IDwtIGxtKFJPQV93IH4gRVNH7Y+J6rCAICsgU2l6ZSArIOu2gOyxhOu5hOycqCArIGZhY3Rvcijtmozqs4Tsl7Drj4QpLCBkYXRhID0gZClcbmJyb29tOjp0aWR5KG00KSB8PlxuICBkcGx5cjo6ZmlsdGVyKHRlcm0gJWluJSBjKFwiKEludGVyY2VwdClcIiwgXCJFU0ftj4nqsIBcIiwgXCJTaXplXCIsIFwi67aA7LGE67mE7JyoXCIpKSB8PlxuICBkcGx5cjo6bXV0YXRlKGRwbHlyOjphY3Jvc3Mod2hlcmUoaXMubnVtZXJpYyksIFxcKHgpIHJvdW5kKHgsIDQpKSkiLCJhdHRyIjp7ImV2YWwiOnRydWUsImVkaXQiOnRydWV9fQ==
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+연습 — M4 공식을 수정해 계수 변화를 확인하라
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>아래 코드를 직접 편집하고 <strong>Run</strong> 버튼을 눌러 실행해보세요. <code>부채비율</code>을 제거하거나 <code>Size</code>를 빼면 <code>ESG평가</code> 계수가 어떻게 변하는지 확인하세요.</p>
+</div>
+</div>
+<p><strong>코드 읽기.</strong> 통제변수를 추가하는 문법은 단순하다 — 모형 공식의 <code>+</code> 뒤에 변수를 이어 붙이면 된다(①, ②). ③의 <code>factor(회계연도)</code>는 연도를 숫자가 아니라 <em>범주</em>로 취급하라는 지시다. 이렇게 하면 R이 연도마다 더미변수를 자동 생성해, “그 해 시장 전체에 분 바람”(호황·불황)을 통째로 흡수한다 — 이것이 고정효과의 가장 쉬운 형태다. ④의 <code>car::vif()</code>는 각 설명변수가 다른 설명변수들과 얼마나 겹치는지를 한 번에 계산해 준다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-7f724b86{}.cl-7f6a7528{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f6a7546{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7f6de398{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f6de3ac{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7f6df87e{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f6df892{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f6df89c{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f6df89d{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f6df89e{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7f6df8a6{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7f724b86"><thead><tr style="overflow-wrap:break-word;"><th class="cl-7f6df87e"><p class="cl-7f6de398"><span class="cl-7f6a7528">모형</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">ESG 계수</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">표준오차</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">t값</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">p값</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">R²</span></p></th><th class="cl-7f6df892"><p class="cl-7f6de3ac"><span class="cl-7f6a7528">N</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7f6df89c"><p class="cl-7f6de398"><span class="cl-7f6a7528">M1: ESG만</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0075</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0015</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">4.97</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0000</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.002</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">10,000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f6df89c"><p class="cl-7f6de398"><span class="cl-7f6a7528">M2: + Size</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-0.0064</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0019</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-3.45</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0006</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.018</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">10,000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f6df89c"><p class="cl-7f6de398"><span class="cl-7f6a7528">M3: + 부채비율</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-0.0116</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0018</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-6.60</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0000</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.124</span></p></td><td class="cl-7f6df89d"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">10,000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7f6df89e"><p class="cl-7f6de398"><span class="cl-7f6a7528">M4: + 연도 고정효과</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-0.0072</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0019</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">-3.75</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.0002</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">0.132</span></p></td><td class="cl-7f6df8a6"><p class="cl-7f6de3ac"><span class="cl-7f6a7546">10,000</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ch10_web_files/figure-html/ch10-coef-plot-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>그림 10.1 통제변수를 추가할수록 움직이는 ESG 계수 — 점은 추정치, 선은 95% 신뢰구간</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>이 그림을 읽는 요령 하나 — 주목할 것은 신뢰구간의 폭이 아니라 <strong>점들이 0의 점선을 기준으로 어느 쪽에 서 있고, 통제가 추가될 때 어디로 이동하는가</strong>다.</p>
+<p>표 10.5와 그림 10.1이 이 장의 심장이다. 통제 전 +0.75%p였던 차이가, 규모·레버리지·연도를 통제하자 -0.72%p로 바뀌었다. 크기의 문제가 아니다 — <strong>결론의 방향 자체가 뒤집힌 것이다</strong>. 보조회귀가 예측한 방향 그대로다. M4의 계수는 1% 수준에서 통계적으로 유의하다. 단순회귀의 결론은 방향에서부터 실패했다. 통제 전에는 ESG 평가 기업이 더 수익성이 높아 보였지만, 같은 체급끼리 비교하자 관계가 반대로 나타난다. 외부 보고서의 회귀는 증액의 근거가 될 수 없다. 단, 이 결과가 말하는 것은 ESG의 ’나쁨’이 아니라 — 통제 없는 비교가 얼마나 쉽게 반대 결론을 만들 수 있는가다.</p>
+<p>분석가에게 이 표가 주는 교훈은 세 가지다. 첫째, <strong>단순회귀의 계수를 그대로 인용하는 보고서는 일단 의심하라.</strong> 둘째, 계수가 통제에 따라 크게 움직인다면, 아직 넣지 못한 변수(지배구조, 산업, 업력 등)에 의해 더 움직일 수 있다 — 관측 가능한 변수로 이만큼 움직였다면 관측 불가능한 변수는 어떻겠는가. 셋째, 그럼에도 통제 후에 남는 관계는 <strong>새로운 질문의 입구</strong>다. “규모로도 레버리지로도 설명되지 않는 이 차이는 무엇인가?” — 이 질문이 12장에서 다룰 인과추론과 연구주제 발굴의 출발점이 된다.</p>
+</section>
+<section id="나쁜-통제-길목을-막는-실수" class="level3">
+<h3 class="anchored" data-anchor-id="나쁜-통제-길목을-막는-실수">나쁜 통제 — 길목을 막는 실수</h3>
+<p>여기까지 읽으면 “그러니 통제변수를 최대한 많이 넣자”는 결론으로 달려가기 쉽다. 그것이 분석가들이 가장 흔히 저지르는 다음 실수다. <strong>통제에는 좋은 통제와 나쁜 통제가 있다.</strong></p>
+<p>좋은 통제는 기업 규모처럼 X(ESG 평가 여부) <em>이전에</em> 결정되어 X와 Y를 동시에 교란하는 변수다 — 시간상 과거에 있는 그림자는 반드시 통제해야 한다. 나쁜 통제는 X의 <em>결과</em>이거나 X에서 Y로 가는 <em>경로 위</em>에 있는 변수다. 예를 들어 ESG 활동의 결과로 개선될 수 있는 신용등급을 통제하면, X가 Y에 닿는 통로 일부를 인위적으로 막아버린다 — 관계가 실재하더라도 계수에서 지워진다. “R²가 오르고 VIF가 낮으니 넣어도 된다”는 판단이 위험한 이유가 여기 있다. 두 지표 모두 그 변수의 <strong>인과적 위치</strong>에 대해서는 아무 말도 해주지 않기 때문이다. 통제는 데이터의 양이 아니라, 변수들 사이의 화살표가 어디서 어디로 향하는지를 그리는 <strong>이론의 영역</strong>이다. 연습문제 4에서 이 판단을 직접 훈련한다.</p>
+</section>
+<section id="다중공선성-통제변수끼리-겹칠-때" class="level3">
+<h3 class="anchored" data-anchor-id="다중공선성-통제변수끼리-겹칠-때">다중공선성 — 통제변수끼리 겹칠 때</h3>
+<p>통제변수를 쌓다 보면 다른 문제가 생긴다. 통제변수끼리 정보가 겹치는 경우다. 규모가 큰 기업은 부채비율 구조도 다르다. 두 변수가 강하게 묶여 있으면 회귀는 “누구의 공인지” 구분하지 못하고, 계수의 표준오차가 부풀어 오른다. 이것이 다중공선성이며, 진단 도구가 분산팽창계수(VIF)다. VIF는 “이 변수가 다른 설명변수들로 얼마나 설명되는가”를 측정한다 — VIF가 1이면 전혀 겹치지 않고, 10을 넘으면 심각한 중복으로 본다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-7fc04a84{}.cl-7fb7dfe8{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7fb7dffc{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-7fbbe430{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7fbbe444{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-7fbbf7cc{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fbbf7d6{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fbbf7e0{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fbbf7ea{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fbbf7eb{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-7fbbf7f4{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-7fc04a84"><thead><tr style="overflow-wrap:break-word;"><th class="cl-7fbbf7cc"><p class="cl-7fbbe430"><span class="cl-7fb7dfe8">변수</span></p></th><th class="cl-7fbbf7d6"><p class="cl-7fbbe444"><span class="cl-7fb7dfe8">VIF</span></p></th><th class="cl-7fbbf7cc"><p class="cl-7fbbe430"><span class="cl-7fb7dfe8">판정</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-7fbbf7e0"><p class="cl-7fbbe430"><span class="cl-7fb7dfe8">ESG평가</span></p></td><td class="cl-7fbbf7ea"><p class="cl-7fbbe444"><span class="cl-7fb7dffc">1.57</span></p></td><td class="cl-7fbbf7e0"><p class="cl-7fbbe430"><span class="cl-7fb7dffc">문제없음</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7fbbf7e0"><p class="cl-7fbbe430"><span class="cl-7fb7dfe8">Size</span></p></td><td class="cl-7fbbf7ea"><p class="cl-7fbbe444"><span class="cl-7fb7dffc">1.69</span></p></td><td class="cl-7fbbf7e0"><p class="cl-7fbbe430"><span class="cl-7fb7dffc">문제없음</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-7fbbf7eb"><p class="cl-7fbbe430"><span class="cl-7fb7dfe8">부채비율</span></p></td><td class="cl-7fbbf7f4"><p class="cl-7fbbe444"><span class="cl-7fb7dffc">1.09</span></p></td><td class="cl-7fbbf7eb"><p class="cl-7fbbe430"><span class="cl-7fb7dffc">문제없음</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>VIF는 연도 더미를 제외한 핵심 설명변수(M3: ESG평가·Size·부채비율) 기준으로 확인한다 — 고정효과 더미까지 넣으면 더미 수만 늘어나 진단의 초점이 흐려지기 때문이다. 핵심 변수 기준 최대 VIF는 1.69로, 통상 기준(10)에 한참 못 미친다. 이 모형에서 공선성은 걱정거리가 아니다. 여기서 개념 하나를 정확히 갈라두자 — <strong>다중공선성은 표준오차의 문제(계수가 불안정해짐)이고, 누락변수편의는 계수 자체의 문제(체계적으로 틀림)다.</strong> 사격장에 비유하면 둘의 차이가 선명하다. 다중공선성은 <strong>과녁을 흐리게</strong> 만든다 — 총알(추정치)이 흩어져 표준오차가 부풀고 p값이 커진다. 누락변수편의는 사수 몰래 <strong>과녁 자체를 옮겨</strong> 버린다 — 총알은 촘촘히 박히지만(작은 p값) 전부 엉뚱한 곳이다. 둘 중 무엇이 더 치명적인가? 틀린 과녁을 100%의 확신으로 맞추는 것보다, 진짜 과녁을 향해 넓게 탄착군을 만드는 쪽이 낫다. 그래서 “VIF가 높으니 변수를 빼자”는 기계적 처방이 위험하다 — 핵심 누락변수 후보를 빼는 것은, 과녁을 또렷하게 보겠다는 욕심으로 과녁 자체를 옮겨버리는 거래이기 때문이다. 유의성(분산)을 얻으려고 편향을 감수하는 거래는 성립해서는 안 된다. 다만 한 가지 함정을 더 기억하라. VIF 기준값은 법이 아니다. VIF가 8이어도 표본이 크고 계수가 안정적이면 쓸 수 있고, VIF가 3이어도 두 변수가 개념적으로 같은 것을 재고 있다면(예: 자산총계와 매출액을 동시에 “규모”로 넣는 경우) 하나는 빼는 것이 맞다. 숫자보다 <strong>변수의 의미</strong>가 먼저다.</p>
+</section>
+</section>
+<section id="잔차가-말해주는-것-증거-감식" class="level2">
+<h2 class="anchored" data-anchor-id="잔차가-말해주는-것-증거-감식">잔차가 말해주는 것 — 증거 감식</h2>
+<p>계수를 읽기 전에 마지막 관문이 있다. 회귀는 가정 위에서 작동하는 기계다 — 관계는 선형이고, 오차의 분산은 일정하며(등분산), 오차는 대체로 정규분포를 따르고, 소수의 관측치가 결과를 지배하지 않아야 한다. 이 가정들이 살아 있는지 확인하는 유일한 창문이 <strong>잔차</strong>, 즉 모형이 설명하지 못한 부분이다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 판결모형 M4의 잔차·적합값·영향력 지표를 관측치별로 추출</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(m4)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(aug, ggplot2<span class="sc">::</span><span class="fu">aes</span>(.fitted, .resid)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"적합값"</span>, <span class="at">y =</span> <span class="st">"잔차"</span>) <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">9</span>, <span class="at">base_family =</span> <span class="fu">book_base_family</span>())</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(aug, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">sample =</span> .std.resid)) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">stat_qq</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"이론 분위수"</span>, <span class="at">y =</span> <span class="st">"표준화 잔차"</span>) <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">9</span>, <span class="at">base_family =</span> <span class="fu">book_base_family</span>())</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(aug, ggplot2<span class="sc">::</span><span class="fu">aes</span>(.fitted, <span class="fu">sqrt</span>(<span class="fu">abs</span>(.std.resid)))) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_smooth</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"적합값"</span>, <span class="at">y =</span> <span class="st">"√|표준화 잔차|"</span>) <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">9</span>, <span class="at">base_family =</span> <span class="fu">book_base_family</span>())</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(aug, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="fu">seq_along</span>(.cooksd), .cooksd)) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_col</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"#4472C4"</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"관측치 순번"</span>, <span class="at">y =</span> <span class="st">"Cook's Distance"</span>) <span class="sc">+</span> ggplot2<span class="sc">::</span><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">9</span>, <span class="at">base_family =</span> <span class="fu">book_base_family</span>())</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  patchwork<span class="sc">::</span><span class="fu">plot_annotation</span>(<span class="at">theme =</span> ggplot2<span class="sc">::</span><span class="fu">theme</span>(</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> ggplot2<span class="sc">::</span><span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">"grey35"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ch10_web_files/figure-html/ch10-diag-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>그림 10.2 잔차 진단 4종 세트 — 좌상: 잔차 vs 적합값(선형성·이분산), 우상: 정규 Q-Q(정규성), 좌하: 스케일-로케이션(이분산), 우하: Cook’s Distance(영향점)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>코드 읽기.</strong> ①의 <code>broom::augment()</code>는 모형이 관측치 하나하나에 대해 계산한 값들 — 적합값(<code>.fitted</code>), 잔차(<code>.resid</code>), 표준화 잔차(<code>.std.resid</code>), Cook’s Distance(<code>.cooksd</code>) — 를 원자료 옆에 붙여 준다. 이후 네 개의 <code>ggplot()</code>은 같은 문법의 반복이다: <code>aes()</code>로 가로축·세로축에 놓을 값을 정하고, <code>geom_point()</code>(점)나 <code>geom_col()</code>(막대)로 그린다. 마지막의 <code>(p1 + p2) / (p3 + p4)</code>는 patchwork 패키지의 표기법으로, <code>+</code>는 옆으로, <code>/</code>는 아래로 그림을 이어 붙인다 — 수식처럼 읽으면 된다.</p>
+<p>네 장의 그림을 읽는 법은 이렇다. <strong>잔차 vs 적합값</strong>에서 점들이 0선 주위에 패턴 없이 흩어져 있으면 선형성은 무난하다 — 깔때기 모양으로 퍼지면 이분산 신호다. <strong>Q-Q 플롯</strong>에서 꼬리가 직선을 벗어나면 극단값이 정규성을 해치고 있다는 뜻인데, 재무 데이터에서는 Winsorize를 거쳐도 꼬리가 어느 정도 남는 것이 보통이다. <strong>스케일-로케이션</strong>의 추세선이 평평하지 않으면 역시 이분산을 의심한다. <strong>Cook’s Distance</strong>는 모형을 좌우하는 영향점을 찾는다 — 이 표본에서 최댓값은 0.0047이고, 통상 기준(4/N)을 넘는 관측치는 613건이다. 영향점은 “삭제”가 아니라 “확인” 대상이다. 그 기업이 누구인지 들여다보고, 데이터 오류라면 고치고, 진짜 극단 기업이라면 포함·제외 두 경우의 결과를 모두 보고하는 것이 정직한 분석이다. 한 가지 주의 — 4/N 기준은 표본이 클수록 지나치게 민감해진다. 수만 건 패널에서는 기준 초과가 수천 건 나오는 것이 보통이므로, 기계적으로 삭제하지 말고 <strong>상위 10개 또는 상위 1%만 따로 확인</strong>한 뒤, 포함/제외가 핵심 계수를 바꾸는지 민감도 분석으로 판단하라.</p>
+<p>덧붙여 두자 — 표본이 수만 건인 패널 자료에서는 정규성이 보조 진단이다. 다만 패널 자료에서는 관측치가 완전히 독립이라고 보기 어려우므로, 표본이 크다는 사실만으로 안심해서는 안 된다. 그래서 이 장의 핵심은 Q-Q 플롯 자체보다 이분산, 영향점, 그리고 기업 내 <strong>의존성</strong>을 표준오차 계산에 반영하는 데 있다.</p>
+<section id="강건-표준오차와-클러스터-표준오차-불확실성을-다시-계산하라" class="level3">
+<h3 class="anchored" data-anchor-id="강건-표준오차와-클러스터-표준오차-불확실성을-다시-계산하라">강건 표준오차와 클러스터 표준오차 — 불확실성을 다시 계산하라</h3>
+<p>재무 패널에서 이분산은 예외가 아니라 기본값에 가깝다. 대응은 간단하다 — 계수는 그대로 두고 표준오차만 현실에 맞게 다시 계산하는 것이다. 그런데 이 데이터에는 이분산보다 더 구조적인 문제가 하나 더 있다. <strong>같은 기업이 여러 해 반복해서 등장한다</strong>는 사실이다. 한 기업의 오차는 해마다 서로 닮아 있기 마련이고, 이를 무시하면 실제보다 표본이 풍부한 척하는 과신이 생긴다. 그래서 기업-연도 패널의 실무 표준은 <strong>기업 단위 클러스터 표준오차</strong>까지 확인하는 것이다.</p>
+<p>통상 표준오차를 그대로 믿는 것은, 법정에서 같은 증인 한 명을 옷만 갈아입혀 열 번 출석시킨 뒤 “열 명의 독립된 증인이 같은 증언을 했으니 확실하다”고 우기는 것과 같다. 한 기업의 회계정책, 사업모델, 산업 내 위치는 여러 해에 걸쳐 그대로 남는다 — 그 기업의 올해 오차와 내년 오차는 남이 아니다. 검증은 <strong>판결을 내린 바로 그 모형(M4)</strong> 기준으로 한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 판결모형 M4의 표준오차 3종 — 같은 계수, 다른 불확실성</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>se_classic <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(stats<span class="sc">::</span><span class="fu">vcov</span>(m4)))                          <span class="co"># ① 통상</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>se_hc1     <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(car<span class="sc">::</span><span class="fu">hccm</span>(m4, <span class="at">type =</span> <span class="st">"hc1"</span>)))              <span class="co"># ② 이분산 강건</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>se_cluster <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(sandwich<span class="sc">::</span><span class="fu">vcovCL</span>(m4, <span class="at">cluster =</span> reg_df<span class="sc">$</span>코드)))  <span class="co"># ③ 기업 클러스터</span></span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> 세 줄의 구조가 똑같다는 점이 핵심이다 — 차이는 가운데 들어가는 분산-공분산 행렬뿐이다. ①의 <code>vcov()</code>는 “오차의 분산이 모두 같고 서로 독립”이라는 교과서적 가정의 행렬을, ②의 <code>car::hccm(type="hc1")</code>은 이분산을 허용하는 행렬을, ③의 <code>sandwich::vcovCL(cluster=)</code>는 같은 기업(코드) 안의 오차들이 서로 닮아 있어도 되는 행렬을 내놓는다. <code>diag()</code>로 대각원소를 꺼내 <code>sqrt()</code>하면 표준오차다. 계수는 한 번도 건드리지 않는다 — 교체되는 것은 오직 <em>불확실성의 측정</em>이다. 세 함수는 단순한 옵션이 아니라 데이터의 무질서를 대하는 세 가지 태도다. <code>vcov()</code>가 “모든 오차는 교과서처럼 독립적일 것”이라 믿는 이상주의자라면, <code>vcovCL()</code>은 “같은 기업에서 나온 여러 해 데이터는 결국 한 몸”이라며 부풀려진 정보량을 깎아내는 현실주의자다. 어느 줄을 쓰느냐가 모형이 현실을 대하는 철학을 결정한다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-830723b6{}.cl-83018a82{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-83018a8c{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8303e700{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8303e70a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8303f54c{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8303f556{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8303f557{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8303f558{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-830723b6"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8303f54c"><p class="cl-8303e700"><span class="cl-83018a82">모형</span></p></th><th class="cl-8303f556"><p class="cl-8303e70a"><span class="cl-83018a82">ESG 계수</span></p></th><th class="cl-8303f556"><p class="cl-8303e70a"><span class="cl-83018a82">통상 SE</span></p></th><th class="cl-8303f556"><p class="cl-8303e70a"><span class="cl-83018a82">HC1 SE</span></p></th><th class="cl-8303f556"><p class="cl-8303e70a"><span class="cl-83018a82">클러스터 SE</span></p></th><th class="cl-8303f556"><p class="cl-8303e70a"><span class="cl-83018a82">t값 (클러스터)</span></p></th><th class="cl-8303f54c"><p class="cl-8303e700"><span class="cl-83018a82">판정</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8303f557"><p class="cl-8303e700"><span class="cl-83018a82">M4 (Size + 부채비율 + 연도 FE)</span></p></td><td class="cl-8303f558"><p class="cl-8303e70a"><span class="cl-83018a8c">-0.0072</span></p></td><td class="cl-8303f558"><p class="cl-8303e70a"><span class="cl-83018a8c">0.0019</span></p></td><td class="cl-8303f558"><p class="cl-8303e70a"><span class="cl-83018a8c">0.002</span></p></td><td class="cl-8303f558"><p class="cl-8303e70a"><span class="cl-83018a8c">0.0032</span></p></td><td class="cl-8303f558"><p class="cl-8303e70a"><span class="cl-83018a8c">-2.2</span></p></td><td class="cl-8303f557"><p class="cl-8303e700"><span class="cl-83018a8c">결론 유지</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p><strong>[주의] 클러스터 수 점검.</strong> 이 분석의 클러스터 단위는 기업(<code>코드</code> 기준 고유 기업 수 667개사)이며, 기업당 평균 관측치는 15건이다. 클러스터 수가 작을 때(통상 수십 개 미만) 클러스터 SE는 과소추정될 수 있다 — 클러스터가 수십 개를 밑돌면 점근 이론에 기반한 표준오차가 불안정해지므로, 소표본 교정(CR2, wild cluster bootstrap 등)을 추가로 검토한다. 클러스터 수가 적을 때는 오히려 하향 편의가 생길 수 있다.</p>
+<p>숫자가 말하는 바를 읽자. 클러스터 표준오차는 통상 표준오차의 약 1.70배다. 관측치 10,000건이 있다고 독립된 정보가 그만큼 있는 것이 아니다 — 667개 기업이 평균 15번씩 출석해 같은 증언을 반복했고, 클러스터링은 모형에게 그 사실을 자백시킨 것이다. “표본이 풍부한 줄 알았는데, 알고 보니 같은 증인들이었습니다. 제 확신을 줄이겠습니다.” 그 자백 후의 t값이 -2.20(HC1 기준 -3.64)다. 기업 클러스터 기준으로도 결론은 유지된다 — 세 가지 표준오차가 같은 판결을 내렸으니, 기업 내 반복 관측을 고려해도 핵심 결론은 유지된다. 다만 이것이 내생성이나 산업 충격까지 해결했다는 뜻은 아니다.. 표준오차 교정으로 결론이 뒤집히는 분석이라면, 그 결론은 애초에 데이터가 아니라 가정이 만들어낸 것이다.</p>
+</section>
+<section id="한-단계-더-업종이-빠지면-무엇이-남는가" class="level3">
+<h3 class="anchored" data-anchor-id="한-단계-더-업종이-빠지면-무엇이-남는가">한 단계 더 — 업종이 빠지면 무엇이 남는가</h3>
+<p>정직하게 적어 두자. M4는 연도별 경기 충격은 통제하지만 <strong>산업별 수익성 구조는 아직 통제하지 않는다</strong>. 금융과 제조와 바이오는 ROA의 체질 자체가 다르고, ESG 평가 대상이 될 확률도 다르다. 통제된 비교를 말하면서 업종이라는 기본 체급 하나가 빠져 있는 것이다. 실무 검증의 다음 수는 산업 고정효과를 추가한 M5다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># M5: 산업 고정효과 추가 — 산업 분류 변수가 있을 때만 실행되는 방어 구조</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"산업코드"</span> <span class="sc">%in%</span> <span class="fu">names</span>(reg_df)) {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  m5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ROA_w <span class="sc">~</span> ESG평가 <span class="sc">+</span> Size <span class="sc">+</span> 부채비율 <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">factor</span>(회계연도) <span class="sc">+</span> <span class="fu">factor</span>(산업코드), <span class="at">data =</span> reg_df)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"산업코드 변수가 없어 M5는 건너뜁니다 — 12장에서 산업 분류 결합 후 실행하세요."</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>현재의 SSOT 데이터셋에는 산업 분류 변수가 아직 없다 — DataGuide의 산업코드를 결합하는 작업은 12장 데이터 확장에서 다룬다. 판정 기준만 먼저 새겨 두자. M5에서 ESG 평가 계수가 크게 움직이면 M4 결과의 일부는 산업 구성의 차이였다는 뜻이고, 유지되면 “최소한 규모·레버리지·연도·산업으로는 설명되지 않는 차이가 남았다”고 말할 자격이 생긴다. 어느 쪽이든 결론의 문장은 더 정확해진다.</p>
+</section>
+<section id="분석가의-번역-이-숫자는-투자위원회에서-어떻게-말하는가" class="level3">
+<h3 class="anchored" data-anchor-id="분석가의-번역-이-숫자는-투자위원회에서-어떻게-말하는가">분석가의 번역 — 이 숫자는 투자위원회에서 어떻게 말하는가</h3>
+<p>재판의 기록을 의사결정의 언어로 번역하면 이렇다. 계수를 읽는 데서 멈추면 분석가고, 이 표를 쓸 수 있으면 보고자다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8319e5c8{}.cl-831320da{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-831320e4{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8316c744{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8316d694{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8316d69e{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8316d6a8{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8319e5c8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8316d694"><p class="cl-8316c744"><span class="cl-831320da">숫자</span></p></th><th class="cl-8316d694"><p class="cl-8316c744"><span class="cl-831320da">통계적 해석</span></p></th><th class="cl-8316d694"><p class="cl-8316c744"><span class="cl-831320da">실무 번역</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">M1 계수 0.0075</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">통제 없는 평균 차이</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">비교대상이 아직 맞지 않은 숫자 — 단독 인용 금지</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">M1 p값 0.0000</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">5% 기준 유의</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">통계적으로는 유의하나 비교대상 검증이 먼저다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">M2 계수 -0.0064</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">Size 통제 후의 차이</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">부호가 바뀌었다 — 원래 차이는 규모의 그림자였다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">M4 계수 -0.0072</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">규모·레버리지·연도까지 통제한 차이</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">통제 후에도 방향이 반대 — 보고서 주장은 증액 근거가 못 된다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">R² 0.132</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">모형의 설명력</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">설명력이 아니라 계수의 식별 가능성이 핵심이다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">VIF 최대 1.69</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">통제변수 간 정보 중복</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">공선성 문제는 작다 — 진짜 쟁점은 누락변수다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320da">클러스터 t값 -2.20</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">기업 내 반복 관측을 인정한 유의성</span></p></td><td class="cl-8316d69e"><p class="cl-8316c744"><span class="cl-831320e4">이 분석에서 가장 큰 표준오차 기준으로도 유지 — 보고 가능</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8316d6a8"><p class="cl-8316c744"><span class="cl-831320da">남은 한계</span></p></td><td class="cl-8316d6a8"><p class="cl-8316c744"><span class="cl-831320e4">산업·업력·지배구조 미통제</span></p></td><td class="cl-8316d6a8"><p class="cl-8316c744"><span class="cl-831320e4">결론은 '인과'가 아니라 '외부 보고서의 단순회귀 근거 반증'으로 제한한다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="완성-예시-검증-메모-전문" class="level3">
+<h3 class="anchored" data-anchor-id="완성-예시-검증-메모-전문">완성 예시 — 검증 메모 전문</h3>
+<p>양식만으로는 부족하다. 이 장의 분석이 실제 메모가 되면 어떤 글이 되는지, 전문을 보자. 아래 글의 모든 수치는 본문 분석에서 그대로 가져온 것이다.</p>
+<blockquote class="blockquote">
+<p><strong>KG Asset 내부 검증 메모 — Red Team 리뷰</strong></p>
+<p><strong>제목.</strong> “ESG 평가기업의 ROA 우위” 주장에 대한 회귀 검증</p>
+<p><strong>결론.</strong> 외부 보고서의 단순회귀 결과는 ESG 관련 포트폴리오 증액의 근거로 충분하지 않다. 통제되지 않은 보고서를 근거로 한 자금 배분은 <strong>자본 오배분 리스크</strong>를 수반한다 — 보고서의 숫자가 ESG에서 나온 초과수익 신호가 아니라 대기업 편향의 그림자일 수 있기 때문이다.</p>
+<p><strong>재현.</strong> 외부 보고서의 단순회귀를 재현한 결과, ESG 평가 더미의 계수는 0.0075(+0.75%p)이며 p값은 0.0000로 5% 기준에서 충분하지 않다. 더 근본적인 문제는 이 회귀가 비교 가능한 기업끼리의 비교가 아니라는 점이다 — 평가기관은 대형 상장사부터 평가하므로, 평가 더미에는 기업 규모가 함께 실려 있다.</p>
+<p><strong>통제 후.</strong> 기업 규모를 통제하자 계수는 -0.0064로 부호가 바뀌었고, 부채비율과 연도 고정효과까지 추가한 모형에서도 -0.0072로 유지되었다. 단순회귀가 보여준 우위는 상당 부분 기업 규모의 그림자였을 가능성이 높다. 다중공선성 진단에서 VIF 최대값은 1.69로 문제가 없었으므로, 이 계수 이동은 통제변수 간 중복이 아니라 누락변수의 교정으로 해석된다.</p>
+<p><strong>불확실성.</strong> 재무 패널의 이분산과 기업 내 반복 관측을 고려해 HC1·기업 클러스터 표준오차를 함께 확인했다. 기업 클러스터 표준오차 기준 t값은 -2.20로, 이 분석에서 가장 큰 표준오차 기준에서도 통제 후 관계는 유지된다.</p>
+<p><strong>한계와 권고.</strong> 본 분석은 ESG 평가 여부의 인과효과 추정이 아니다. 산업, 업력, 지배구조 등 미통제 요인이 남아 있으며, 결론은 “외부 보고서의 단순회귀 근거에 대한 반증”으로 제한한다 — ESG 전략 전체의 기각이 아니다. 추가 검증으로 ① 산업 고정효과 모형(M5) ② ESG 등급 수준을 활용한 대체 설명변수 ③ 신규 평가 편입 기업의 전후 비교를 권고한다.</p>
+</blockquote>
+<p>이 메모가 이 장의 종착지다. 표를 읽는 사람은 많다. 표를 <strong>이런 글로 바꿀 수 있는 사람</strong>이 분석가다.</p>
+</section>
+</section>
+<section id="r로-직접-해보기" class="level2">
+<h2 class="anchored" data-anchor-id="r로-직접-해보기">R로 직접 해보기</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>IPO</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Input</td>
+<td><code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~5장 산출 SSOT)</td>
+</tr>
+<tr class="even">
+<td>Process</td>
+<td>단순회귀 → 보조회귀(편의 방향 가늠) → 단계적 통제(M1~M4) → 나쁜 통제 점검 → VIF → 잔차 진단 4종 → HC1·기업 클러스터 SE → 1쪽 검증 메모</td>
+</tr>
+<tr class="odd">
+<td>Output</td>
+<td><code>Output/ch10_model_comparison.csv</code>, <code>Output/ch10_se_comparison.csv</code>, 계수 추적·진단 그림(본문 렌더)</td>
+</tr>
+<tr class="even">
+<td>Report</td>
+<td>“외부 보고서 검증 메모” 1쪽 (표 10.11 양식)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-832935aa{}.cl-83238916{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8323892a{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-832613ca{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8326220c{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-83262216{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-83262217{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-832935aa"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8326220c"><p class="cl-832613ca"><span class="cl-83238916">난이도</span></p></th><th class="cl-8326220c"><p class="cl-832613ca"><span class="cl-83238916">분석 아이디어</span></p></th><th class="cl-8326220c"><p class="cl-832613ca"><span class="cl-83238916">확인 포인트</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-83238916">초심자</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">종속변수를 ROA 대신 ATO(자산회전율)로 바꿔 M1~M4를 반복하고 계수 이동을 비교한다</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">계수 이동 폭이 ROA보다 큰가 작은가 — 이유를 한 문장으로</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-83238916">초심자</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">Loss_Dummy(적자 여부)를 통제변수로 추가했을 때 ESG 계수가 어떻게 움직이는지 관찰한다</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">부호와 크기 변화 — 적자 더미는 좋은 통제인가, 과잉 통제인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-83238916">초심자</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">Cook's Distance 상위 10개 기업을 추출해 어떤 기업인지 직접 확인한다</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">데이터 오류인가, 진짜 극단 기업인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-83238916">고급자</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">표본을 전반기/후반기 연도로 나눠 M3를 각각 추정하고, 계수의 시기 간 안정성을 비교한다</span></p></td><td class="cl-83262216"><p class="cl-832613ca"><span class="cl-8323892a">전체 표본 계수는 어느 시기의 평균인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-83262217"><p class="cl-832613ca"><span class="cl-83238916">고급자</span></p></td><td class="cl-83262217"><p class="cl-832613ca"><span class="cl-8323892a">Size와 ESG평가의 교호항(Size×ESG)을 넣어 '규모에 따라 ESG 평가 계수가 달라지는가'를 검정한다</span></p></td><td class="cl-83262217"><p class="cl-832613ca"><span class="cl-8323892a">교호항의 유의성과 주효과 해석의 변화</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="ai-협업-프로토콜-결론을-대신-쓰게-하지-말고-반증-후보를-늘려라" class="level2">
+<h2 class="anchored" data-anchor-id="ai-협업-프로토콜-결론을-대신-쓰게-하지-말고-반증-후보를-늘려라">AI 협업 프로토콜 — 결론을 대신 쓰게 하지 말고, 반증 후보를 늘려라</h2>
+<p>김자산의 임무(외부 보고서 검증 메모)는 앞 절의 완성 예시로 이미 끝까지 보았다. 이 절은 그 과정에서 AI를 <strong>어떻게</strong> 쓰는가를 다룬다. 핵심은 한 문장이다 — 이 임무의 본질은 분석이 아니라 <strong>반증 시도</strong>이고, AI는 반증 후보를 늘리는 가장 값싼 파트너다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-8337f194{}.cl-83315c08{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-83315c12{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8333cd8a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8333dbf4{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8333dbfe{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8333dbff{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8337f194"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8333dbf4"><p class="cl-8333cd8a"><span class="cl-83315c08">수준</span></p></th><th class="cl-8333dbf4"><p class="cl-8333cd8a"><span class="cl-83315c08">이 장의 행동</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c08">L1 (인식)</span></p></td><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c12">AI에게 '회귀분석 결과를 해석해줘'라고 결과표를 통째로 넘긴다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c08">L2 (적용)</span></p></td><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c12">변수 정의와 표본 구조를 알려주고 M1~M4 코드의 오류 진단을 맡긴다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c08">L3 (분석)</span></p></td><td class="cl-8333dbfe"><p class="cl-8333cd8a"><span class="cl-83315c12">AI에게 '이 결론을 무너뜨릴 누락변수 후보 5개를 제시하고 각각의 편의 방향을 예측하라'고 요구한 뒤, 데이터로 직접 검증한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8333dbff"><p class="cl-8333cd8a"><span class="cl-83315c08">L4 (창의)</span></p></td><td class="cl-8333dbff"><p class="cl-8333cd8a"><span class="cl-83315c12">AI와 함께 교호항·하위표본·대체 종속변수의 강건성 체계를 설계하고, 반증에 실패한 결과만 메모에 싣는다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>AI 협업 워크플로는 두 개의 프롬프트로 충분하다. 그대로 복사해 쓰라.</p>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 1 — 분석 전: 누락변수 수색]</strong> “ESG 평가 여부와 ROA의 회귀에서 누락변수편의를 일으킬 후보 변수를 다섯 개 제시하고, 각각이 계수를 어느 방향으로 왜곡할지 근거와 함께 예측해줘.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 2 — 분석 후: 결과 반대신문]</strong> “다음 M1~M4 계수 이동 표를 보고 (1) 통계적 유의성 (2) 경제적 크기 (3) 남은 편의 가능성 (4) 추가 검증 1순위를 네 줄로 평가해줘. 과장된 인과 표현은 지적해줘.” AI의 답을 그대로 옮기지 마라 — AI가 제안한 누락변수 중 데이터에 있는 것은 <strong>직접 넣어보고</strong>, 없는 것은 메모의 한계 절에 기록하라. 그것이 L3와 L1의 차이다.</p>
+</blockquote>
+<p>업무의 경계도 명확히 하자. 이 장에서 AI에게 맡겨도 되는 일과, 사람이 끝까지 쥐어야 하는 일은 다음과 같이 갈린다.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>AI에게 맡겨도 되는 일</th>
+<th>사람이 반드시 판단해야 하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>누락변수 후보 브레인스토밍</td>
+<td>그 변수가 과잉 통제(bad control)인지 여부</td>
+</tr>
+<tr class="even">
+<td>코드 오류 메시지 분해·진단</td>
+<td>데이터 정의와 표본 제외 기준</td>
+</tr>
+<tr class="odd">
+<td>결과표 문장화 초안</td>
+<td>인과 표현을 써도 되는가</td>
+</tr>
+<tr class="even">
+<td>대체 모형·강건성 아이디어 제안</td>
+<td>최종 의사결정과 그 책임</td>
+</tr>
+<tr class="odd">
+<td>보고서 구조 점검</td>
+<td>경제적 의미와 투자 판단</td>
+</tr>
+</tbody>
+</table>
+<p>핵심은 이 한 문장이다. <strong>AI는 반증 후보를 늘리는 도구이지, 결론을 대신 내려주는 도구가 아니다.</strong> 회귀분석에서 가장 위험한 실수는 코드를 틀리는 것이 아니라, 비교대상이 틀린 줄도 모르고 그럴듯한 해석을 쓰는 것이다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-83451982{}.cl-833f6dac{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-833f6db6{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8341e17c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-8341f18a{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8341f194{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8341f19e{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-83451982"><thead><tr style="overflow-wrap:break-word;"><th class="cl-8341f18a"><p class="cl-8341e17c"><span class="cl-833f6dac">섹션</span></p></th><th class="cl-8341f18a"><p class="cl-8341e17c"><span class="cl-833f6dac">포함 내용</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6dac">결론 (한 줄)</span></p></td><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6db6">증액 근거로 충분/불충분 + 핵심 근거 한 문장</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6dac">재현 결과</span></p></td><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6db6">M1 계수·유의성 — 보고서 주장의 재현 여부</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6dac">통제 후 결과</span></p></td><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6db6">M4 계수·유의성 + 계수 이동 폭(그림 10.1) 해석</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6dac">모형 진단</span></p></td><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6db6">VIF 최댓값, 이분산 여부, 강건 SE 적용 후 결론 유지 여부</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6dac">한계와 추가 검증</span></p></td><td class="cl-8341f194"><p class="cl-8341e17c"><span class="cl-833f6db6">통제하지 못한 변수 목록과 예상 편의 방향 (AI 반증 결과 포함)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8341f19e"><p class="cl-8341e17c"><span class="cl-833f6dac">데이터·코드</span></p></td><td class="cl-8341f19e"><p class="cl-8341e17c"><span class="cl-833f6db6">SSOT 버전, 표본 기간·크기, 스크립트 파일명 — 재현 가능성 명시</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="정리-함정-다음-장" class="level2">
+<h2 class="anchored" data-anchor-id="정리-함정-다음-장">정리, 함정, 다음 장</h2>
+<p>재판이 끝났다. 이 장의 판결문을 한 문장으로 줄이면 이렇다. <strong>회귀분석은 직선을 긋는 기술이 아니라, 비교 가능한 대상을 만드는 기술이다.</strong> 계수는 모형 안에 무엇을 넣었는가의 함수이고, 따라서 계수를 읽는 일은 모형에 무엇이 빠졌는가를 읽는 일이다. 유죄도 무죄도 p값 하나로 선고되지 않는다 — 반대신문(통제), 위증 검사(공선성), 증거 감식(잔차), 재검증(강건·클러스터 SE)을 통과한 주장만이 의사결정의 근거가 될 자격을 얻는다. 그러니 통제 전의 숫자가 매력적일수록, 분석가는 먼저 그 숫자를 무너뜨리려 해야 한다.</p>
+<p>많은 분석가들이 빠지는 함정 세 가지를 기억하라.</p>
+<ol type="1">
+<li><strong>유의성을 인과로 착각한다.</strong> p값이 작다는 것은 “귀무가설이 참일 때 현재 또는 더 극단적인 통계량이 관측될 가능성이 낮다”까지만 말해준다. 그 관계가 ESG 평가대상 여부와 ROA의 조건부 관계인지, 빠진 변수의 그림자인지는 p값이 답하지 못한다.</li>
+<li><strong>통제변수를 많이 넣을수록 좋다고 믿는다.</strong> 본문에서 본 대로, 결과로 가는 길목 위의 변수를 통제하면 관계 자체를 지워버린다. 통제는 양이 아니라 <strong>이론</strong>의 문제다.</li>
+<li><strong>R²를 숭배한다.</strong> R²는 예측의 지표이지 인과의 지표가 아니다. 우리의 목적은 ROA를 100% 예측하는 것이 아니라, 관심 계수 하나에 묻은 거품을 걷어내 진짜 차이를 발라내는 것 — 이것이 식별(identification)이라는 말의 뜻이다. 관심 계수만 정확히 식별된다면 R² 0.05짜리 모형도 위대할 수 있고, R² 0.9짜리 모형이 완전히 왜곡된 계수를 가질 수 있다.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-835226cc{}.cl-834c9810{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-834c981a{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-834f0a8c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-834f1914{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-834f191e{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-834f1928{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-835226cc"><thead><tr style="overflow-wrap:break-word;"><th class="cl-834f1914"><p class="cl-834f0a8c"><span class="cl-834c9810">점검 항목</span></p></th><th class="cl-834f1914"><p class="cl-834f0a8c"><span class="cl-834c9810">통과 기준</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c9810">핵심 계수가 단순회귀 대비 어느 방향으로, 얼마나 움직였는가를 보고했는가</span></p></td><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c981a">M1→M4 추적 표·그림 제시</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c9810">보조회귀 또는 이론으로 편의의 방향을 예측하고 데이터로 확인했는가</span></p></td><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c981a">방향 예측 적중 여부 기록</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c9810">VIF를 확인하되 기준값을 기계적으로 적용하지 않았는가</span></p></td><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c981a">VIF 수치 + 의미 판단 병기</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c9810">잔차 4종 그림을 보고 이분산·영향점을 점검했는가</span></p></td><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c981a">그림 10.2 형식 보고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c9810">강건 표준오차로 결론이 유지되는지 확인했는가</span></p></td><td class="cl-834f191e"><p class="cl-834f0a8c"><span class="cl-834c981a">표 10.7 형식 보고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-834f1928"><p class="cl-834f0a8c"><span class="cl-834c9810">통제하지 못한 변수의 목록과 예상 편의를 한계로 명시했는가</span></p></td><td class="cl-834f1928"><p class="cl-834f0a8c"><span class="cl-834c981a">메모 한계 절 1문단 이상</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-836049c8{}.cl-835a935c{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-835a937a{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-835cfdea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-835d117c{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-835d1186{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-835d1190{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-836049c8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-835d117c"><p class="cl-835cfdea"><span class="cl-835a935c">분야</span></p></th><th class="cl-835d117c"><p class="cl-835cfdea"><span class="cl-835a935c">같은 구조의 질문</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a935c">마케팅 분석</span></p></td><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a937a">광고비를 늘린 점포의 매출이 높다 — 입지가 누락변수 아닌가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a935c">인사 분석</span></p></td><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a937a">교육 이수자의 성과가 높다 — 의욕 높은 직원이 교육을 신청한 것 아닌가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a935c">공공 정책</span></p></td><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a937a">보조금 수혜 기업의 생존율이 높다 — 애초에 건실한 기업이 선정된 것 아닌가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a935c">의료 통계</span></p></td><td class="cl-835d1186"><p class="cl-835cfdea"><span class="cl-835a937a">신약 복용군의 회복이 빠르다 — 복용군의 기저 건강 상태가 다른 것 아닌가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-835d1190"><p class="cl-835cfdea"><span class="cl-835a935c">신용 리스크</span></p></td><td class="cl-835d1190"><p class="cl-835cfdea"><span class="cl-835a937a">담보 대출의 부실률이 낮다 — 담보를 제공할 수 있는 차주의 신용이 애초에 좋은 것 아닌가</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>이 장의 산출물(모형 비교표 <code>ch10_model_comparison.csv</code>와 진단 그림)은 13장 최종 보고서의 “분석의 신뢰성” 절에 그대로 들어가는 부품이다. 그리고 통제 후에도 남은 관계 — 규모로도 레버리지로도 설명되지 않는 그 잔여분 — 는 “왜?”라는 새로운 연구 질문을 연다. 다음 장(11장)에서는 종속변수가 연속형이 아니라 “적자냐 아니냐” 같은 이진형일 때의 회귀, 즉 로지스틱 회귀와 예측 성능 평가(ROC)를 다룬다. 김자산의 다음 임무는 포트폴리오 기업의 적자 전환 <em>확률</em>을 예측하는 일이다.</p>
+</section>
+<section id="주차-pbl-진짜-원인을-찾아라" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="주차-pbl-진짜-원인을-찾아라">주차 PBL — 진짜 원인을 찾아라</h2>
+<p>이 장의 기술을 새로운 변수에 적용하는 것이 이번 주의 PBL이다. 본문에서는 ESG 평가 여부를 법정에 세웠다 — PBL에서는 <strong>여성 고용 비율(Female_Ratio)</strong> 이 피고석에 앉는다.</p>
+<blockquote class="blockquote">
+<p><strong>Context.</strong> 여성 고용 비율과 ROA의 양(+)의 상관관계 보고에 CIO가 흡족해하던 순간, 리스크 관리 책임자(CRO)가 반론을 제기한다. “여성을 많이 고용해서 수익성이 좋은 게 확실합니까? 돈 많은 대기업이 복지가 좋아 여성을 많이 고용할 뿐이고, 대기업이니까 수익성도 좋은 것 아닙니까?” — 제3의 요인(기업 규모)을 통제하지 못하면 분석은 허위 상관으로 전락한다. 임무는 CRO의 반론을 <strong>검증</strong>하는 것이다 — 반론이 틀렸다면 데이터로 반박하고, 맞았다면 CIO의 결론을 수정해야 한다. 좋은 분석가는 원하는 결론을 방어하는 사람이 아니라, 틀린 결론을 조기에 멈추게 하는 사람이다.</p>
+</blockquote>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>미션</th>
+<th>핵심</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level 1 (필수)</td>
+<td>단순 vs 다중 회귀 비교</td>
+<td>ROA ~ Female_Ratio (Model 1) → + Size + 부채비율 (Model 2), 계수 변화 추적</td>
+</tr>
+<tr class="even">
+<td>Level 2 (심화)</td>
+<td>다중공선성 유발·진단</td>
+<td>Model 2에 매출액을 추가한 Model 3 — Size(로그 자산)와의 충돌을 <code>car::vif()</code>로 진단</td>
+</tr>
+<tr class="odd">
+<td>Level 3 (확장)</td>
+<td>계수 플롯 시각화</td>
+<td><code>broom::tidy(conf.int)</code> → 계수와 95% 신뢰구간 플롯 (절편 제외, 0 기준선)</td>
+</tr>
+<tr class="even">
+<td>Level 4 (도전)</td>
+<td>표준오차 민감도</td>
+<td>통상·HC1·기업 클러스터 SE 비교(<code>sandwich</code> 패키지), 결론 유지 여부 판정</td>
+</tr>
+<tr class="odd">
+<td>Level 5 (완성)</td>
+<td>1쪽 검증 메모</td>
+<td>본문 「완성 예시」 형식으로 CIO/CRO에게 보내는 메모 작성 — 아래 추가 반론 2개까지 방어</td>
+</tr>
+</tbody>
+</table>
+<p>제출물은 과목 표준 4종 — Input(데이터), Script(프롬프트 로그 포함 코드), Output(결과 로그·그림), Report(분석보고서). 본문의 <code>Script/ch10_regression_diagnostics.R</code>이 출발 코드다 — 변수만 바꾸면 Level 1이 완성되는 구조이니, 진짜 승부는 해석에서 갈린다.</p>
+<p><strong>수행 가이드라인 (모범답안이 아니라 사고의 이정표다).</strong></p>
+<ol type="1">
+<li>회귀표의 수치를 읽어주는 데서 멈추면 하수다. “R²가 0.15이고 p값이 0.05 미만입니다”는 보고가 아니라 낭독이다.</li>
+<li>계수의 <em>변화</em>를 해석하면 중수다. “Size를 통제하자 Female_Ratio의 계수가 줄었다 — 수익성의 상당 부분은 다양성이 아니라 규모의 몫이었다”까지 가야 누락변수편의를 통제한 것이다.</li>
+<li>통제를 통과한 결과를 <em>투자 전략</em>으로 번역하면 고수다. “규모를 동일하게 통제한 조건에서도 관계가 살아남았다면, 초과수익의 원천은 여성 고용 비율이 높은 ’대기업’이 아니라 동일 규모 대비 비율이 월등한 기업이다” — 통계적 유의성, 경제적 크기, 강건성 세 근거를 갖춰 결론을 서술하라.</li>
+<li>자기 점검 질문: 내 보고서의 결론 문장은 CRO의 반론에 직접 답하고 있는가? 만약 CRO가 “업종 효과는요?”라고 다시 물으면, 나는 무엇을 더 통제해야 하는가?</li>
+<li>결론 문장은 반드시 다음 두 형태 중 하나로 써라(어느 쪽인지는 데이터가 결정한다) — “여성 고용 비율은 규모와 레버리지를 통제한 후에도 ROA와 양(+)의 관계를 보이며, 따라서 단순한 대기업 효과만으로 설명되지 않는다” 또는 “여성 고용 비율의 단순회귀 계수는 규모 통제 후 크게 약화되므로, 원래 주장은 대기업 효과를 충분히 제거하지 못했다.”</li>
+<li>Level 5의 메모는 회의실에서 날아올 다음 두 반론까지 가정하고 방어 논리를 설계하라 — ⓐ “수익성 좋은 대기업일수록 대외 이미지를 위해 여성을 더 많이 채용하는 것 아닙니까?”(역인과의 의심) ⓑ “여성 비율이 높은 업종이 마침 그 기간 호황이어서 ROA를 끌어올린 것 아닙니까?”(산업 효과의 부재). 방어할 수 없는 반론은 한계로 정직하게 적는 것이 방어다. <strong>방어의 힌트</strong> — 변명이 아니라 데이터 구조를 바꿔 입증하라. ⓐ에는 시간의 무기: 당기 수익성이 당기 채용을 설명하는 고리를 끊으려면, 독립변수를 1년 전 값(전기 여성 고용 비율)으로 밀어내는 시차 모형을 상상해 보라(<code>dplyr::group_by(코드)</code> 후 <code>dplyr::lag()</code>) — 12장 인과추론의 예고편이다. ⓑ에는 공간의 무기: 비교 대상을 시장 전체에서 동일 업종 안으로 가두는 것, 즉 산업 더미가 답이다.</li>
+<li>메모 작성 원칙: VIF·p값 같은 용어를 의사결정권자 앞에서 꺼내는 순간 설득은 끝난다. 통계량의 변화를 비즈니스 언어로 번역하라 — “통제 후 계수가 줄었다”가 아니라 <strong>“이 허위 신호에 베팅했을 때 우리 펀드가 떠안을 잠재 손실의 크기”</strong>로.</li>
+</ol>
+<p><strong>채점 루브릭 (100점).</strong> 보고서는 다음 네 기준으로 평가된다.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>평가 항목</th>
+<th style="text-align: right;">배점</th>
+<th>통과 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>재현성</td>
+<td style="text-align: right;">20</td>
+<td>데이터 경로·스크립트·패키지·표본 수가 명시되어 그대로 재실행 가능</td>
+</tr>
+<tr class="even">
+<td>계수 이동 해석</td>
+<td style="text-align: right;">30</td>
+<td>단순모형→통제모형→강건성 확장 과정에서 핵심 계수의 부호·크기·유의성 변화를 누락변수 논리로 설명</td>
+</tr>
+<tr class="odd">
+<td>진단</td>
+<td style="text-align: right;">25</td>
+<td>VIF, 잔차 그림, 강건/클러스터 표준오차 중 최소 2가지 확인</td>
+</tr>
+<tr class="even">
+<td>의사결정 번역</td>
+<td style="text-align: right;">25</td>
+<td>CRO의 반론에 직접 답하고, 투자/인사/리스크 판단 문장으로 결론 제시</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="이-장의-자료" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="이-장의-자료">이 장의 자료</h2>
+<ul>
+<li>데이터: <code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~5장 SSOT 파이프라인 산출)</li>
+<li>전체 스크립트: <code>Script/ch10_regression_diagnostics.R</code> (본문 코드 전체 — Script 폴더에서 실행)</li>
+<li>산출물: <code>Output/ch10_model_comparison.csv</code>, <code>Output/ch10_se_comparison.csv</code></li>
+</ul>
+<p><strong>AI 협업 권장.</strong> 이 장의 코드를 실행하다 막히면, 오류 메시지와 함께 “데이터·패키지·객체명·경로 중 어디 문제인지 구분해 진단해줘”라고 요청하라. 개념이 막히면 “누락변수편의를 권투 체급 비유 말고 다른 비유로 설명해줘”처럼 <strong>다른 설명</strong>을 요구하라 — 같은 개념을 두 가지 비유로 설명할 수 있으면 이해한 것이다.</p>
+<p><strong>AI 사용 시 주의 3가지.</strong> (1) AI는 회귀 결과표를 주면 그럴듯한 해석을 지어낸다 — 표본·변수 정의를 먼저 알려주지 않으면 해석은 소설이 된다. (2) AI가 제안하는 통제변수에는 과잉 통제(bad control)가 섞여 있다 — 결과변수의 경로 위에 있는지 스스로 판단하라. (3) AI는 유의성과 인과를 자주 섞어 쓴다 — 메모에 옮기기 전에 인과 표현을 전부 걷어내라.</p>
+</section>
+<section id="연습문제" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="연습문제">연습문제</h2>
+<p><strong>문제 1.</strong> 어떤 분석가가 “배당을 지급하는 기업의 ROA가 높다”는 단순회귀 결과(계수 +0.03, p&lt;0.01)를 근거로 “배당이 수익성을 높인다”고 주장한다. 누락변수편의의 두 조건을 이용해 이 주장의 약점을 지적하고, 가장 의심스러운 누락변수 하나와 그로 인한 편의의 방향을 제시하라.</p>
+<p><strong>모범답안.</strong> OVB는 (1) Y에 영향을 주고 (2) X와 상관된 변수가 빠졌을 때 생긴다. 가장 의심스러운 누락변수는 기업의 수익 창출 능력(혹은 그 대리변수인 규모·업력)이다. 애초에 수익성이 높고 안정적인 기업이 배당을 지급할 여력이 있으므로(X와 상관), 그리고 그 능력 자체가 ROA와 강하게 관련되므로(Y와 관련), 단순회귀의 배당 계수는 과대 추정된다. 인과의 방향 자체가 반대(수익성→배당)일 가능성도 크다.</p>
+<p><strong>문제 2.</strong> M3에서 Size의 VIF가 12로 나왔다고 하자. 이때 기계적으로 Size를 제거하는 것이 왜 위험한지, 이 장의 논리로 설명하라.</p>
+<p><strong>모범답안.</strong> Size는 ESG 평가 여부와 ROA 모두에 영향을 주는 핵심 누락변수 후보이므로, 공선성을 이유로 제거하면 다중공선성 문제(표준오차 팽창)를 피하는 대신 누락변수편의(계수 왜곡)를 다시 불러들인다. 분산이 커지는 것과 계수가 체계적으로 틀리는 것 중 후자가 더 치명적이다. 대안은 변수 제거가 아니라 표본 확대, 변수 변환, 또는 공선성을 감수하고 신뢰구간을 보수적으로 해석하는 것이다.</p>
+<p><strong>문제 3.</strong> 잔차 vs 적합값 그림에서 적합값이 커질수록 잔차의 산포가 깔때기처럼 벌어지는 패턴을 발견했다. (a) 이 패턴의 이름은 무엇이며, (b) 계수와 표준오차 중 무엇이 신뢰를 잃는가, (c) 가장 간단한 대응은 무엇인가.</p>
+<p><strong>모범답안.</strong> (a) 이분산성(heteroskedasticity). (b) 누락변수·내생성 문제가 없다면 OLS 계수 자체는 여전히 불편(unbiased)이지만 표준오차가 왜곡되어 t값·p값·신뢰구간을 믿을 수 없게 된다. (c) 강건 표준오차(HC1 등)로 표준오차를 교체하고, 통상 SE 결과와 나란히 보고해 결론이 유지되는지 확인한다. 패널 자료라면 기업 클러스터 표준오차까지 확인한다.</p>
+<p><strong>문제 4 (좋은 통제와 나쁜 통제).</strong> 어떤 분석가가 ESG 평가 여부와 ROA의 관계를 추정하면서, “통제는 많을수록 좋다”는 생각으로 <strong>신용등급</strong>을 통제변수로 추가했다. 신용등급이 ESG 활동의 결과로 개선될 수 있는 변수라면, 이 통제가 왜 위험한지 설명하라.</p>
+<p><strong>모범답안.</strong> 좋은 통제변수는 X(ESG 평가) <em>이전에</em> 결정되어 X와 Y를 동시에 교란하는 변수다(예: 기업 규모). 반면 신용등급이 ESG 활동의 <em>결과</em>로 개선되는 변수라면, 신용등급은 X에서 Y로 가는 경로 위에 놓여 있다. 이를 통제하면 X가 Y에 닿는 통로 일부를 인위적으로 막아버려, 관계의 일부를 지워버린 왜곡된 계수를 얻는다 — 이것이 과잉 통제(bad control)다. 통제는 양의 문제가 아니라 <strong>변수의 시간적·인과적 위치</strong>의 문제이며, “VIF가 낮고 R²가 오른다”는 사실은 그 변수를 넣어도 된다는 근거가 전혀 아니다.</p>
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImRwbHlyIiwidGlkeXIiLCJnZ3Bsb3QyIiwic3RyaW5nciIsImd0IiwiYnJvb20iXSwicmVwb3MiOltdfSwicmVuZGVyX2RmIjoiZGVmYXVsdCJ9
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIiwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0IiwiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIn0seyJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8xLCB7fSk7XG4iLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJ3ZWJyLTEifSx7ImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IndlYlJPanMgPSB7XG4gIGNvbnN0IHsgV2ViUiwgQ2hhbm5lbFR5cGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWUuV2ViUjtcbiAgY29uc3Qge1xuICAgIFdlYlJFdmFsdWF0b3IsXG4gICAgV2ViUkVudmlyb25tZW50TWFuYWdlcixcbiAgICBzZXR1cFIsXG4gICAgYjY0RGVjb2RlLFxuICAgIGNvbGxhcHNlUGF0aFxuICB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcblxuICBjb25zdCBzdGF0dXNDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctc3RhdHVzXCIpO1xuICBjb25zdCBpbmRpY2F0b3JDb250YWluZXIgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcImV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpbmRpY2F0b3JDb250YWluZXIuY2xhc3NMaXN0LnJlbW92ZShcImQtbm9uZVwiKTtcblxuICBsZXQgc3RhdHVzVGV4dCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIilcbiAgc3RhdHVzVGV4dC5jbGFzc0xpc3QgPSBcImV4ZXJjaXNlLWxvYWRpbmctZGV0YWlsc1wiO1xuICBzdGF0dXNUZXh0ID0gc3RhdHVzQ29udGFpbmVyLmFwcGVuZENoaWxkKHN0YXR1c1RleHQpO1xuICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluaXRpYWxpc2VgO1xuXG4gIC8vIEhvaXN0IGluZGljYXRvciBvdXQgZnJvbSBmaW5hbCBzbGlkZSB3aGVuIHJ1bm5pbmcgdW5kZXIgcmV2ZWFsXG4gIGNvbnN0IHJldmVhbFN0YXR1cyA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsIC5leGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaWYgKHJldmVhbFN0YXR1cykge1xuICAgIHJldmVhbFN0YXR1cy5yZW1vdmUoKTtcbiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCA+IC5zbGlkZXNcIikuYXBwZW5kQ2hpbGQocmV2ZWFsU3RhdHVzKTtcbiAgfVxuXG4gIC8vIE1ha2UgYW55IHJldmVhbCBzbGlkZXMgd2l0aCBsaXZlIGNlbGxzIHNjcm9sbGFibGVcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbChcIi5yZXZlYWwgLmV4ZXJjaXNlLWNlbGxcIikuZm9yRWFjaCgoZWwpID0+IHtcbiAgICBlbC5jbG9zZXN0KCdzZWN0aW9uLnNsaWRlJykuY2xhc3NMaXN0LmFkZChcInNjcm9sbGFibGVcIik7XG4gIH0pXG5cbiAgLy8gd2ViUiBzdXBwbGVtZW50YWwgZGF0YSBhbmQgb3B0aW9uc1xuICBjb25zdCBkYXRhQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLWRhdGFcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBkYXRhID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZGF0YUNvbnRlbnQpKTtcblxuICAvLyBHcmFiIGxpc3Qgb2YgcmVzb3VyY2VzIHRvIGJlIGRvd25sb2FkZWRcbiAgY29uc3QgZmlsZXNDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInZmcy1maWxlXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZmlsZXMgPSBKU09OLnBhcnNlKGI2NERlY29kZShmaWxlc0NvbnRlbnQpKTtcblxuICAvLyBJbml0aWFsaXNlIHdlYlIgYW5kIHNldHVwIGZvciBSIGNvZGUgZXZhbHVhdGlvblxuICBsZXQgd2ViUlByb21pc2UgPSAoYXN5bmMgKHdlYlIpID0+IHtcbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHdlYlJgO1xuICAgIGF3YWl0IHdlYlIuaW5pdCgpO1xuXG4gICAgLy8gSW5zdGFsbCBwcm92aWRlZCBsaXN0IG9mIHBhY2thZ2VzXG4gICAgLy8gRW5zdXJlIHdlYlIgZGVmYXVsdCByZXBvIGlzIGluY2x1ZGVkXG4gICAgZGF0YS5wYWNrYWdlcy5yZXBvcy5wdXNoKFwiaHR0cHM6Ly9yZXBvLnItd2FzbS5vcmdcIilcbiAgICBhd2FpdCBkYXRhLnBhY2thZ2VzLnBrZ3MubWFwKChwa2cpID0+ICgpID0+IHtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcGFja2FnZTogJHtwa2d9YDtcbiAgICAgIHJldHVybiB3ZWJSLmV2YWxSVm9pZChgXG4gICAgICAgIHdlYnI6Omluc3RhbGwocGtnLCByZXBvcyA9IHJlcG9zKVxuICAgICAgICBsaWJyYXJ5KHBrZywgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKVxuICAgICAgYCwgeyBlbnY6IHtcbiAgICAgICAgcGtnOiBwa2csXG4gICAgICAgIHJlcG9zOiBkYXRhLnBhY2thZ2VzLnJlcG9zLFxuICAgICAgfX0pO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuXG4gICAgLy8gRG93bmxvYWQgYW5kIGluc3RhbGwgcmVzb3VyY2VzXG4gICAgYXdhaXQgZmlsZXMubWFwKChmaWxlKSA9PiBhc3luYyAoKSA9PiB7XG4gICAgICBjb25zdCBuYW1lID0gZmlsZS5zdWJzdHJpbmcoZmlsZS5sYXN0SW5kZXhPZignLycpICsgMSk7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHJlc291cmNlOiAke25hbWV9YDtcbiAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goZmlsZSk7XG4gICAgICBpZiAoIXJlc3BvbnNlLm9rKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcihgQ2FuJ3QgZG93bmxvYWQgXFxgJHtmaWxlfVxcYC4gRXJyb3IgJHtyZXNwb25zZS5zdGF0dXN9OiBcIiR7cmVzcG9uc2Uuc3RhdHVzVGV4dH1cIi5gKTtcbiAgICAgIH1cbiAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5hcnJheUJ1ZmZlcigpO1xuXG4gICAgICAvLyBTdG9yZSBVUkxzIGluIHRoZSBjd2Qgd2l0aG91dCBhbnkgc3ViZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgaWYgKGZpbGUuaW5jbHVkZXMoXCI6Ly9cIikpIHtcbiAgICAgICAgZmlsZSA9IG5hbWU7XG4gICAgICB9XG5cbiAgICAgIC8vIENvbGxhcHNlIGhpZ2hlciBkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBmaWxlID0gY29sbGFwc2VQYXRoKGZpbGUpO1xuXG4gICAgICAvLyBDcmVhdGUgZGlyZWN0b3J5IHRyZWUsIGlnbm9yaW5nIFwiZGlyZWN0b3J5IGV4aXN0c1wiIFZGUyBlcnJvcnNcbiAgICAgIGNvbnN0IHBhcnRzID0gZmlsZS5zcGxpdCgnLycpLnNsaWNlKDAsIC0xKTtcbiAgICAgIGxldCBwYXRoID0gJyc7XG4gICAgICB3aGlsZSAocGFydHMubGVuZ3RoID4gMCkge1xuICAgICAgICBwYXRoICs9IHBhcnRzLnNoaWZ0KCkgKyAnLyc7XG4gICAgICAgIGNvbnN0IGFuYWx5c2lzID0gYXdhaXQgd2ViUi5GUy5hbmFseXplUGF0aChwYXRoKTtcbiAgICAgICAgaWYgKCFhbmFseXNpcy5leGlzdHMpIHtcbiAgICAgICAgICB0cnkge1xuICAgICAgICAgICAgYXdhaXQgd2ViUi5GUy5ta2RpcihwYXRoKTtcbiAgICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYEZpbGVzeXN0ZW0gRXJyb3I6IFwiJHtlLm1lc3NhZ2V9XCIuYCk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgIC8vIFdyaXRlIHRoaXMgZmlsZSB0byB0aGUgVkZTXG4gICAgICByZXR1cm4gYXdhaXQgd2ViUi5GUy53cml0ZUZpbGUoZmlsZSwgbmV3IFVpbnQ4QXJyYXkoZGF0YSkpO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbnN0YWxsaW5nIHdlYlIgc2hpbXNgO1xuICAgIGF3YWl0IHdlYlIuZXZhbFJWb2lkKGB3ZWJyOjpzaGltX2luc3RhbGwoKWApO1xuXG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBXZWJSIGVudmlyb25tZW50IHNldHVwYDtcbiAgICBhd2FpdCBzZXR1cFIod2ViUiwgZGF0YSk7XG5cbiAgICBzdGF0dXNUZXh0LnJlbW92ZSgpO1xuICAgIGlmIChzdGF0dXNDb250YWluZXIuY2hpbGRyZW4ubGVuZ3RoID09IDApIHtcbiAgICAgIHN0YXR1c0NvbnRhaW5lci5wYXJlbnROb2RlLnJlbW92ZSgpO1xuICAgIH1cbiAgICByZXR1cm4gd2ViUjtcbiAgfSkobmV3IFdlYlIoZGF0YS5vcHRpb25zKSk7XG5cbiAgLy8gS2VlcCB0cmFjayBvZiBpbml0aWFsIE9KUyBibG9jayByZW5kZXJcbiAgY29uc3QgcmVuZGVyZWRPanMgPSB7fTtcblxuICBjb25zdCBwcm9jZXNzID0gYXN5bmMgKGNvbnRleHQsIGlucHV0cykgPT4ge1xuICAgIGNvbnN0IHdlYlIgPSBhd2FpdCB3ZWJSUHJvbWlzZTtcbiAgICBjb25zdCBldmFsdWF0b3IgPSBuZXcgV2ViUkV2YWx1YXRvcih3ZWJSLCBjb250ZXh0KVxuICAgIGF3YWl0IGV2YWx1YXRvci5wcm9jZXNzKGlucHV0cyk7XG4gICAgcmV0dXJuIGV2YWx1YXRvci5jb250YWluZXI7XG4gIH1cblxuICByZXR1cm4ge1xuICAgIHByb2Nlc3MsXG4gICAgd2ViUlByb21pc2UsXG4gICAgcmVuZGVyZWRPanMsXG4gIH07XG59XG4iLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJjZWxsTmFtZSI6IndlYnItcHJlbHVkZSJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9zZV9jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDAzX3BhbmVsX3N0cnVjdHVyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMl90aGlua2luZ19sb2cuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDZfdmFyX2NsYXNzaWZpY2F0aW9uLmNzdiIsImRhdGEvL091dHB1dC9jaDA0X2NsZWFuX3NhbXBsZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOF9kZXNjX2J5X2xvc3MuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDZfZm91cl90eXBlcy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOV9jb3JyX21hdHJpeF9zcGVhcm1hbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOF90dGVzdF9lc2dfc2l6ZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMV9zc290X292ZXJ2aWV3LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X2ZlYXR1cmVfZGljdC5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNV9yYW5rX2NvbXBhcmUuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMTBfbW9kZWxfY29tcGFyaXNvbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOV9jb3JyX21hdHJpeF9wZWFyc29uLmNzdiJd
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9zZV9jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDAzX3BhbmVsX3N0cnVjdHVyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMl90aGlua2luZ19sb2cuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDZfdmFyX2NsYXNzaWZpY2F0aW9uLmNzdiIsImRhdGEvL091dHB1dC9jaDA0X2NsZWFuX3NhbXBsZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOF9kZXNjX2J5X2xvc3MuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDZfZm91cl90eXBlcy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOV9jb3JyX21hdHJpeF9zcGVhcm1hbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOF90dGVzdF9lc2dfc2l6ZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMV9zc290X292ZXJ2aWV3LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X2ZlYXR1cmVfZGljdC5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNV9yYW5rX2NvbXBhcmUuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMTBfbW9kZWxfY29tcGFyaXNvbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwOV9jb3JyX21hdHJpeF9wZWFyc29uLmNzdiJd
+</script>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

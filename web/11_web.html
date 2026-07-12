@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>web</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="11_web_files/libs/clipboard/clipboard.min.js"></script>
+<script src="11_web_files/libs/quarto-html/quarto.js"></script>
+<script src="11_web_files/libs/quarto-html/popper.min.js"></script>
+<script src="11_web_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="11_web_files/libs/quarto-html/anchor.min.js"></script>
+<link href="11_web_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="11_web_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="11_web_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="11_web_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="11_web_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="11_web_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="11_web_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script type="module" src="11_web_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="11_web_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link href="11_web_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="11_web_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#예보관의-확률-로지스틱-회귀와-분류-성능" id="toc-예보관의-확률-로지스틱-회귀와-분류-성능" class="nav-link active" data-scroll-target="#예보관의-확률-로지스틱-회귀와-분류-성능">예보관의 확률 — 로지스틱 회귀와 분류 성능</a>
+  <ul class="collapse">
+  <li><a href="#사례로-시작하기" id="toc-사례로-시작하기" class="nav-link" data-scroll-target="#사례로-시작하기">사례로 시작하기</a></li>
+  <li><a href="#핵심-키워드" id="toc-핵심-키워드" class="nav-link" data-scroll-target="#핵심-키워드">핵심 키워드</a></li>
+  <li><a href="#학습-목표" id="toc-학습-목표" class="nav-link" data-scroll-target="#학습-목표">학습 목표</a></li>
+  <li><a href="#dikw-4단계-파이프라인" id="toc-dikw-4단계-파이프라인" class="nav-link" data-scroll-target="#dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</a></li>
+  <li><a href="#데이터-출처와-수집" id="toc-데이터-출처와-수집" class="nav-link" data-scroll-target="#데이터-출처와-수집">데이터 출처와 수집</a></li>
+  <li><a href="#직선-확률의-균열-선형확률모형의-한계" id="toc-직선-확률의-균열-선형확률모형의-한계" class="nav-link" data-scroll-target="#직선-확률의-균열-선형확률모형의-한계">직선 확률의 균열 — 선형확률모형의 한계</a>
+  <ul class="collapse">
+  <li><a href="#직관-온도계로-비-확률을-재는-문제" id="toc-직관-온도계로-비-확률을-재는-문제" class="nav-link" data-scroll-target="#직관-온도계로-비-확률을-재는-문제">직관 — 온도계로 비 확률을 재는 문제</a></li>
+  <li><a href="#로지스틱-함수-s자-곡선이-담장을-세운다" id="toc-로지스틱-함수-s자-곡선이-담장을-세운다" class="nav-link" data-scroll-target="#로지스틱-함수-s자-곡선이-담장을-세운다">로지스틱 함수 — S자 곡선이 담장을 세운다</a></li>
+  </ul></li>
+  <li><a href="#실데이터-분석-①-적자-전환-확률-모형" id="toc-실데이터-분석-①-적자-전환-확률-모형" class="nav-link" data-scroll-target="#실데이터-분석-①-적자-전환-확률-모형">실데이터 분석 ① — 적자 전환 확률 모형</a></li>
+  <li><a href="#예보의-정확도-혼동행렬과-roc" id="toc-예보의-정확도-혼동행렬과-roc" class="nav-link" data-scroll-target="#예보의-정확도-혼동행렬과-roc">예보의 정확도 — 혼동행렬과 ROC</a>
+  <ul class="collapse">
+  <li><a href="#혼동행렬-예측을-네-칸으로-분해한다" id="toc-혼동행렬-예측을-네-칸으로-분해한다" class="nav-link" data-scroll-target="#혼동행렬-예측을-네-칸으로-분해한다">혼동행렬 — 예측을 네 칸으로 분해한다</a></li>
+  <li><a href="#roc-곡선-컷오프를-움직이며-성능을-본다" id="toc-roc-곡선-컷오프를-움직이며-성능을-본다" class="nav-link" data-scroll-target="#roc-곡선-컷오프를-움직이며-성능을-본다">ROC 곡선 — 컷오프를 움직이며 성능을 본다</a></li>
+  </ul></li>
+  <li><a href="#실데이터-분석-②-강건성-실연" id="toc-실데이터-분석-②-강건성-실연" class="nav-link" data-scroll-target="#실데이터-분석-②-강건성-실연">실데이터 분석 ② — 강건성 실연</a>
+  <ul class="collapse">
+  <li><a href="#예보가-빗나가는-조건을-먼저-찾아라" id="toc-예보가-빗나가는-조건을-먼저-찾아라" class="nav-link" data-scroll-target="#예보가-빗나가는-조건을-먼저-찾아라">예보가 빗나가는 조건을 먼저 찾아라</a></li>
+  <li><a href="#분석가의-번역-확률-예보를-리스크-메모로" id="toc-분석가의-번역-확률-예보를-리스크-메모로" class="nav-link" data-scroll-target="#분석가의-번역-확률-예보를-리스크-메모로">분석가의 번역 — 확률 예보를 리스크 메모로</a></li>
+  <li><a href="#완성-예시-리스크-경보-메모-전문" id="toc-완성-예시-리스크-경보-메모-전문" class="nav-link" data-scroll-target="#완성-예시-리스크-경보-메모-전문">완성 예시 — 리스크 경보 메모 전문</a></li>
+  </ul></li>
+  <li><a href="#r로-직접-해보기" id="toc-r로-직접-해보기" class="nav-link" data-scroll-target="#r로-직접-해보기">R로 직접 해보기</a></li>
+  <li><a href="#ai-협업-프로토콜-모형을-먼저-무너뜨려라" id="toc-ai-협업-프로토콜-모형을-먼저-무너뜨려라" class="nav-link" data-scroll-target="#ai-협업-프로토콜-모형을-먼저-무너뜨려라">AI 협업 프로토콜 — 모형을 먼저 무너뜨려라</a></li>
+  <li><a href="#정리-함정-다음-장" id="toc-정리-함정-다음-장" class="nav-link" data-scroll-target="#정리-함정-다음-장">정리, 함정, 다음 장</a></li>
+  <li><a href="#주차-pbl-나만의-적자-경보-모형을-만들어라" id="toc-주차-pbl-나만의-적자-경보-모형을-만들어라" class="nav-link" data-scroll-target="#주차-pbl-나만의-적자-경보-모형을-만들어라">주차 PBL — 나만의 적자 경보 모형을 만들어라</a></li>
+  <li><a href="#이-장의-자료" id="toc-이-장의-자료" class="nav-link" data-scroll-target="#이-장의-자료">이 장의 자료</a></li>
+  <li><a href="#연습문제" id="toc-연습문제" class="nav-link" data-scroll-target="#연습문제">연습문제</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="예보관의-확률-로지스틱-회귀와-분류-성능" class="level1">
+<h1>예보관의 확률 — 로지스틱 회귀와 분류 성능</h1>
+<blockquote class="blockquote">
+<p>“예측의 가치는 맞는 횟수가 아니라, 틀리는 조건을 아는 데 있다.” — 통계적 결정이론의 교훈</p>
+</blockquote>
+<section id="사례로-시작하기" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="사례로-시작하기">사례로 시작하기</h2>
+<p>KG Asset의 리스크관리팀에 새 과제가 주어졌다. 다음 반기 보고 전에 편입 검토 중인 기업들의 적자 전환 가능성을 사전에 점수화해 달라는 요청이었다. 팀장이 원하는 것은 “A 기업이 적자로 갈 것 같다”는 정성적 판단이 아니었다. “기상청이 내일 강수 확률을 70%로 수치화하듯, 각 기업의 적자 전환 확률을 숫자로 보여줘라.”</p>
+<p>신입 분석가 김자산은 10장에서 배운 선형회귀부터 들고 달려들었다. <code>lm()</code> 한 줄로 Loss_Dummy를 부채비율과 기업 규모로 설명하는 모형을 돌렸다. 그런데 결과 화면을 팀장에게 보여주는 순간 말문이 막혔다. 예측값 목록에 −0.03, 1.15 같은 숫자가 섞여 있었다. 팀장이 짧게 물었다. “강수 확률이 −3%인 예보가 있나?”</p>
+<p>선형회귀는 0과 1 사이에 출력을 가두는 장치가 없다. 회귀선은 양 끝으로 무한히 뻗어나가지만 확률은 반드시 0에서 1 사이여야 한다. 온도계로 비가 올 확률을 재는 것과 같다 — 도구 자체가 틀렸다.</p>
+<p>기상청은 이 문제를 S자 곡선으로 해결한다. 어떤 입력값 조합이 들어와도 출력을 0%와 100% 사이로 끌어당기는 함수다. 이 S자 곡선이 <strong>로지스틱 함수</strong>이고, 그것을 기반으로 한 모형이 <strong>로지스틱 회귀</strong>다. 로지스틱 회귀는 확률 자체를 직접 모형화하는 대신, 오즈의 로그(log-odds)를 선형으로 다루어 어떤 선형 조합값을 넣어도 반드시 0과 1 사이 확률이 출력되도록 설계되어 있다.</p>
+<p>그러나 팀장의 요구는 확률 숫자를 받아내는 것만이 아니었다. 두 번째 질문이 기다리고 있었다. “이 모형, 장마철 표본에만 맞춘 예보 아닌가요? 한파 때도 같은 방향으로 경보를 내는지 확인해줘요.” 특정 기간의 데이터로 만든 모형이 다른 기간에도 같은 방향의 결론을 내는가 — 이것이 강건성(robustness) 점검의 핵심이다. 예보 시스템이 7월에만 작동하고 1월에 무너진다면, 그것은 예보관의 역량이 아니라 7월 날씨를 외운 것에 불과하다.</p>
+<p>좋은 예보관이 7월 장마철 예보와 12월 한파 예보를 따로 검증하듯, 분석가는 모형이 어떤 기간에서, 어떤 변수 구성 아래서 버티는지를 스스로 먼저 시험한다. 그 시험을 통과한 결론만이 투자위원회 앞에 설 자격을 얻는다.</p>
+</section>
+<section id="핵심-키워드" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="핵심-키워드">핵심 키워드</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b4d0d3ec{}.cl-b4ca23b2{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b4ca23bc{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b4cd0078{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b4cd008c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b4cd14a0{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4cd14aa{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4cd14ab{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4cd14ac{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4cd14b4{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4cd14b5{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b4d0d3ec"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b4cd14a0"><p class="cl-b4cd0078"><span class="cl-b4ca23b2">#</span></p></th><th class="cl-b4cd14aa"><p class="cl-b4cd008c"><span class="cl-b4ca23b2">키워드</span></p></th><th class="cl-b4cd14aa"><p class="cl-b4cd008c"><span class="cl-b4ca23b2">한 줄 핵심</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">1</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">선형확률모형(LPM)의 한계</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">선형회귀로 0/1을 예측하면 확률 범위(0~1)를 벗어난 숫자가 나온다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">2</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">로지스틱 함수(시그모이드)</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">어떤 입력값도 0과 1 사이로 압축하는 S자 곡선 — 확률 예측의 수학적 기반</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">3</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">오즈(Odds)와 로그오즈(Log-Odds)</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">로지스틱은 확률 대신 오즈의 로그를 선형으로 모형화한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">4</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">로지스틱 계수의 해석 — 방향과 오즈비</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">계수는 확률 변화가 아니라 로그오즈의 변화 — 확률로 직독하면 틀린다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">5</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">혼동행렬과 분류 성능</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">예측이 맞은 경우를 유형별로 쪼개야 모형의 진짜 실력이 보인다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14ab"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">6</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">정확도의 함정 — 불균형 데이터</span></p></td><td class="cl-b4cd14ac"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">흑자 기업이 85%이면 '모두 흑자'로 찍어도 정확도 85% — 정확도는 함정이다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4cd14b4"><p class="cl-b4cd0078"><span class="cl-b4ca23bc">7</span></p></td><td class="cl-b4cd14b5"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">강건성 점검 — 표본 분할과 재추정</span></p></td><td class="cl-b4cd14b5"><p class="cl-b4cd008c"><span class="cl-b4ca23bc">전반기 표본으로 만든 모형이 후반기에도 같은 방향의 결론을 내는가</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="학습-목표" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="학습-목표">학습 목표</h2>
+<p>이 장을 마치면 다음 다섯 가지를 할 수 있다.</p>
+<ol type="1">
+<li>이진 종속변수에 선형회귀를 쓸 때 생기는 확률 범위 위반 문제를 설명하고, 로지스틱 함수가 이를 어떻게 해결하는지 직관적으로 설명할 수 있다.</li>
+<li>로지스틱 계수를 로그오즈의 변화로 읽고, 방향(양/음)과 오즈비를 해석하되 “계수 = 확률 변화”라는 오독을 피할 수 있다.</li>
+<li>혼동행렬에서 민감도·특이도를 계산하고, 정확도 단독 평가가 불균형 데이터에서 왜 위험한지 설명할 수 있다.</li>
+<li>AUC로 모형의 전반적 변별력을 평가하고 ROC 곡선을 해석할 수 있다.</li>
+<li>표본 분할 방식으로 강건성을 점검하고, 결론이 살아남는지를 계수 방향 비교 표로 보고할 수 있다.</li>
+</ol>
+</section>
+<section id="dikw-4단계-파이프라인" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>이 장에서의 모습</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>데이터 (D)</td>
+<td>기업-연도 패널 — Loss_Dummy(적자 여부 0/1), Size(로그 자산), 부채비율_Win, ATO</td>
+</tr>
+<tr class="even">
+<td>정보 (I)</td>
+<td>집단별 적자 비율 — “부채비율이 높은 기업의 적자 전환 비율이 더 높다”</td>
+</tr>
+<tr class="odd">
+<td>지식 (K)</td>
+<td>통제된 확률 예측 — “규모와 수익 창출력을 고정했을 때 부채비율이 적자 확률과 갖는 조건부 관계”</td>
+</tr>
+<tr class="even">
+<td>지혜 (W)</td>
+<td>포트폴리오 리스크 관리 — “예측 확률 상위 기업을 조기 경보 목록에 올릴 근거가 있는가, 이 모형은 어떤 조건에서 신호를 믿을 수 있는가”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="데이터-출처와-수집" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="데이터-출처와-수집">데이터 출처와 수집</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b4e13d86{}.cl-b4dbb582{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b4dbb596{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b4de2aba{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b4de38e8{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4de38f2{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b4de38f3{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b4e13d86"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b4de38e8"><p class="cl-b4de2aba"><span class="cl-b4dbb582">데이터</span></p></th><th class="cl-b4de38e8"><p class="cl-b4de2aba"><span class="cl-b4dbb582">출처</span></p></th><th class="cl-b4de38e8"><p class="cl-b4de2aba"><span class="cl-b4dbb582">핵심 변수</span></p></th><th class="cl-b4de38e8"><p class="cl-b4de2aba"><span class="cl-b4dbb582">이 장의 역할</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b4de38f2"><p class="cl-b4de2aba"><span class="cl-b4dbb596">재무제표 패널</span></p></td><td class="cl-b4de38f2"><p class="cl-b4de2aba"><span class="cl-b4dbb596">DataGuide 5.0 (KOSPI·KOSDAQ 상장기업)</span></p></td><td class="cl-b4de38f2"><p class="cl-b4de2aba"><span class="cl-b4dbb596">자산총계, 부채총계, 당기순이익, 매출액(천원)</span></p></td><td class="cl-b4de38f2"><p class="cl-b4de2aba"><span class="cl-b4dbb596">종속변수 Loss_Dummy와 설명변수의 원천</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b4de38f3"><p class="cl-b4de2aba"><span class="cl-b4dbb596">파생 변수</span></p></td><td class="cl-b4de38f3"><p class="cl-b4de2aba"><span class="cl-b4dbb596">3~5장에서 구축한 SSOT 파이프라인</span></p></td><td class="cl-b4de38f3"><p class="cl-b4de2aba"><span class="cl-b4dbb596">Loss_Dummy(적자 여부), Size(log 자산), 부채비율_Win, ATO</span></p></td><td class="cl-b4de38f3"><p class="cl-b4de2aba"><span class="cl-b4dbb596">정제된 분석 표본 — Winsorize 적용 완료</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>분석 표본은 3장에서 구축하고 4~5장에서 정제한 SSOT 데이터셋이다. 10장과 같은 데이터를 쓰는 이유는 앞 장과 같다 — 분석 단계마다 데이터가 바뀌면, 결과의 차이가 방법의 차이인지 데이터의 차이인지 구분할 수 없다.</p>
+</section>
+<section id="직선-확률의-균열-선형확률모형의-한계" class="level2">
+<h2 class="anchored" data-anchor-id="직선-확률의-균열-선형확률모형의-한계">직선 확률의 균열 — 선형확률모형의 한계</h2>
+<section id="직관-온도계로-비-확률을-재는-문제" class="level3">
+<h3 class="anchored" data-anchor-id="직관-온도계로-비-확률을-재는-문제">직관 — 온도계로 비 확률을 재는 문제</h3>
+<p>10장에서 배운 선형회귀는 연속형 종속변수를 위한 도구다. 종속변수가 0 또는 1만 취하는 이진형일 때 선형회귀를 그대로 쓰면 어떤 일이 생기는가?</p>
+<p>선형확률모형(LPM)의 수식은 다음과 같다.</p>
+<pre><code>P(Loss_i = 1) = β0 + β1·Size_i + β2·LevWin_i + β3·ATO_i + ε_i</code></pre>
+<p>문제는 오른쪽 항이 0과 1 사이에 있어야 한다는 보장이 전혀 없다는 점이다. 회귀선은 무한히 뻗어나가지만 확률은 0과 1 사이에 갇혀 있다. 규모가 매우 크거나 매우 작은 기업에서는 예측값이 음수이거나 1을 넘는 숫자가 등장한다. “내일 비 올 확률이 −12%”라는 예보는 정보가 아니라 오류다.</p>
+<p>두 번째 문제는 이분산이다. 이진 결과에서 오차의 분산은 예측확률 p에 따라 p(1−p)로 달라진다 — 확률이 0.5에 가까울 때 분산이 크고, 0이나 1에 가까울 때 작아진다. 이는 선형회귀의 등분산 가정을 구조적으로 위반한다. <strong>이진 결과를 선형으로 모형화하는 것은 온도계로 비 올 확률을 재는 것과 같다.</strong></p>
+</section>
+<section id="로지스틱-함수-s자-곡선이-담장을-세운다" class="level3">
+<h3 class="anchored" data-anchor-id="로지스틱-함수-s자-곡선이-담장을-세운다">로지스틱 함수 — S자 곡선이 담장을 세운다</h3>
+<p>해결책은 S자 곡선이다. 로지스틱 함수는 어떤 실수도 0과 1 사이로 압축한다.</p>
+<pre><code>P(Loss = 1 | X) = 1 / (1 + exp(−(β0 + β1·X1 + ... + βk·Xk)))</code></pre>
+<p>오즈(Odds)를 경유하면 수학이 선명해진다.</p>
+<pre><code>오즈 = P / (1 − P)
+log(오즈) = β0 + β1·X1 + ... + βk·Xk   ← 이것이 선형</code></pre>
+<p>로지스틱 회귀는 확률 자체가 아니라 <strong>오즈의 로그(로그오즈, log-odds)</strong>를 선형으로 모형화한다. 이 변환이 담장을 세운다 — 어떤 선형 결합값도 로지스틱 함수를 통과하면 반드시 0과 1 사이로 들어온다.</p>
+<p>계수 β1이 양(+)이면 X1이 증가할 때 로그오즈가 증가한다 — 즉 적자 확률이 높아지는 방향이다. <strong>방향은 직접 읽힌다.</strong> 그러나 “크기” — X1이 1단위 증가하면 확률이 얼마나 변하는가 — 는 현재의 확률 수준에 따라 달라지므로, 계수를 그대로 확률 변화로 읽을 수 없다. 이것이 이 장의 첫 번째 함정이다.</p>
+<p>오즈비(Odds Ratio) = exp(계수)는 계수의 크기를 해석하는 보조 도구다. 오즈비가 1이면 변화 없음, 1보다 크면 위험 증가, 1보다 작으면 위험 감소다. 평균 확률 수준에서의 기울기(한계효과)를 정밀하게 계산하는 것은 12장으로 넘기고, 이 장에서는 방향과 오즈비까지 다룬다.</p>
+</section>
+</section>
+<section id="실데이터-분석-①-적자-전환-확률-모형" class="level2">
+<h2 class="anchored" data-anchor-id="실데이터-분석-①-적자-전환-확률-모형">실데이터 분석 ① — 적자 전환 확률 모형</h2>
+<p>먼저 분석 표본을 만든다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① SSOT 데이터 적재</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ssot_raw <span class="ot">&lt;-</span> <span class="fu">read_book_csv</span>(ssot_path)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 분석 표본: 필요한 변수만 고르고 결측 제거</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>logit_df <span class="ot">&lt;-</span> ssot_raw <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    코드, 코드명, 회계연도,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    Loss_Dummy,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    Size,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    부채비율_Win,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    ATO</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>(Loss_Dummy, Size, 부채비율_Win, ATO)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 표본 요약 (inline R 준비)</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>n_obs     <span class="ot">&lt;-</span> <span class="fu">nrow</span>(logit_df)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>n_firms   <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(logit_df<span class="sc">$</span>코드)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>yr_min    <span class="ot">&lt;-</span> <span class="fu">min</span>(logit_df<span class="sc">$</span>회계연도)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>yr_max    <span class="ot">&lt;-</span> <span class="fu">max</span>(logit_df<span class="sc">$</span>회계연도)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>loss_rate <span class="ot">&lt;-</span> <span class="fu">mean</span>(logit_df<span class="sc">$</span>Loss_Dummy)</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> 10장의 데이터 적재와 구조가 같다 — <code>read_book_csv()</code>로 불러서 <code>transmute()</code>로 필요한 변수만 고르고, <code>drop_na()</code>로 결측 행을 제거한다. 여기서 <code>Loss_Dummy</code>는 4장에서 <code>당기순이익(천원) &lt; 0</code>으로 정의한 0/1 더미다. ③은 분석 전 표본의 구조를 미리 객체로 저장해 두는 단계 — 이후 본문 어디서든 10000 식으로 수치를 동적으로 참조하기 위해서다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b514e47e{}.cl-b50dc860{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b50dc87e{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b511075a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b511076e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5111af6{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5111b00{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5111b0a{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5111b0b{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5111b14{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5111b15{width:1.117in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b514e47e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b5111af6"><p class="cl-b511075a"><span class="cl-b50dc860">변수</span></p></th><th class="cl-b5111b00"><p class="cl-b511076e"><span class="cl-b50dc860">평균</span></p></th><th class="cl-b5111b00"><p class="cl-b511076e"><span class="cl-b50dc860">표준편차</span></p></th><th class="cl-b5111b00"><p class="cl-b511076e"><span class="cl-b50dc860">최소</span></p></th><th class="cl-b5111b00"><p class="cl-b511076e"><span class="cl-b50dc860">중앙값</span></p></th><th class="cl-b5111b00"><p class="cl-b511076e"><span class="cl-b50dc860">최대</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b5111b0a"><p class="cl-b511075a"><span class="cl-b50dc860">Loss_Dummy</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.145</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.353</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.000</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.000</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">1.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5111b0a"><p class="cl-b511075a"><span class="cl-b50dc860">Size</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">20.152</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">1.671</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">14.230</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">19.404</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">26.967</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5111b0a"><p class="cl-b511075a"><span class="cl-b50dc860">부채비율_Win</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.437</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.170</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.081</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.395</span></p></td><td class="cl-b5111b0b"><p class="cl-b511076e"><span class="cl-b50dc87e">0.906</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5111b14"><p class="cl-b511075a"><span class="cl-b50dc860">ATO</span></p></td><td class="cl-b5111b15"><p class="cl-b511076e"><span class="cl-b50dc87e">0.823</span></p></td><td class="cl-b5111b15"><p class="cl-b511076e"><span class="cl-b50dc87e">0.420</span></p></td><td class="cl-b5111b15"><p class="cl-b511076e"><span class="cl-b50dc87e">0.000</span></p></td><td class="cl-b5111b15"><p class="cl-b511076e"><span class="cl-b50dc87e">0.777</span></p></td><td class="cl-b5111b15"><p class="cl-b511076e"><span class="cl-b50dc87e">5.418</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>분석 표본은 2010년부터 2024년까지, 667개사의 기업-연도 관측치 10,000건이다. 이 가운데 적자(Loss_Dummy = 1)인 관측치의 비중은 14.5%다. 이 숫자가 분류 모형 설계에서 즉시 경보를 올려야 하는 이유는 이 장의 뒷부분에서 명확해진다.</p>
+<p>이제 LPM과 로지스틱을 나란히 추정한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① LPM — 선형회귀로 이진 결과를 예측 (범위 이탈 확인용)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>m_lpm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Loss_Dummy <span class="sc">~</span> Size <span class="sc">+</span> 부채비율_Win <span class="sc">+</span> ATO, <span class="at">data =</span> logit_df)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 로지스틱 — glm(family = binomial)이 S자 곡선을 적합</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>m_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Loss_Dummy <span class="sc">~</span> Size <span class="sc">+</span> 부채비율_Win <span class="sc">+</span> ATO,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> logit_df, <span class="at">family =</span> binomial)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ LPM 예측값 중 확률 범위 이탈 건수</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>lpm_pred      <span class="ot">&lt;-</span> <span class="fu">fitted</span>(m_lpm)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>n_out_of_range <span class="ot">&lt;-</span> <span class="fu">sum</span>(lpm_pred <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> lpm_pred <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>lpm_min       <span class="ot">&lt;-</span> <span class="fu">min</span>(lpm_pred)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>lpm_max       <span class="ot">&lt;-</span> <span class="fu">max</span>(lpm_pred)</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①은 <code>lm()</code> — 10장과 동일한 함수인데, 종속변수가 0/1이어서 문제가 생긴다. ②의 <code>glm()</code>이 일반화선형모형(Generalized Linear Model)이다. 차이는 단 하나, <code>family = binomial</code>이 붙는다. 이 옵션이 “이진 결과를 로지스틱으로 모형화하라”는 지시다 — R이 내부적으로 OLS 대신 최대우도추정(MLE)을 사용한다. ③은 LPM 예측값 중 0 미만이거나 1 초과인 건수를 센다 — LPM의 범위 이탈 문제를 숫자로 보여주는 절차다.</p>
+<p>LPM 예측값의 최솟값은 -0.7207, 최댓값은 0.7114다. 전체 관측치 중 11.3%(1,129건)가 확률 범위를 이탈한다. 온도계가 “비 올 확률 −12%”라고 보여주는 상황이 1,129번 발생하고 있다.</p>
+<p>두 모형의 계수를 나란히 정리한다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b536e9de{}.cl-b530fb3c{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b530fb50{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5338028{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b533803c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5338eec{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5338f00{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5338f01{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5338f0a{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5338f0b{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5338f0c{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b536e9de"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b5338eec"><p class="cl-b5338028"><span class="cl-b530fb3c">변수</span></p></th><th class="cl-b5338f00"><p class="cl-b533803c"><span class="cl-b530fb3c">LPM 계수</span></p></th><th class="cl-b5338f00"><p class="cl-b533803c"><span class="cl-b530fb3c">LPM p값</span></p></th><th class="cl-b5338f00"><p class="cl-b533803c"><span class="cl-b530fb3c">로지스틱 계수(log-odds)</span></p></th><th class="cl-b5338f00"><p class="cl-b533803c"><span class="cl-b530fb3c">로지스틱 p값</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b5338f01"><p class="cl-b5338028"><span class="cl-b530fb3c">Size</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">-0.0240</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">-0.2460</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5338f01"><p class="cl-b5338028"><span class="cl-b530fb3c">부채비율_Win</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">0.6813</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">5.4121</span></p></td><td class="cl-b5338f0a"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5338f0b"><p class="cl-b5338028"><span class="cl-b530fb3c">ATO</span></p></td><td class="cl-b5338f0c"><p class="cl-b533803c"><span class="cl-b530fb50">-0.2036</span></p></td><td class="cl-b5338f0c"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td><td class="cl-b5338f0c"><p class="cl-b533803c"><span class="cl-b530fb50">-2.4520</span></p></td><td class="cl-b5338f0c"><p class="cl-b533803c"><span class="cl-b530fb50">0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>이어서 로지스틱 계수만 오즈비와 함께 정리한다. 오즈비는 <code>exp(계수)</code> — 계수가 0이면 오즈비 1(변화 없음), 양수이면 1보다 커서 적자 위험 증가, 음수이면 1보다 작아 위험 감소다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b549adf8{}.cl-b5440eb6{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5440eca{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5468286{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5468290{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5469136{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5469140{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b546914a{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b546914b{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5469154{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b546915e{width:0.957in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b549adf8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b5469136"><p class="cl-b5468286"><span class="cl-b5440eb6">변수</span></p></th><th class="cl-b5469140"><p class="cl-b5468290"><span class="cl-b5440eb6">계수(log-odds)</span></p></th><th class="cl-b5469140"><p class="cl-b5468290"><span class="cl-b5440eb6">오즈비</span></p></th><th class="cl-b5469140"><p class="cl-b5468290"><span class="cl-b5440eb6">표준오차</span></p></th><th class="cl-b5469140"><p class="cl-b5468290"><span class="cl-b5440eb6">z값</span></p></th><th class="cl-b5469140"><p class="cl-b5468290"><span class="cl-b5440eb6">p값</span></p></th><th class="cl-b5469136"><p class="cl-b5468286"><span class="cl-b5440eb6">유의성</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b546914a"><p class="cl-b5468286"><span class="cl-b5440eb6">Size</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">-0.2460</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">0.7820</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">0.0202</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">-12.19</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">0</span></p></td><td class="cl-b546914a"><p class="cl-b5468286"><span class="cl-b5440eca">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b546914a"><p class="cl-b5468286"><span class="cl-b5440eb6">부채비율_Win</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">5.4121</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">224.1127</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">0.1954</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">27.70</span></p></td><td class="cl-b546914b"><p class="cl-b5468290"><span class="cl-b5440eca">0</span></p></td><td class="cl-b546914a"><p class="cl-b5468286"><span class="cl-b5440eca">***</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5469154"><p class="cl-b5468286"><span class="cl-b5440eb6">ATO</span></p></td><td class="cl-b546915e"><p class="cl-b5468290"><span class="cl-b5440eca">-2.4520</span></p></td><td class="cl-b546915e"><p class="cl-b5468290"><span class="cl-b5440eca">0.0861</span></p></td><td class="cl-b546915e"><p class="cl-b5468290"><span class="cl-b5440eca">0.1126</span></p></td><td class="cl-b546915e"><p class="cl-b5468290"><span class="cl-b5440eca">-21.78</span></p></td><td class="cl-b546915e"><p class="cl-b5468290"><span class="cl-b5440eca">0</span></p></td><td class="cl-b5469154"><p class="cl-b5468286"><span class="cl-b5440eca">***</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>계수를 읽는 법을 하나씩 짚는다. Size 계수가 음(−)이므로, 기업이 클수록 적자 오즈가 낮아진다 — 오즈비 0.7820은 Size 1단위 증가 시 적자 오즈가 원래의 0.7820배로 감소한다는 의미다. 부채비율_Win 계수가 양(+)이므로, 부채비율이 높을수록 적자 오즈가 증가한다 — 오즈비 224.1127. ATO 계수가 음(−)이므로, 자산회전율이 높을수록 적자 오즈가 낮아진다 — 오즈비 0.0861. 수익 창출력이 높은 기업이 손실을 피한다는 직관과 일치한다.</p>
+<p>계수 해석에서 반드시 멈춰야 할 자리가 있다. <strong>“부채비율_Win 계수 5.4121 = 부채비율 1단위 증가 시 적자 확률이 5.4121 증가”라는 문장은 틀렸다.</strong> 계수는 로그오즈의 변화이지 확률의 변화가 아니다. 확률이 0.1인 기업과 0.5인 기업에서 같은 변수가 1단위 변화할 때 확률 변화의 크기는 다르다 — S자 곡선의 기울기가 위치에 따라 다르기 때문이다.</p>
+<p>예측확률의 분포를 보면 모형의 행동이 직관적으로 잡힌다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 예측확률 계산 및 집단 레이블 부여</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> logit_df <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_prob =</span> <span class="fu">fitted</span>(m_logit),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    집단 <span class="ot">=</span> <span class="fu">ifelse</span>(Loss_Dummy <span class="sc">==</span> <span class="dv">1</span>L, <span class="st">"적자 (실제)"</span>, <span class="st">"흑자 (실제)"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 집단별 예측확률 밀도 플롯</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(pred_df, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> pred_prob, <span class="at">fill =</span> 집단, <span class="at">color =</span> 집단)) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_fill_manual</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"적자 (실제)"</span> <span class="ot">=</span> <span class="st">"#4472C4"</span>, <span class="st">"흑자 (실제)"</span> <span class="ot">=</span> <span class="st">"grey60"</span>)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">scale_color_manual</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"적자 (실제)"</span> <span class="ot">=</span> <span class="st">"#2E5FA3"</span>, <span class="st">"흑자 (실제)"</span> <span class="ot">=</span> <span class="st">"grey40"</span>)) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"예측 적자 확률"</span>, <span class="at">y =</span> <span class="st">"밀도"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_book</span>(<span class="dv">11</span>)</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_web_files/figure-html/ch11-pred-dist-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>그림 11.1 예측 적자 확률 분포 — 실제 흑자(회색)와 실제 적자(파랑) 집단 비교. 두 분포가 얼마나 분리되는가가 모형 변별력의 직관적 척도다</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>코드 읽기.</strong> ①에서 <code>fitted(m_logit)</code>은 각 관측치에 할당된 예측확률 벡터다. 로지스틱이므로 모든 값이 0과 1 사이에 있음이 보장된다 — LPM과의 차이가 여기서 가시적으로 드러난다. <code>ifelse()</code>로 실제 적자·흑자 레이블을 만든다. ②의 <code>geom_density(alpha=)</code>는 두 분포를 같은 축에 겹쳐 그린다. 두 봉우리가 잘 분리될수록 모형이 두 집단을 잘 구분한다는 뜻이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Checkpoint — 여기까지가 해석, 지금부터는 성능
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>여기까지 다룬 것: 로지스틱 함수의 구조, 계수의 방향(로그오즈 변화), 오즈비 해석, 예측확률 분포. <strong>계수 해석은 여기서 끝이다.</strong> 지금부터 다루는 것은 별도의 질문이다 — 이 모형이 실제로 기업을 흑자와 적자로 얼마나 잘 분류하는가(성능). 두 질문은 독립적이다. 계수가 유의해도 분류 성능이 낮을 수 있고, 반대도 성립한다.</p>
+</div>
+</div>
+</section>
+<section id="예보의-정확도-혼동행렬과-roc" class="level2">
+<h2 class="anchored" data-anchor-id="예보의-정확도-혼동행렬과-roc">예보의 정확도 — 혼동행렬과 ROC</h2>
+<section id="혼동행렬-예측을-네-칸으로-분해한다" class="level3">
+<h3 class="anchored" data-anchor-id="혼동행렬-예측을-네-칸으로-분해한다">혼동행렬 — 예측을 네 칸으로 분해한다</h3>
+<p>모형이 “확률 0.5 이상이면 적자 예측”이라는 기준으로 분류할 때, 예측값과 실제값을 교차하면 네 경우가 생긴다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 0.5 기준 이진 분류</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pred_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">fitted</span>(m_logit) <span class="sc">&gt;=</span> <span class="fl">0.5</span>, <span class="dv">1</span>L, <span class="dv">0</span>L)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 혼동행렬 (행: 예측, 열: 실제)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>cm <span class="ot">&lt;-</span> <span class="fu">table</span>(예측 <span class="ot">=</span> pred_class, 실제 <span class="ot">=</span> logit_df<span class="sc">$</span>Loss_Dummy)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 성능 지표 — 안전하게 이름으로 접근</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>get_cm <span class="ot">&lt;-</span> <span class="cf">function</span>(cm, r, c) {</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  rn <span class="ot">&lt;-</span> <span class="fu">as.character</span>(r); cn <span class="ot">&lt;-</span> <span class="fu">as.character</span>(c)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rn <span class="sc">%in%</span> <span class="fu">rownames</span>(cm) <span class="sc">&amp;&amp;</span> cn <span class="sc">%in%</span> <span class="fu">colnames</span>(cm)) cm[rn, cn] <span class="cf">else</span> <span class="dv">0</span>L</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>TP <span class="ot">&lt;-</span> <span class="fu">get_cm</span>(cm, <span class="dv">1</span>, <span class="dv">1</span>); FP <span class="ot">&lt;-</span> <span class="fu">get_cm</span>(cm, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>FN <span class="ot">&lt;-</span> <span class="fu">get_cm</span>(cm, <span class="dv">0</span>, <span class="dv">1</span>); TN <span class="ot">&lt;-</span> <span class="fu">get_cm</span>(cm, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>accuracy    <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN) <span class="sc">/</span> <span class="fu">sum</span>(cm)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="cf">if</span> ((TP <span class="sc">+</span> FN) <span class="sc">&gt;</span> <span class="dv">0</span>) TP <span class="sc">/</span> (TP <span class="sc">+</span> FN) <span class="cf">else</span> <span class="cn">NA_real_</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>specificity <span class="ot">&lt;-</span> <span class="cf">if</span> ((TN <span class="sc">+</span> FP) <span class="sc">&gt;</span> <span class="dv">0</span>) TN <span class="sc">/</span> (TN <span class="sc">+</span> FP) <span class="cf">else</span> <span class="cn">NA_real_</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>precision   <span class="ot">&lt;-</span> <span class="cf">if</span> ((TP <span class="sc">+</span> FP) <span class="sc">&gt;</span> <span class="dv">0</span>) TP <span class="sc">/</span> (TP <span class="sc">+</span> FP) <span class="cf">else</span> <span class="cn">NA_real_</span></span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①에서 <code>ifelse()</code>는 예측확률이 0.5 이상이면 1(적자 예측), 미만이면 0으로 바꾼다. 0.5라는 값은 임의의 출발점이지 유일한 답이 아니다 — 뒤에서 이 점을 ROC 곡선으로 다룬다. ②의 <code>table(예측, 실제)</code>가 혼동행렬을 만든다. ③은 그 네 칸에서 성능 지표를 계산한다 — <code>TP</code>(실제 적자를 적자로 맞춤), <code>TN</code>(실제 흑자를 흑자로 맞춤), <code>FP</code>(흑자인데 적자로 틀림), <code>FN</code>(적자인데 흑자로 틀림). 보조 함수 <code>get_cm()</code>은 특정 예측 결과가 하나도 없어 행·열이 없는 극단 경우를 안전하게 처리한다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b595f7d0{}.cl-b590442a{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5904434{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b592d5c8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b592d5dc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b592e4dc{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b592e4e6{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b592e4f0{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b592e4f1{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b592e4fa{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b592e4fb{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b595f7d0"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b592e4dc"><p class="cl-b592d5c8"><span class="cl-b590442a"> </span></p></th><th class="cl-b592e4e6"><p class="cl-b592d5dc"><span class="cl-b590442a">실제: 흑자(0)</span></p></th><th class="cl-b592e4e6"><p class="cl-b592d5dc"><span class="cl-b590442a">실제: 적자(1)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b592e4f0"><p class="cl-b592d5c8"><span class="cl-b590442a">예측: 흑자(0)</span></p></td><td class="cl-b592e4f1"><p class="cl-b592d5dc"><span class="cl-b5904434">8,375</span></p></td><td class="cl-b592e4f1"><p class="cl-b592d5dc"><span class="cl-b5904434">1,191</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b592e4fa"><p class="cl-b592d5c8"><span class="cl-b590442a">예측: 적자(1)</span></p></td><td class="cl-b592e4fb"><p class="cl-b592d5dc"><span class="cl-b5904434">171</span></p></td><td class="cl-b592e4fb"><p class="cl-b592d5dc"><span class="cl-b5904434">263</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b5a5ad92{}.cl-b59ffc80{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b59ffc94{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5a2726c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5a282ca{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5a282d4{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5a282d5{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b5a5ad92"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b5a282ca"><p class="cl-b5a2726c"><span class="cl-b59ffc80">지표</span></p></th><th class="cl-b5a282ca"><p class="cl-b5a2726c"><span class="cl-b59ffc80">계산식</span></p></th><th class="cl-b5a282ca"><p class="cl-b5a2726c"><span class="cl-b59ffc80">값</span></p></th><th class="cl-b5a282ca"><p class="cl-b5a2726c"><span class="cl-b59ffc80">의미</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc80">정확도(Accuracy)</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">(TP+TN)/전체</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">0.864</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">전체 중 맞춘 비율 — 불균형 데이터에서는 함정</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc80">민감도(Sensitivity)</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">TP/(TP+FN)</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">0.181</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">실제 적자 기업 중 적자로 잡아낸 비율 — 리스크 관리의 핵심</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc80">특이도(Specificity)</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">TN/(TN+FP)</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">0.980</span></p></td><td class="cl-b5a282d4"><p class="cl-b5a2726c"><span class="cl-b59ffc94">실제 흑자 기업 중 흑자로 맞춘 비율 — 오경보 억제</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5a282d5"><p class="cl-b5a2726c"><span class="cl-b59ffc80">정밀도(Precision)</span></p></td><td class="cl-b5a282d5"><p class="cl-b5a2726c"><span class="cl-b59ffc94">TP/(TP+FP)</span></p></td><td class="cl-b5a282d5"><p class="cl-b5a2726c"><span class="cl-b59ffc94">0.606</span></p></td><td class="cl-b5a282d5"><p class="cl-b5a2726c"><span class="cl-b59ffc94">적자 예측 중 실제 적자 비율 — 경보의 신뢰성</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>정확도 86.4%는 인상적으로 들릴 수 있다. 그러나 ’모두 흑자’로 찍는 무지성 모형의 정확도가 85.5%이므로, 이 모형이 기여한 정확도 향상은 0.9%p에 불과하다 — 정확도 단독 평가의 함정이다. 민감도 18.1%는 실제 적자 기업 중 절반도 잡지 못한다는 뜻이다 — 포트폴리오 리스크 관리 목적이라면 컷오프를 낮춰 민감도를 높이는 방향을 검토해야 한다. 포트폴리오 리스크 관리 맥락에서는 정확도보다 민감도가 더 중요한 경우가 많다 — 적자 기업을 흑자로 놓치는 비용(FN)이 흑자 기업을 오경보하는 비용(FP)보다 훨씬 크기 때문이다.</p>
+</section>
+<section id="roc-곡선-컷오프를-움직이며-성능을-본다" class="level3">
+<h3 class="anchored" data-anchor-id="roc-곡선-컷오프를-움직이며-성능을-본다">ROC 곡선 — 컷오프를 움직이며 성능을 본다</h3>
+<p>0.5라는 컷오프는 임의의 선택이다. 컷오프를 0에서 1까지 이동시키면서 민감도와 오경보율(1−특이도)의 쌍을 그리면 ROC 곡선이 된다. AUC(Area Under the Curve)는 그 면적이다 — 랜덤 모형은 0.5(대각선), 완벽한 모형은 1이다. 다만 이 장의 분류 성능은 모형을 적합한 것과 같은 표본(적합값) 위에서 계산한 값이다 — 표본외 일반화 성능은 별도의 검증(예: 연도 기준 분할)이 필요하다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① ROC 객체 생성 (pROC)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> pROC<span class="sc">::</span><span class="fu">roc</span>(logit_df<span class="sc">$</span>Loss_Dummy, <span class="fu">fitted</span>(m_logit),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">direction =</span> <span class="st">"&lt;"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>auc_val <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(pROC<span class="sc">::</span><span class="fu">auc</span>(roc_obj))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ② ggplot2용 ROC 데이터프레임</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>roc_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">fpr =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">rev</span>(roc_obj<span class="sc">$</span>specificities),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">tpr =</span> <span class="fu">rev</span>(roc_obj<span class="sc">$</span>sensitivities)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 시각화</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(roc_df, ggplot2<span class="sc">::</span><span class="fu">aes</span>(fpr, tpr)) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                       <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"grey50"</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#4472C4"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.72</span>, <span class="at">y =</span> <span class="fl">0.28</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"AUC = "</span>, <span class="fu">f3</span>(auc_val)),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">"#4472C4"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"오경보율 (1 − 특이도)"</span>, <span class="at">y =</span> <span class="st">"민감도"</span>) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_book</span>(<span class="dv">11</span>)</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="11_web_files/figure-html/ch11-roc-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>그림 11.2 ROC 곡선 — 파선은 랜덤 모형(AUC=0.5) 기준선. 실선이 이 모형의 성능이며, 기준선 위로 얼마나 솟아 있는가가 변별력의 척도다</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>코드 읽기.</strong> ①에서 <code>pROC::roc(실제값, 예측확률)</code>이 ROC 분석을 수행한다. <code>levels = c(0,1)</code>, <code>direction = "&lt;"</code>은 “낮은 값이 음성(흑자), 높은 값이 양성(적자)”임을 명시하는 옵션이다. ②에서 <code>specificities</code>와 <code>sensitivities</code> 벡터를 x·y 좌표로 변환한다 — <code>1 − specificity</code>가 오경보율이다. <code>rev()</code>가 순서를 뒤집어 x축이 0→1로 단조 증가하게 한다. ③에서 <code>geom_abline(slope=1, intercept=0)</code>이 랜덤 모형의 기준선(대각선)이다.</p>
+<p>AUC 0.780는 ‘수용 가능’ 범위(0.70~0.80)에 있다 — 완벽하지 않으나 랜덤보다 구별력이 있다. ROC 곡선의 실용적 의미는 <strong>컷오프를 자유롭게 선택할 수 있다</strong>는 점이다. 리스크 관리 목적이라면 민감도를 높이는 낮은 컷오프를, 오경보 비용이 큰 상황이라면 특이도를 높이는 높은 컷오프를 쓸 수 있다. 0.5는 출발점이지 유일한 답이 아니다.</p>
+</section>
+</section>
+<section id="실데이터-분석-②-강건성-실연" class="level2">
+<h2 class="anchored" data-anchor-id="실데이터-분석-②-강건성-실연">실데이터 분석 ② — 강건성 실연</h2>
+<section id="예보가-빗나가는-조건을-먼저-찾아라" class="level3">
+<h3 class="anchored" data-anchor-id="예보가-빗나가는-조건을-먼저-찾아라">예보가 빗나가는 조건을 먼저 찾아라</h3>
+<p>일기예보 모형이 7월에는 정확하지만 1월에는 빗나갈 수 있다. 분석 모형도 마찬가지다. 특정 시기의 표본으로 만든 모형이 다른 시기에도 작동하는가가 <strong>강건성(robustness)</strong>의 핵심 질문이다.</p>
+<p>연도를 전반기와 후반기로 나눠 각각 재추정한다. 계수의 방향이 세 표본에서 일관되면 “방향의 강건성”이 있다고 볼 수 있다. 크게 달라지면 결론은 특정 기간의 산물일 가능성을 경보로 올려야 한다.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 연도 중간값으로 전반기/후반기 분할</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yr_med   <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">median</span>(<span class="fu">unique</span>(logit_df<span class="sc">$</span>회계연도))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df_early <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(logit_df, 회계연도 <span class="sc">&lt;=</span> yr_med)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>df_late  <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(logit_df, 회계연도 <span class="sc">&gt;</span>  yr_med)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 두 하위 표본에서 동일 모형 재추정</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>m_early <span class="ot">&lt;-</span> <span class="fu">glm</span>(Loss_Dummy <span class="sc">~</span> Size <span class="sc">+</span> 부채비율_Win <span class="sc">+</span> ATO,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> df_early, <span class="at">family =</span> binomial)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>m_late  <span class="ot">&lt;-</span> <span class="fu">glm</span>(Loss_Dummy <span class="sc">~</span> Size <span class="sc">+</span> 부채비율_Win <span class="sc">+</span> ATO,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> df_late,  <span class="at">family =</span> binomial)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 세 모형 계수를 하나의 표로 수집</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>extract_rob <span class="ot">&lt;-</span> <span class="cf">function</span>(m, label) {</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(m) <span class="sc">|&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      표본 <span class="ot">=</span> label,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      변수 <span class="ot">=</span> term,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>      계수  <span class="ot">=</span> <span class="fu">round</span>(estimate, <span class="dv">4</span>),</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>      오즈비 <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">exp</span>(estimate), <span class="dv">4</span>),</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      p값   <span class="ot">=</span> <span class="fu">round</span>(p.value, <span class="dv">4</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>rob_tbl <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_rob</span>(m_logit, <span class="fu">paste0</span>(<span class="st">"전체 ("</span>, yr_min, <span class="st">"–"</span>, yr_max, <span class="st">")"</span>)),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_rob</span>(m_early, <span class="fu">paste0</span>(<span class="st">"전반기 (≤"</span>, yr_med, <span class="st">")"</span>)),</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_rob</span>(m_late,  <span class="fu">paste0</span>(<span class="st">"후반기 (&gt;"</span>, yr_med, <span class="st">")"</span>))</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①에서 <code>median(unique(회계연도))</code>는 <em>고유한 연도</em>의 중앙값을 분기점으로 삼는다 — 관측치 수가 많은 연도가 중앙을 당기지 않도록 먼저 <code>unique()</code>로 연도 목록을 만든다. ②는 같은 <code>glm()</code> 식을 두 부분 표본에 반복 적용한다. ③의 <code>extract_rob()</code> 함수는 <code>broom::tidy()</code>로 계수를 정돈하고 오즈비를 추가하는 작업을 세 번 반복하기 위해 추상화한 것이다 — 같은 절차를 세 번 복사·붙여넣기 하지 않고 함수로 만드는 것이 R다운 방식이다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b5f38ecc{}.cl-b5ecce84{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5ecce98{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b5f02a7a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5f02a8e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b5f03a38{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5f03a42{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5f03a43{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5f03a4c{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5f03a4d{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b5f03a4e{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b5f38ecc"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b5f03a38"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">표본</span></p></th><th class="cl-b5f03a38"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">변수</span></p></th><th class="cl-b5f03a42"><p class="cl-b5f02a8e"><span class="cl-b5ecce84">계수</span></p></th><th class="cl-b5f03a42"><p class="cl-b5f02a8e"><span class="cl-b5ecce84">오즈비</span></p></th><th class="cl-b5f03a42"><p class="cl-b5f02a8e"><span class="cl-b5ecce84">p값</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전체 (2010–2024)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">Size</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-0.2460</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.7820</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전체 (2010–2024)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">부채비율_Win</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">5.4121</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">224.1127</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전체 (2010–2024)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">ATO</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-2.4520</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.0861</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전반기 (≤2017)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">Size</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-0.2470</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.7812</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전반기 (≤2017)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">부채비율_Win</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">7.2746</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">1,443.2213</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">전반기 (≤2017)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">ATO</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-1.3909</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.2489</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">후반기 (&gt;2017)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">Size</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-0.2961</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.7437</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">후반기 (&gt;2017)</span></p></td><td class="cl-b5f03a43"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">부채비율_Win</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">4.3526</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">77.6769</span></p></td><td class="cl-b5f03a4c"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b5f03a4d"><p class="cl-b5f02a7a"><span class="cl-b5ecce84">후반기 (&gt;2017)</span></p></td><td class="cl-b5f03a4d"><p class="cl-b5f02a7a"><span class="cl-b5ecce98">ATO</span></p></td><td class="cl-b5f03a4e"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">-2.8792</span></p></td><td class="cl-b5f03a4e"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0.0562</span></p></td><td class="cl-b5f03a4e"><p class="cl-b5f02a8e"><span class="cl-b5ecce98">0</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p><strong>[주의] 클러스터 수 점검.</strong> 이 강건성 점검의 분류 단위는 기업(<code>코드</code> 기준 667개사)이며, 전반기·후반기로 분할한 후 각 하위 표본에서 기업 수가 수십 개 미만으로 줄어들면 점근 이론 기반 표준오차가 불안정해질 수 있다 — 10장 클러스터 SE 점검과 동일한 원칙으로, 하위 표본 클러스터 수를 확인하고 소표본에서는 소표본 교정(CR2, wild cluster bootstrap)을 추가로 검토한다.</p>
+<p>Size와 부채비율_Win의 계수 방향이 전체·전반기·후반기 모두에서 일치한다 — 방향의 강건성은 확보되었다. 다만 계수 크기의 기간 간 차이가 크다면, 두 기간 시장 구조 변화의 가능성을 한계로 명시해야 한다. 전반기 5,336건(적자비율 10.7%)과 후반기 4,664건(적자비율 18.9%)의 적자 빈도 차이도 계수에 영향을 줄 수 있다 — 이것이 연도 고정효과가 없는 로지스틱의 한계이며, 12장 인과추론으로 이어지는 질문이다.</p>
+</section>
+<section id="분석가의-번역-확률-예보를-리스크-메모로" class="level3">
+<h3 class="anchored" data-anchor-id="분석가의-번역-확률-예보를-리스크-메모로">분석가의 번역 — 확률 예보를 리스크 메모로</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b60a8028{}.cl-b603fa6e{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b603fa78{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b6067cda{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b6068b58{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b6068b62{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b6068b6c{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b60a8028"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b6068b58"><p class="cl-b6067cda"><span class="cl-b603fa6e">숫자</span></p></th><th class="cl-b6068b58"><p class="cl-b6067cda"><span class="cl-b603fa6e">통계적 해석</span></p></th><th class="cl-b6068b58"><p class="cl-b6067cda"><span class="cl-b603fa6e">실무 번역</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">적자 비율 14.5%</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">표본 불균형 — 정확도 단독 평가 부적합</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">'모두 흑자' 찍기도 85.5% 맞는 환경 — 민감도 중심 평가 필수</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">AUC 0.780</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">랜덤 대비 전체 컷오프 범위의 변별력</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">유의미한 분리 — 1차 조기 경보 필터로 활용 가능</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">민감도 18.1%</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">실제 적자 중 경보 비율</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">적자 기업 절반도 못 잡음 — 컷오프 하향 조정 권고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">특이도 98.0%</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">실제 흑자 중 안전 확인 비율</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">오경보 낮음 — 불필요한 포지션 청산 최소화</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">Size 오즈비 0.7820</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">Size 1단위 증가 시 적자 오즈 × 0.7820</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">대형 기업일수록 적자 리스크 낮음 — 규모 필터 근거</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa6e">부채비율 오즈비 224.1127</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">부채비율_Win 1단위 증가 시 적자 오즈 × 224.1127</span></p></td><td class="cl-b6068b62"><p class="cl-b6067cda"><span class="cl-b603fa78">고부채 기업 조기 경보 근거 — 부채비율 임계값 설정 가능</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6068b6c"><p class="cl-b6067cda"><span class="cl-b603fa6e">강건성 결과</span></p></td><td class="cl-b6068b6c"><p class="cl-b6067cda"><span class="cl-b603fa78">전·후반기 방향 일치</span></p></td><td class="cl-b6068b6c"><p class="cl-b6067cda"><span class="cl-b603fa78">기간별 결론 일치 — 기간 특이성 낮음</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="완성-예시-리스크-경보-메모-전문" class="level3">
+<h3 class="anchored" data-anchor-id="완성-예시-리스크-경보-메모-전문">완성 예시 — 리스크 경보 메모 전문</h3>
+<blockquote class="blockquote">
+<p><strong>KG Asset 내부 리스크 경보 메모</strong></p>
+<p><strong>제목.</strong> 적자 전환 조기 경보 모형 — 로지스틱 회귀 v1.0</p>
+<p><strong>결론.</strong> 세 변수(Size, 부채비율_Win, ATO)를 사용한 로지스틱 모형은 AUC 0.780로 랜덤보다 유의미한 변별력을 보인다 — 조기 경보 1차 필터로 활용 가능하나, 단독 최종 판단 도구로 쓰기에는 추가 검증이 필요하다.</p>
+<p><strong>모형 구조.</strong> Loss_Dummy를 Size, 부채비율_Win, ATO로 로지스틱 회귀 적합. 표본: 2010–2024년, 667개사, 10,000건. 적자 비율 14.5%.</p>
+<p><strong>성능.</strong> AUC 0.780. 0.5 컷오프 기준 민감도 18.1%, 특이도 98.0%. 적자 비율 14.5%이므로 정확도 단독 평가는 부적합 — 민감도와 AUC 중심으로 판단한다.</p>
+<p><strong>계수 해석.</strong> 부채비율_Win 계수가 양(+)이므로, 부채비율이 높을수록 적자 오즈가 증가한다 — 오즈비 224.1127. Size 계수가 음(−)이므로, 기업이 클수록 적자 오즈가 낮아진다 — 오즈비 0.7820은 Size 1단위 증가 시 적자 오즈가 원래의 0.7820배로 감소한다는 의미다. ATO 계수가 음(−)이므로, 자산회전율이 높을수록 적자 오즈가 낮아진다 — 오즈비 0.0861. 수익 창출력이 높은 기업이 손실을 피한다는 직관과 일치한다. 계수는 로그오즈의 변화이므로 확률로 직독하지 않는다.</p>
+<p><strong>강건성.</strong> 전반기(≤2017)와 후반기(&gt;2017) 분할 재추정에서 주요 변수의 계수 방향이 유지되어, 기간 특이성이 낮다고 판단한다.</p>
+<p><strong>한계와 권고.</strong> 본 모형은 재무구조 세 변수만으로 적자를 예측하며, 지배구조·일회성 손실 등은 통제하지 못한다. 추가 검증으로 ① 연도 고정효과 포함 모형 ② Female_Ratio·is_esg_rated 추가(변수 추가 강건성) ③ 컷오프 민감도 분석을 권고한다.</p>
+</blockquote>
+</section>
+</section>
+<section id="r로-직접-해보기" class="level2">
+<h2 class="anchored" data-anchor-id="r로-직접-해보기">R로 직접 해보기</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>IPO</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Input</td>
+<td><code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~5장 산출 SSOT)</td>
+</tr>
+<tr class="even">
+<td>Process</td>
+<td>LPM 범위 이탈 확인 → 로지스틱 적합(<code>glm</code>) → 오즈비 표 → 혼동행렬 → ROC/AUC → 강건성(전반기/후반기 분할) → 리스크 경보 메모</td>
+</tr>
+<tr class="odd">
+<td>Output</td>
+<td><code>Output/ch11_logit_coefficients.csv</code>, <code>Output/ch11_classification_perf.csv</code>, <code>Output/ch11_robustness.csv</code></td>
+</tr>
+<tr class="even">
+<td>Report</td>
+<td>리스크 경보 메모 1쪽 (본문 「완성 예시」 형식)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b61b682a{}.cl-b614a6e8{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b614a6fc{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b6180482{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b61813be{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b61813c8{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b61813d2{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b61b682a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b61813be"><p class="cl-b6180482"><span class="cl-b614a6e8">난이도</span></p></th><th class="cl-b61813be"><p class="cl-b6180482"><span class="cl-b614a6e8">분석 아이디어</span></p></th><th class="cl-b61813be"><p class="cl-b6180482"><span class="cl-b614a6e8">확인 포인트</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6e8">초심자</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">컷오프를 0.3과 0.7로 바꿔 혼동행렬을 다시 만들고, 민감도·특이도의 변화를 표로 정리한다</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">컷오프가 낮아질 때 민감도·특이도 중 무엇이 더 빠르게 변하는가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6e8">초심자</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">Female_Ratio를 추가 변수로 넣고 Size·부채비율_Win·ATO의 계수가 어떻게 움직이는지 관찰한다</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">추가 변수의 계수 방향과 기존 계수의 이동 폭 — 좋은 통제인가 교란인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6e8">초심자</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">ATO 대신 ROA를 넣어 두 모형의 AUC를 비교하고 어느 변수가 적자 예측에 더 유용한지 판단한다</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">AUC 차이의 경제적 의미 — 어느 변수가 실무적으로 더 유용한 경보 신호인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6e8">고급자</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">연도를 한 해씩 제외하는 leave-one-year-out 강건성 점검을 설계하고 부채비율_Win 계수의 분포를 그린다</span></p></td><td class="cl-b61813c8"><p class="cl-b6180482"><span class="cl-b614a6fc">어떤 연도를 제외할 때 계수가 가장 크게 흔들리는가 — 그 연도의 맥락은</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b61813d2"><p class="cl-b6180482"><span class="cl-b614a6e8">고급자</span></p></td><td class="cl-b61813d2"><p class="cl-b6180482"><span class="cl-b614a6fc">is_esg_rated 추가 모형과 기본 모형의 AUC를 비교해 ESG 평가 여부의 예측력 기여분을 추산한다</span></p></td><td class="cl-b61813d2"><p class="cl-b6180482"><span class="cl-b614a6fc">표본 변화의 효과(ESG 기업만 남음)와 변수 자체의 기여를 분리하는 방법</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="ai-협업-프로토콜-모형을-먼저-무너뜨려라" class="level2">
+<h2 class="anchored" data-anchor-id="ai-협업-프로토콜-모형을-먼저-무너뜨려라">AI 협업 프로토콜 — 모형을 먼저 무너뜨려라</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b629857c{}.cl-b622ee56{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b622ee60{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b62651ea{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b626637e{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b6266388{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b6266389{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b629857c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b626637e"><p class="cl-b62651ea"><span class="cl-b622ee56">수준</span></p></th><th class="cl-b626637e"><p class="cl-b62651ea"><span class="cl-b622ee56">이 장의 행동</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee56">L1 (인식)</span></p></td><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee60">AI에게 'glm() 결과를 해석해줘'라고 결과표를 통째로 넘긴다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee56">L2 (적용)</span></p></td><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee60">변수 정의와 표본 구조를 제공하고 '오즈비 해석이 맞는지 확인해달라'고 요청한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee56">L3 (분석)</span></p></td><td class="cl-b6266388"><p class="cl-b62651ea"><span class="cl-b622ee60">AI에게 '이 모형이 틀릴 수 있는 조건 3가지를 제시하고 각각을 어떻게 데이터로 점검할지 알려달라'고 한 뒤, 직접 강건성 코드를 짜서 확인한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b6266389"><p class="cl-b62651ea"><span class="cl-b622ee56">L4 (창의)</span></p></td><td class="cl-b6266389"><p class="cl-b62651ea"><span class="cl-b622ee60">AI와 함께 표본 분할·변수 추가·대체 종속변수의 강건성 체계를 설계하고, 세 방향 모두에서 살아남은 계수 방향만 메모에 싣는다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 1 — 분석 전: 함정 사전 탐색]</strong> “Loss_Dummy를 Size, 부채비율_Win, ATO로 로지스틱 회귀할 때 예상되는 함정 세 가지를 제시하고, 각각을 어떻게 점검하면 되는지 알려줘. 단, 인과관계 표현은 쓰지 마.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 2 — 분석 후: 강건성 시나리오 추가 요청]</strong> “전반기/후반기 분할 외에 이 모형의 강건성을 점검하는 방법 두 가지를 추가로 제안하고, 각각의 R 코드 개요를 알려줘. 이미 계획한 분석: 연도 분할.” AI가 제안한 방법 중 SSOT 데이터로 실행 가능한 것은 <strong>직접 코드를 짜서 확인하고</strong>, 불가능한 것은 메모의 한계 절에 기록한다.</p>
+</blockquote>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>AI에게 맡겨도 되는 일</th>
+<th>사람이 반드시 판단해야 하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>glm 코드 오류 진단</td>
+<td>어떤 변수를 넣을지 — 좋은 통제 vs 나쁜 통제</td>
+</tr>
+<tr class="even">
+<td>오즈비 계산 확인</td>
+<td>계수를 확률로 직독했는지 자가 점검</td>
+</tr>
+<tr class="odd">
+<td>ROC/AUC 해석 초안</td>
+<td>컷오프 결정 — 맥락의 리스크 비용 구조에 따라 다름</td>
+</tr>
+<tr class="even">
+<td>강건성 시나리오 아이디어</td>
+<td>어떤 강건성 실패가 결론을 무너뜨리는지의 판단</td>
+</tr>
+<tr class="odd">
+<td>보고서 문장화 초안</td>
+<td>모형 한계의 정직한 공개와 그 범위</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="정리-함정-다음-장" class="level2">
+<h2 class="anchored" data-anchor-id="정리-함정-다음-장">정리, 함정, 다음 장</h2>
+<p>예보 시스템이 완성됐다. 이 장의 판결을 한 문장으로 줄이면 이렇다. <strong>로지스틱 회귀는 이진 결과를 확률로 번역하는 도구이고, 그 번역의 신뢰도를 검증하는 것이 강건성 점검이다.</strong> 좋은 예보관이 자신의 모형이 틀리는 조건을 아는 것처럼, 좋은 분석가는 계수가 뒤집히는 조건을 먼저 스스로 찾아야 한다.</p>
+<p>이 장에서 10장의 진단 정신을 계승한다 — 10장이 회귀계수의 신뢰성을 잔차 진단과 강건 표준오차로 검증했다면, 이 장은 이진 결과 예측의 신뢰성을 분류 성능과 표본 분할 강건성으로 검증한다. 두 장을 이어 읽으면 분석 결과를 검증하는 사고의 공통 뼈대가 보인다.</p>
+<p>많은 분석가들이 빠지는 함정 세 가지를 기억하라.</p>
+<ol type="1">
+<li><strong>계수를 확률 변화로 직독한다.</strong> 로지스틱 계수는 로그오즈의 변화다. 방향만 직접 읽고, 크기는 오즈비나 특정 수준의 예측확률 비교로 보완한다.</li>
+<li><strong>불균형 데이터에서 정확도를 자랑한다.</strong> 흑자 기업이 많은 표본에서 “모두 흑자”로 찍으면 높은 정확도가 나온다. 분류 성능은 민감도·특이도·AUC를 함께 봐야 하며, 맥락에 따라 어떤 지표를 우선할지를 결정해야 한다.</li>
+<li><strong>강건성 점검 없는 단일 모형을 보고한다.</strong> 결론이 살아남는 조건과 무너지는 조건을 모두 보고하는 것이 정직한 분석이다. 강건성 실패는 숨길 부끄러움이 아니라 보고해야 할 정보다.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b63d035e{}.cl-b6375832{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b6375846{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b639e688{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b639f5b0{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b639f5ba{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b639f5c4{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b63d035e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b639f5b0"><p class="cl-b639e688"><span class="cl-b6375832">점검 항목</span></p></th><th class="cl-b639f5b0"><p class="cl-b639e688"><span class="cl-b6375832">통과 기준</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375832">LPM 예측값에 범위 이탈(0 미만·1 초과)이 있는지 확인하고 건수를 보고했는가</span></p></td><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375846">LPM 범위 이탈 건수 명시 (0건이어도 명시)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375832">로지스틱 계수를 방향으로만 읽고 확률 변화로 직독하지 않았는가</span></p></td><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375846">표 11.5 형식 — 오즈비 병기, '확률 변화' 표현 없음</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375832">혼동행렬에서 민감도·특이도를 정확도와 함께 보고했는가</span></p></td><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375846">표 11.6·11.7 형식 보고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375832">표본 내 적자 비율을 확인하고 베이스라인 정확도를 명시했는가</span></p></td><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375846">베이스라인 정확도(1−적자비율) 명시</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375832">AUC로 전체 컷오프 범위의 변별력을 확인했는가</span></p></td><td class="cl-b639f5ba"><p class="cl-b639e688"><span class="cl-b6375846">그림 11.2 형식 및 AUC 수치 보고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b639f5c4"><p class="cl-b639e688"><span class="cl-b6375832">표본 분할 또는 변수 추가로 강건성을 한 가지 이상 점검했는가</span></p></td><td class="cl-b639f5c4"><p class="cl-b639e688"><span class="cl-b6375846">표 11.8 형식으로 전체·하위표본 계수 방향 비교</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-b64c0a02{}.cl-b646194e{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b6461958{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b648ddb4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-b648eec6{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b648eeda{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b648eedb{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b64c0a02"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b648eec6"><p class="cl-b648ddb4"><span class="cl-b646194e">분야</span></p></th><th class="cl-b648eec6"><p class="cl-b648ddb4"><span class="cl-b646194e">같은 구조의 질문</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b646194e">신용 리스크</span></p></td><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b6461958">대출 신청자의 부도 여부를 재무비율로 예측 — 정확도보다 부도 탐지율(민감도)이 핵심이다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b646194e">의료 스크리닝</span></p></td><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b6461958">환자의 질병 여부를 검사 수치로 예측 — 오진(FN)과 과잉진단(FP)의 비용이 다를 때 컷오프는 의학적 판단이다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b646194e">인사 분석</span></p></td><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b6461958">직원의 조기 이직 여부를 입사 데이터로 예측 — 예측 모형이 특정 채용 풀에 과적합되지 않았는지 강건성이 핵심이다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b646194e">공공 정책</span></p></td><td class="cl-b648eeda"><p class="cl-b648ddb4"><span class="cl-b6461958">보조금 수혜 기업의 생존 실패 여부 예측 — 불균형(생존 기업 다수)과 선택편의(건실한 기업 우선 선정)가 동시에 작동한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b648eedb"><p class="cl-b648ddb4"><span class="cl-b646194e">마케팅</span></p></td><td class="cl-b648eedb"><p class="cl-b648ddb4"><span class="cl-b6461958">고객의 이탈 여부를 사용 패턴으로 예측 — 이탈률이 낮으면 정확도 함정이 심각해지고, 고가값 고객은 표본이 작아 강건성이 흔들린다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>이 장의 산출물(계수 표 <code>ch11_logit_coefficients.csv</code>, 분류 성능 표 <code>ch11_classification_perf.csv</code>, 강건성 비교 표 <code>ch11_robustness.csv</code>)은 13장 최종 보고서의 “리스크 절(Risk Section)”에 그대로 들어가는 부품이다. 그리고 “모형이 무너지는 조건” — 강건성이 확보되지 않는 하위표본이나 기간 — 은 “왜 이 기간에만?”이라는 새로운 연구 질문을 연다. 다음 장(12장)에서는 “관계가 있다”에서 “원인이 있다”로 넘어가는 문턱, 그리고 그 문턱을 넘기 위한 조건(반사실 사고, 시차 변수, 자연실험의 직관)을 다룬다. 김자산의 다음 임무는 “부채비율이 높아서 적자가 나는가, 적자가 날 것 같은 기업이 부채비율이 높아지는가”를 구분하는 일이다.</p>
+</section>
+<section id="주차-pbl-나만의-적자-경보-모형을-만들어라" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="주차-pbl-나만의-적자-경보-모형을-만들어라">주차 PBL — 나만의 적자 경보 모형을 만들어라</h2>
+<p>이 장의 기술을 새로운 설계로 적용하는 것이 이번 주의 PBL이다. 본문에서는 Size·부채비율_Win·ATO로 Loss_Dummy를 예측했다 — PBL에서는 <strong>변수 선택과 강건성 설계를 직접 결정</strong>한다.</p>
+<blockquote class="blockquote">
+<p><strong>Context.</strong> 포트폴리오 리스크 위원회에서 질문이 들어왔다. “현재 모형에 여성 고용 비율(Female_Ratio)을 추가하면 조기 경보 성능이 개선되는가? 단순히 AUC가 오르는지 확인하는 것이 아니다 — 그 변수가 예측에 기여하는 <em>이유</em>가 재무적으로 설득력이 있는가를 함께 보고하라.” 변수 추가는 표본 변화(결측 제거)와 변수 자체의 기여를 분리해야 제대로 된 비교다. 이 분리 방법을 설계하는 것이 이번 PBL의 핵심 과제다.</p>
+</blockquote>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>미션</th>
+<th>핵심</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level 1 (필수)</td>
+<td>본문 모형 재현 + 성능 표 작성</td>
+<td>Loss_Dummy ~ Size + 부채비율_Win + ATO, AUC·민감도·특이도 보고</td>
+</tr>
+<tr class="even">
+<td>Level 2 (심화)</td>
+<td>Female_Ratio 추가 모형 비교</td>
+<td>AUC 변화 + 계수 방향 + 표본 변화 여부 기록</td>
+</tr>
+<tr class="odd">
+<td>Level 3 (확장)</td>
+<td>강건성 1종 직접 설계·실행</td>
+<td>전반기/후반기 외의 방식 1개(상장상태 분할·변수 제외·연도 1개 제외 등) + 설계 이유 명시</td>
+</tr>
+<tr class="even">
+<td>Level 4 (도전)</td>
+<td>컷오프 민감도 분석</td>
+<td>0.3·0.5·0.7 세 컷오프에서 민감도·특이도·정밀도 비교 표 및 컷오프 선택 근거 서술</td>
+</tr>
+</tbody>
+</table>
+<p>제출물은 과목 표준 4종 — Input(데이터), Script(프롬프트 로그 포함 코드), Output(결과 로그·그림), Report(분석 보고서). 본문의 <code>Script/ch11_logistic.R</code>이 출발 코드다.</p>
+<p><strong>수행 가이드라인 (모범답안이 아니라 사고의 이정표다).</strong></p>
+<ol type="1">
+<li>AUC가 0.01 올랐다고 “모형이 개선됐다”고 쓰지 마라. 혼동행렬에서 실제로 추가로 잡힌 적자 기업이 몇 건인지를 함께 쓰라 — 그것이 의사결정에 쓰이는 언어다.</li>
+<li>Female_Ratio를 넣기 전에, 이 변수가 적자와 연결되는 이유를 한 문장으로 써라. “회귀해봤더니 유의하게 나왔다”는 분석이 아니라 낚시다.</li>
+<li>강건성 점검을 직접 설계할 때는 “이 분할/제외를 선택한 이유”를 먼저 써라 — 설계 근거 없는 강건성 점검은 검증이 아니라 탐색이다.</li>
+<li>컷오프 결정은 맥락의 문제다. “리스크 관리 목적에서 민감도 우선인가, 오경보 비용이 크다면 특이도 우선인가” — 이 판단을 먼저 쓰고 컷오프를 선택하라.</li>
+<li>Level 2에서 Female_Ratio 추가 전후의 표본 크기를 반드시 확인하라. Female_Ratio에 결측이 있다면 표본이 줄고, AUC 변화가 변수의 기여인지 표본 변화의 기여인지 구분할 수 없다. 같은 표본에서 두 모형을 비교하는 방법을 설계하라.</li>
+<li>결론이 “Female_Ratio 추가가 AUC를 개선하지 않았다”여도 정직한 보고다. 결론보다 근거의 투명성이 평가 기준이다.</li>
+</ol>
+<p><strong>채점 루브릭 (100점).</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>평가 항목</th>
+<th style="text-align: right;">배점</th>
+<th>통과 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>재현성</td>
+<td style="text-align: right;">20</td>
+<td>데이터 경로·스크립트·패키지·표본 수가 명시되어 그대로 재실행 가능</td>
+</tr>
+<tr class="even">
+<td>분류 성능 해석</td>
+<td style="text-align: right;">30</td>
+<td>정확도 단독 평가 없이 민감도·특이도·AUC 병기, 불균형 데이터 함정 인식</td>
+</tr>
+<tr class="odd">
+<td>강건성 점검</td>
+<td style="text-align: right;">25</td>
+<td>본문 방식 외 1종 이상 직접 설계·실행, 계수 방향 일치 여부 보고</td>
+</tr>
+<tr class="even">
+<td>의사결정 번역</td>
+<td style="text-align: right;">25</td>
+<td>리스크 위원회 질문에 직접 답하고 컷오프 결정의 근거를 맥락과 함께 제시</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="이-장의-자료" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="이-장의-자료">이 장의 자료</h2>
+<ul>
+<li>데이터: <code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~5장 SSOT 파이프라인 산출)</li>
+<li>전체 스크립트: <code>Script/ch11_logistic.R</code> (본문 코드 전체 — Script 폴더에서 실행)</li>
+<li>산출물: <code>Output/ch11_logit_coefficients.csv</code>, <code>Output/ch11_classification_perf.csv</code>, <code>Output/ch11_robustness.csv</code></li>
+</ul>
+<p><strong>AI 협업 권장.</strong> glm() 결과에서 “fitted probabilities numerically 0 or 1” 경고가 나오면 완전 분리(perfect separation) 문제다 — 오류 메시지와 표본 구조를 제공하고 “이 경고의 원인과 대응”을 요청하라. AUC 해석이 막히면 “AUC 0.780이 이 분석 맥락에서 좋은 이유와 나쁜 이유를 각각 설명해줘”처럼 <strong>조건부 해석</strong>을 요구하라.</p>
+<p><strong>AI 사용 시 주의 3가지.</strong> (1) AI는 계수를 종종 “확률 변화”로 해석한다 — 메모에 옮기기 전에 로그오즈 표현으로 교정하라. (2) AI가 제안하는 추가 변수에는 결과 변수로 가는 경로 위의 것(bad control)이 섞일 수 있다 — 넣기 전에 이론적 위치를 점검하라. (3) AUC가 개선됐다고 AI가 “모형이 더 좋아졌다”고 단언하면 의심하라 — 표본이 달라진 효과가 없는지 먼저 확인하라.</p>
+</section>
+<section id="연습문제" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="연습문제">연습문제</h2>
+<p><strong>문제 1.</strong> 어떤 분석가가 Loss_Dummy를 부채비율_Win에 단변량 로지스틱 회귀해 계수 0.008을 얻었다. “부채비율이 1단위 증가하면 적자 확률이 0.8%p 증가한다”고 보고했다. 이 문장의 어디가 틀렸는가? 올바른 해석을 제시하라.</p>
+<p><strong>모범답안.</strong> 로지스틱 계수 0.008은 로그오즈의 변화이지 확률의 변화가 아니다. “0.8%p 증가”는 선형확률모형의 계수 읽기 방식을 로지스틱에 그대로 적용한 오독이다. 올바른 1차 해석은 “부채비율이 1단위 증가할 때 적자 오즈가 exp(0.008) ≈ 1.008배로 증가한다”이다. 확률 변화의 크기는 현재 확률 수준에 따라 달라지므로, 기술하려면 두 대표 수준(예: 부채비율 50 vs 150)에서의 예측확률 차이를 제시하거나, 평균 확률 수준에서의 한계효과를 별도로 계산해야 한다.</p>
+<p><strong>문제 2.</strong> 전체 표본 중 적자 기업이 8%인 데이터셋에서 로지스틱 모형을 돌렸더니 정확도가 91%였다. 이 모형이 실제로 유용한지 판단하기 위해 필요한 추가 지표 두 가지를 제시하고, 각각이 왜 필요한지 설명하라.</p>
+<p><strong>모범답안.</strong> (1) <strong>민감도(Sensitivity)</strong>: 실제 적자 기업 중 몇 퍼센트를 적자로 예측했는가. 나이브 베이스라인 — “모두 흑자”로 찍기 — 의 정확도가 이미 92%이므로, 정확도 91%는 베이스라인보다 낮은 모형일 수 있다. 민감도가 무작위(≈8%)보다 유의미하게 높을 때만 모형이 존재 이유를 갖는다. (2) <strong>AUC</strong>: 0.5 컷오프에만 의존하지 않고, 모든 컷오프에서의 변별력을 종합 평가한다. AUC가 0.5에 가깝다면 랜덤과 다르지 않다. 두 지표 모두 베이스라인보다 유의미하게 높을 때 비로소 “유용한 모형”이라 할 수 있다.</p>
+<p><strong>문제 3.</strong> 전반기(2011~2016년)로 추정한 로지스틱 모형에서 부채비율_Win 계수가 양(+)이었는데, 후반기(2017~2022년)에서는 음(−)으로 나왔다. 이 결과를 어떻게 해석하고 보고해야 하는가?</p>
+<p><strong>모범답안.</strong> 두 기간에서 계수 방향이 반대라는 것은 “부채비율과 적자 여부의 조건부 관계”가 표본 기간에 민감하게 의존한다는 신호다. 전체 표본의 단일 계수를 유일한 진실로 보고하는 것은 위험하다. 보고서에는 ① 강건성 점검 결과를 표로 명시하고, ② 결론을 “전반기에는 양, 후반기에는 음의 조건부 관계가 관찰되며, 두 기간의 시장 환경 또는 대출 구조 변화가 작용했을 가능성이 있다”는 유보적 서술로 제한한다. ③ 최종 판단은 이 모형 단독에 의존하지 않고, 추가 기간 또는 추가 변수를 통한 재검증 후에 내릴 것을 권고한다.</p>
+<p><strong>문제 4 (강건성의 설계).</strong> 연구자가 “Loss_Dummy ~ Size + 부채비율_Win + ATO 로지스틱 모형은 강건하다”고 주장하면서 단 한 가지 점검(전반기/후반기 분할)만 제시했다. 이 주장의 한계를 지적하고, 추가로 실행할 수 있는 강건성 점검 두 가지를 SSOT 데이터 변수를 명시하며 제안하라.</p>
+<p><strong>모범답안.</strong> 단일 강건성 점검은 시간 차원의 일관성만 확인한다. 한계: (1) 상장 유지/폐지 집단 간 구조 차이(정상 vs 상장폐지)를 반영하지 않는다. (2) 설명변수 구성 변화에 대한 민감성을 검증하지 않는다. 추가 강건성 점검: ① <strong>상장상태 분할</strong> — <code>dplyr::filter(상장상태 == "정상")</code>와 <code>dplyr::filter(상장상태 == "상장폐지")</code>로 각각 추정해 계수 방향이 일치하는지 확인한다. 두 집단(정상·상장폐지)은 생존 여부에서 구조가 다를 수 있으므로, 일치하면 결론의 보편성이 높아진다. ② <strong>Female_Ratio 추가 모형</strong> — Female_Ratio를 추가 통제변수로 넣어 Size·부채비율_Win·ATO의 계수 방향이 유지되는지 확인한다. 계수가 안정적이라면 기존 세 변수의 조건부 관계는 Female_Ratio와 무관하게 작동한다는 추가 근거가 된다.</p>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMV9yb2J1c3RuZXNzLmNzdiIsImRhdGEvL091dHB1dC9jaDEwX3NlX2NvbXBhcmlzb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDNfcGFuZWxfc3RydWN0dXJlLmNzdiIsImRhdGEvL091dHB1dC9jaDAyX3RoaW5raW5nX2xvZy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNl92YXJfY2xhc3NpZmljYXRpb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDRfY2xlYW5fc2FtcGxlLmNzdiIsImRhdGEvL091dHB1dC9jaDA4X2Rlc2NfYnlfbG9zcy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNl9mb3VyX3R5cGVzLmNzdiIsImRhdGEvL091dHB1dC9jaDA5X2NvcnJfbWF0cml4X3NwZWFybWFuLmNzdiIsImRhdGEvL091dHB1dC9jaDExX2xvZ2l0X2NvZWZmaWNpZW50cy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMl90b3BpY19jYW5kaWRhdGVzLmNzdiIsImRhdGEvL091dHB1dC9jaDEyX2xhZ19jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDA4X3R0ZXN0X2VzZ19zaXplLmNzdiIsImRhdGEvL091dHB1dC9jaDAxX3Nzb3Rfb3ZlcnZpZXcuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDVfZmVhdHVyZV9kaWN0LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X3JhbmtfY29tcGFyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwM19qb2luX2xvc3Nfc2ltdWxhdGlvbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMV9jbGFzc2lmaWNhdGlvbl9wZXJmLmNzdiIsImRhdGEvL091dHB1dC9jaDEwX21vZGVsX2NvbXBhcmlzb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDlfY29ycl9tYXRyaXhfcGVhcnNvbi5jc3YiXQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMV9yb2J1c3RuZXNzLmNzdiIsImRhdGEvL091dHB1dC9jaDEwX3NlX2NvbXBhcmlzb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDNfcGFuZWxfc3RydWN0dXJlLmNzdiIsImRhdGEvL091dHB1dC9jaDAyX3RoaW5raW5nX2xvZy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNl92YXJfY2xhc3NpZmljYXRpb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDRfY2xlYW5fc2FtcGxlLmNzdiIsImRhdGEvL091dHB1dC9jaDA4X2Rlc2NfYnlfbG9zcy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwNl9mb3VyX3R5cGVzLmNzdiIsImRhdGEvL091dHB1dC9jaDA5X2NvcnJfbWF0cml4X3NwZWFybWFuLmNzdiIsImRhdGEvL091dHB1dC9jaDExX2xvZ2l0X2NvZWZmaWNpZW50cy5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMl90b3BpY19jYW5kaWRhdGVzLmNzdiIsImRhdGEvL091dHB1dC9jaDEyX2xhZ19jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDA4X3R0ZXN0X2VzZ19zaXplLmNzdiIsImRhdGEvL091dHB1dC9jaDAxX3Nzb3Rfb3ZlcnZpZXcuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDVfZmVhdHVyZV9kaWN0LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X3JhbmtfY29tcGFyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwM19qb2luX2xvc3Nfc2ltdWxhdGlvbi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMV9jbGFzc2lmaWNhdGlvbl9wZXJmLmNzdiIsImRhdGEvL091dHB1dC9jaDEwX21vZGVsX2NvbXBhcmlzb24uY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDlfY29ycl9tYXRyaXhfcGVhcnNvbi5jc3YiXQ==
+</script>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

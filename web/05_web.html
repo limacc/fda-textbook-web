@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>web</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="05_web_files/libs/clipboard/clipboard.min.js"></script>
+<script src="05_web_files/libs/quarto-html/quarto.js"></script>
+<script src="05_web_files/libs/quarto-html/popper.min.js"></script>
+<script src="05_web_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="05_web_files/libs/quarto-html/anchor.min.js"></script>
+<link href="05_web_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="05_web_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="05_web_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="05_web_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="05_web_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="05_web_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="05_web_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script type="module" src="05_web_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="05_web_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link href="05_web_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="05_web_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#파생변수-재료를-요리-가능한-형태로" id="toc-파생변수-재료를-요리-가능한-형태로" class="nav-link active" data-scroll-target="#파생변수-재료를-요리-가능한-형태로">파생변수 — 재료를 요리 가능한 형태로</a>
+  <ul class="collapse">
+  <li><a href="#사례로-시작하기" id="toc-사례로-시작하기" class="nav-link" data-scroll-target="#사례로-시작하기">사례로 시작하기</a></li>
+  <li><a href="#핵심-키워드" id="toc-핵심-키워드" class="nav-link" data-scroll-target="#핵심-키워드">핵심 키워드</a></li>
+  <li><a href="#학습-목표" id="toc-학습-목표" class="nav-link" data-scroll-target="#학습-목표">학습 목표</a></li>
+  <li><a href="#dikw-4단계-파이프라인" id="toc-dikw-4단계-파이프라인" class="nav-link" data-scroll-target="#dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</a></li>
+  <li><a href="#데이터-출처와-수집" id="toc-데이터-출처와-수집" class="nav-link" data-scroll-target="#데이터-출처와-수집">데이터 출처와 수집</a></li>
+  <li><a href="#비교가능성-장벽-규모가-다른-재료를-같은-저울에" id="toc-비교가능성-장벽-규모가-다른-재료를-같은-저울에" class="nav-link" data-scroll-target="#비교가능성-장벽-규모가-다른-재료를-같은-저울에">비교가능성 장벽 — 규모가 다른 재료를 같은 저울에</a>
+  <ul class="collapse">
+  <li><a href="#직관-두-가지-구조적-문제" id="toc-직관-두-가지-구조적-문제" class="nav-link" data-scroll-target="#직관-두-가지-구조적-문제">직관 — 두 가지 구조적 문제</a></li>
+  </ul></li>
+  <li><a href="#로그-변환-불을-조절하다" id="toc-로그-변환-불을-조절하다" class="nav-link" data-scroll-target="#로그-변환-불을-조절하다">로그 변환 — 불을 조절하다</a>
+  <ul class="collapse">
+  <li><a href="#직관-1000배-차이를-다루는-법" id="toc-직관-1000배-차이를-다루는-법" class="nav-link" data-scroll-target="#직관-1000배-차이를-다루는-법">직관 — 1,000배 차이를 다루는 법</a></li>
+  <li><a href="#실증-변환-전후-분포" id="toc-실증-변환-전후-분포" class="nav-link" data-scroll-target="#실증-변환-전후-분포">실증 — 변환 전후 분포</a></li>
+  </ul></li>
+  <li><a href="#비율-변수-1인분으로-환산하다" id="toc-비율-변수-1인분으로-환산하다" class="nav-link" data-scroll-target="#비율-변수-1인분으로-환산하다">비율 변수 — 1인분으로 환산하다</a>
+  <ul class="collapse">
+  <li><a href="#roa-정의의-표준과-이-책의-ssot-한계" id="toc-roa-정의의-표준과-이-책의-ssot-한계" class="nav-link" data-scroll-target="#roa-정의의-표준과-이-책의-ssot-한계">ROA 정의의 표준과 이 책의 SSOT 한계</a></li>
+  <li><a href="#직관-규모-효과를-제거하는-나눗셈" id="toc-직관-규모-효과를-제거하는-나눗셈" class="nav-link" data-scroll-target="#직관-규모-효과를-제거하는-나눗셈">직관 — 규모 효과를 제거하는 나눗셈</a></li>
+  <li><a href="#실증-파생변수-전후-기술통계와-규모-효과-제거" id="toc-실증-파생변수-전후-기술통계와-규모-효과-제거" class="nav-link" data-scroll-target="#실증-파생변수-전후-기술통계와-규모-효과-제거">실증 — 파생변수 전후 기술통계와 규모 효과 제거</a></li>
+  </ul></li>
+  <li><a href="#더미-변수와-표준화-양념의-유무와-단위-맞추기" id="toc-더미-변수와-표준화-양념의-유무와-단위-맞추기" class="nav-link" data-scroll-target="#더미-변수와-표준화-양념의-유무와-단위-맞추기">더미 변수와 표준화 — 양념의 유무와 단위 맞추기</a>
+  <ul class="collapse">
+  <li><a href="#더미-변수-양념이-있는가-없는가" id="toc-더미-변수-양념이-있는가-없는가" class="nav-link" data-scroll-target="#더미-변수-양념이-있는가-없는가">더미 변수 — 양념이 있는가, 없는가</a></li>
+  <li><a href="#표준화-단위가-다른-재료를-같은-저울에-달다" id="toc-표준화-단위가-다른-재료를-같은-저울에-달다" class="nav-link" data-scroll-target="#표준화-단위가-다른-재료를-같은-저울에-달다">표준화 — 단위가 다른 재료를 같은 저울에 달다</a></li>
+  </ul></li>
+  <li><a href="#변수-정의서-레시피를-기록하라" id="toc-변수-정의서-레시피를-기록하라" class="nav-link" data-scroll-target="#변수-정의서-레시피를-기록하라">변수 정의서 — 레시피를 기록하라</a>
+  <ul class="collapse">
+  <li><a href="#직관-레시피-없는-요리의-결말" id="toc-직관-레시피-없는-요리의-결말" class="nav-link" data-scroll-target="#직관-레시피-없는-요리의-결말">직관 — 레시피 없는 요리의 결말</a></li>
+  <li><a href="#함정-레시피에서-반드시-표시해야-할-위험-3개" id="toc-함정-레시피에서-반드시-표시해야-할-위험-3개" class="nav-link" data-scroll-target="#함정-레시피에서-반드시-표시해야-할-위험-3개">함정 — 레시피에서 반드시 표시해야 할 위험 3개</a></li>
+  <li><a href="#분석가의-번역-변수-정의-결정을-의사결정-언어로" id="toc-분석가의-번역-변수-정의-결정을-의사결정-언어로" class="nav-link" data-scroll-target="#분석가의-번역-변수-정의-결정을-의사결정-언어로">분석가의 번역 — 변수 정의 결정을 의사결정 언어로</a></li>
+  <li><a href="#완성-예시-변수-정의서-제출-메모-전문" id="toc-완성-예시-변수-정의서-제출-메모-전문" class="nav-link" data-scroll-target="#완성-예시-변수-정의서-제출-메모-전문">완성 예시 — 변수 정의서 제출 메모 전문</a></li>
+  </ul></li>
+  <li><a href="#r로-직접-해보기" id="toc-r로-직접-해보기" class="nav-link" data-scroll-target="#r로-직접-해보기">R로 직접 해보기</a></li>
+  <li><a href="#ai-협업-프로토콜-레시피를-검증하게-하되-재료-선택은-직접-하라" id="toc-ai-협업-프로토콜-레시피를-검증하게-하되-재료-선택은-직접-하라" class="nav-link" data-scroll-target="#ai-협업-프로토콜-레시피를-검증하게-하되-재료-선택은-직접-하라">AI 협업 프로토콜 — 레시피를 검증하게 하되, 재료 선택은 직접 하라</a></li>
+  <li><a href="#정리-함정-다음-장" id="toc-정리-함정-다음-장" class="nav-link" data-scroll-target="#정리-함정-다음-장">정리, 함정, 다음 장</a></li>
+  <li><a href="#주차-pbl-자기만의-파생변수를-발명하라" id="toc-주차-pbl-자기만의-파생변수를-발명하라" class="nav-link" data-scroll-target="#주차-pbl-자기만의-파생변수를-발명하라">주차 PBL — 자기만의 파생변수를 발명하라</a></li>
+  <li><a href="#이-장의-자료" id="toc-이-장의-자료" class="nav-link" data-scroll-target="#이-장의-자료">이 장의 자료</a></li>
+  <li><a href="#연습문제" id="toc-연습문제" class="nav-link" data-scroll-target="#연습문제">연습문제</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="파생변수-재료를-요리-가능한-형태로" class="level1">
+<h1>파생변수 — 재료를 요리 가능한 형태로</h1>
+<section id="사례로-시작하기" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="사례로-시작하기">사례로 시작하기</h2>
+<p>KG Asset 분석팀의 신입 분석가 김자산은 팀장의 지시를 받았다. “삼성전자, 한화솔루션, 에이치엘비 세 기업의 수익성을 비교해서 보고해라.” 김자산은 DataGuide에서 당기순이익 데이터를 내려받았다. 삼성전자는 30조 원, 한화솔루션은 3천억 원, 에이치엘비는 −200억 원이었다.</p>
+<p>첫 번째 초안에 이 숫자를 그대로 표에 넣었다. 팀장이 보고서를 보고 물었다. “삼성전자가 1등이라고 했는데, 수익성이 좋아서인가, 아니면 그냥 크기 때문인가?”</p>
+<p>김자산은 멈칫했다. 삼성전자의 자산은 500조 원, 한화솔루션은 15조 원, 에이치엘비는 1조 원이다. 30조 원의 이익과 3천억 원의 이익을 같은 축에 올리는 것은 대형 조리실 전체의 산출량과 1인 레스토랑의 산출량을 비교하는 것과 같다. 비교가 아니라 규모 자랑이다.</p>
+<p>팀장이 이어서 말했다. “ROA로 바꿔서 다시 해봐.” 자산총계로 나누는 것, 즉 1인분으로 환산하는 것이 첫 번째 변환이었다. 두 번째 문제는 데이터를 히스토그램으로 그리면서 드러났다. 자산총계를 분포로 그리자 소형사들은 0에 붙어 거의 보이지 않고, 대형사 몇 곳이 오른쪽으로 꼬리를 길게 늘어뜨렸다. 팀장이 다시 말했다. “자산총계는 로그를 취해라.” 불 조절이 두 번째 변환이었다.</p>
+<p>이 장의 파생변수들 — Size, ROA, ATO, 부채비율, Loss_Dummy, ROA_Z — 은 3장 SSOT 파이프라인에 이미 저장되어 있다. 이 장에서는 그 변수들을 원시값에서 직접 재파생하고, 레시피(변수 정의서)를 문서화하며, SSOT 저장값과 교차 검증한다. 4장에서 Winsorize를 적용한 <code>부채비율_Win</code>이 왜 필요했는지도 이 과정에서 명확해진다.</p>
+</section>
+<section id="핵심-키워드" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="핵심-키워드">핵심 키워드</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-68f6d5fc{}.cl-68f01d20{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-68f01d34{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-68f30ab2{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-68f30abc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-68f32074{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f3207e{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f32088{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f32089{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f32092{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-68f32093{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-68f6d5fc"><thead><tr style="overflow-wrap:break-word;"><th class="cl-68f32074"><p class="cl-68f30ab2"><span class="cl-68f01d20">#</span></p></th><th class="cl-68f3207e"><p class="cl-68f30abc"><span class="cl-68f01d20">키워드</span></p></th><th class="cl-68f3207e"><p class="cl-68f30abc"><span class="cl-68f01d20">한 줄 핵심</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">1</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">파생변수 (Feature Engineering)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">원시값을 분석 목적에 맞는 형태로 변환한 새 변수 — 변환 규칙이 '레시피'다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">2</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">로그 변환 (Log Transformation)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">극단적 우왜도를 압축해 대형사·소형사를 같은 축에 올린다 — 계수 해석 단위는 'e배 증가'</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">3</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">비율 변수 (Ratio Variable)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">공통 분모로 나누어 규모 효과를 제거한다 — ROA·ATO·부채비율이 모두 이 원리</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">4</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">더미 변수 (Dummy Variable)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">범주를 0/1로 수치화한다 — 질적 단절을 포착하되 분류 내부 분산을 버린다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">5</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">표준화 (Standardization / Z-score)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">평균을 빼고 표준편차로 나눠 단위를 통일한다 — 계수 크기 비교가 목적</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32088"><p class="cl-68f30ab2"><span class="cl-68f01d34">6</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">변수 정의서 (Variable Dictionary)</span></p></td><td class="cl-68f32089"><p class="cl-68f30abc"><span class="cl-68f01d34">변수 이름·산식·단위·해석·한계를 기록한 레시피 — 재현성과 팀 소통의 기반</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-68f32092"><p class="cl-68f30ab2"><span class="cl-68f01d34">7</span></p></td><td class="cl-68f32093"><p class="cl-68f30abc"><span class="cl-68f01d34">규모 효과 (Scale Effect)</span></p></td><td class="cl-68f32093"><p class="cl-68f30abc"><span class="cl-68f01d34">기업 크기 차이가 원시값에 포함된 현상 — 제거하지 않으면 대형사가 분석을 지배한다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="학습-목표" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="학습-목표">학습 목표</h2>
+<p>이 장을 마치면 다음 여섯 가지를 할 수 있다.</p>
+<ol type="1">
+<li>파생변수가 필요한 두 가지 이유(비교가능성, 분포 안정성)를 원시 데이터의 특성과 연결해 설명할 수 있다.</li>
+<li><code>log()</code> 변환의 직관을 설명하고, 회귀계수를 “자산이 e배 증가할 때”로 정확하게 번역할 수 있다.</li>
+<li>ROA·ATO·부채비율·Loss_Dummy·ROA_Z를 R로 직접 파생하고, 분모가 0 이하인 관측치를 방어하는 코드를 작성할 수 있다.</li>
+<li>더미화가 버리는 정보(분류 내부 분산)를 설명하고, 그 비용이 수용 가능한 경우와 그렇지 않은 경우를 구분할 수 있다.</li>
+<li>파생변수 정의서(이름·산식·단위·해석·한계 5개 항목)를 완성하고 SSOT 저장값과 교차 검증할 수 있다.</li>
+<li>이 장에서 만든 변수가 6~10장 분석의 재료가 되는 흐름을 한 문장으로 설명할 수 있다.</li>
+</ol>
+</section>
+<section id="dikw-4단계-파이프라인" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="dikw-4단계-파이프라인">D→I→K→W 4단계 파이프라인</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>이 장에서의 모습</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>데이터 (D)</td>
+<td>원시 재무제표 — 자산총계(천원), 당기순이익(천원), 부채총계(천원), 매출액(천원)</td>
+</tr>
+<tr class="even">
+<td>정보 (I)</td>
+<td>기술통계 — 왜도, 분위수, 순이익 상위 10사 vs ROA 상위 10사 순위 차이</td>
+</tr>
+<tr class="odd">
+<td>지식 (K)</td>
+<td>변환 규칙 — 어떤 변수에 어떤 변환이 어떤 문제를 해결하는가; 분모 위험과 해석 단위 한계</td>
+</tr>
+<tr class="even">
+<td>지혜 (W)</td>
+<td>분석 가능한 변수 세트와 변수 정의서 — 6~13장 모든 분석의 재료이자 재현성의 보증</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="데이터-출처와-수집" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="데이터-출처와-수집">데이터 출처와 수집</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-690723b2{}.cl-690086d8{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-690086e2{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69040f42{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-69041dde{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69041de8{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69041de9{width:1.675in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-690723b2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-69041dde"><p class="cl-69040f42"><span class="cl-690086d8">데이터</span></p></th><th class="cl-69041dde"><p class="cl-69040f42"><span class="cl-690086d8">출처</span></p></th><th class="cl-69041dde"><p class="cl-69040f42"><span class="cl-690086d8">핵심 변수</span></p></th><th class="cl-69041dde"><p class="cl-69040f42"><span class="cl-690086d8">이 장의 역할</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-69041de8"><p class="cl-69040f42"><span class="cl-690086d8">재무제표 패널</span></p></td><td class="cl-69041de8"><p class="cl-69040f42"><span class="cl-690086e2">DataGuide 5.0 (KOSPI·KOSDAQ 상장기업)</span></p></td><td class="cl-69041de8"><p class="cl-69040f42"><span class="cl-690086e2">자산총계, 부채총계, 당기순이익, 매출액</span></p></td><td class="cl-69041de8"><p class="cl-69040f42"><span class="cl-690086e2">파생변수 원천 — 직접 계산의 분자·분모</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69041de9"><p class="cl-69040f42"><span class="cl-690086d8">SSOT 파이프라인 산출물</span></p></td><td class="cl-69041de9"><p class="cl-69040f42"><span class="cl-690086e2">3장 단일진실원천 + 4장 Winsorize 파이프라인</span></p></td><td class="cl-69041de9"><p class="cl-69040f42"><span class="cl-690086e2">ROA(저장값→ROA_ssot), 부채비율_Win, is_esg_rated</span></p></td><td class="cl-69041de9"><p class="cl-69040f42"><span class="cl-690086e2">교차 검증 기준 — 직접 파생값과 일치율 확인</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="비교가능성-장벽-규모가-다른-재료를-같은-저울에" class="level2">
+<h2 class="anchored" data-anchor-id="비교가능성-장벽-규모가-다른-재료를-같은-저울에">비교가능성 장벽 — 규모가 다른 재료를 같은 저울에</h2>
+<section id="직관-두-가지-구조적-문제" class="level3">
+<h3 class="anchored" data-anchor-id="직관-두-가지-구조적-문제">직관 — 두 가지 구조적 문제</h3>
+<p>원시 재무 데이터를 그대로 분석에 투입하면 두 가지 구조적 문제가 발생한다.</p>
+<p><strong>첫 번째 — 비교가능성 문제.</strong> 삼성전자의 당기순이익 30조 원과 중소 상장사의 당기순이익 30억 원은 같은 축에 올릴 수 없다. 하나는 거대한 조리실 전체의 산출량이고 다른 하나는 1인 레스토랑의 산출량이다. 공통 분모로 나눠야 — 자산 1원당 얼마를 버는가(ROA) — 두 숫자가 같은 기준 위에 올라온다. 규모가 다른 재료를 1인분으로 환산하는 것, 그것이 비율 변수의 원리다.</p>
+<pre><code>분모로 나눈다 = 규모 효과를 제거한다 = 비교가능성을 확보한다
+예: ROA_i = 당기순이익(천원)_i / 자산총계(천원)_i</code></pre>
+<p><strong>두 번째 — 분포 안정성 문제.</strong> 자산총계의 분포를 히스토그램으로 그리면 소형사들은 0에 붙어 거의 보이지 않고 대형사 몇 곳이 오른쪽으로 꼬리를 길게 늘어뜨린다.</p>
+<p>분포가 극단적으로 오른쪽으로 치우쳐 있다. 회귀분석은 정규성을 가정하지 않지만, 극단적으로 치우친 분포는 소수 대형사가 직선의 방향을 통째로 결정하게 만든다. 로그 변환이 이 장벽을 넘는다.</p>
+<p>요리의 은유로 돌아오면: 비교가능성 장벽은 1인분 환산(비율)으로, 분포 불안정 장벽은 불 조절(로그)로 해결한다. 두 문제는 다르고 해법도 다르다. 어떤 변수에 어떤 변환을 선택하는가는 그 변수가 어떤 문제를 안고 있는가에 달려 있다.</p>
+</section>
+</section>
+<section id="로그-변환-불을-조절하다" class="level2">
+<h2 class="anchored" data-anchor-id="로그-변환-불을-조절하다">로그 변환 — 불을 조절하다</h2>
+<section id="직관-1000배-차이를-다루는-법" class="level3">
+<h3 class="anchored" data-anchor-id="직관-1000배-차이를-다루는-법">직관 — 1,000배 차이를 다루는 법</h3>
+<p>자산총계 분포를 상상해 보자. 소형 상장사의 자산이 200억 원이라면 <code>자산총계(천원)</code> = 20,000,000이다. 삼성전자급 대형사가 400조 원이라면 = 400,000,000,000이다. 두 숫자의 비율은 2만 배다. 히스토그램에서 소형사들은 0에 붙어 보이지 않고, 대형사 몇 곳이 오른쪽 꼬리를 길게 늘어뜨린다. 이 분포로 회귀를 돌리면 대형사가 기울기를 결정한다.</p>
+<p>로그 변환을 하면 이 2만 배가 <code>log(400,000,000,000) - log(20,000,000) ≈ 3.0</code> 수준의 차이로 줄어든다. 불을 강하게 올려 큰 것을 누르고 작은 것을 상대적으로 키우는 것, 요리의 불 조절과 같다.</p>
+<p>수식으로 정리하면 이렇다.</p>
+<pre><code>Size_i = log(자산총계(천원)_i)
+
+해석: Size의 1단위 증가 = 자산이 e배(≈ 2.718배) 증가
+     회귀계수 β: 자산이 e배 늘어날 때 종속변수의 β단위 변화
+     (로그-선형 모형: 계수 해석의 단위가 원시 자산과 다름)</code></pre>
+</section>
+<section id="실증-변환-전후-분포" class="level3">
+<h3 class="anchored" data-anchor-id="실증-변환-전후-분포">실증 — 변환 전후 분포</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── name_repair="unique_quiet"(_helpers.R:215): `자산총계(천원)` → 자산총계_천원,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    `부채총계(천원)` → 부채총계_천원, `당기순이익(천원)` → 당기순이익_천원,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    `매출액(천원)...8` → 매출액_천원 (중복열 ...8 명시 선택) ← ch05-setup rename 처리</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 분모(자산총계) &gt; 0인 관측치만 유효 — log와 비율의 전제 조건</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>feat_df <span class="ot">&lt;-</span> feat_raw <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(자산총계_천원 <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="sc">!</span><span class="fu">is.na</span>(매출액_천원)) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ② 각 파생변수를 원시값에서 직접 계산한다</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Size      =</span> <span class="fu">log</span>(자산총계_천원),                          <span class="co"># 규모 — 로그 변환</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ROA       =</span> 당기순이익_천원 <span class="sc">/</span> 자산총계_천원,              <span class="co"># 수익성 — 비율</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ATO       =</span> 매출액_천원    <span class="sc">/</span> 자산총계_천원,              <span class="co"># 효율성 — 비율</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    부채비율  <span class="ot">=</span> 부채총계_천원  <span class="sc">/</span> 자산총계_천원,              <span class="co"># 레버리지 — 비율</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Loss_Dummy =</span> <span class="fu">as.integer</span>(당기순이익_천원 <span class="sc">&lt;</span> <span class="dv">0</span>),            <span class="co"># 적자 여부 — 이진화</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">ROA_Z     =</span> (ROA <span class="sc">-</span> <span class="fu">mean</span>(ROA, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span>            <span class="co"># ROA 표준화</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">sd</span>(ROA,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①에서 <code>filter(자산총계_천원 &gt; 0)</code>이 분모가 0 이하인 행을 먼저 제거한다 — 분모가 0이면 비율이 무한대(<code>Inf</code>)가 되고, 분모가 음수면 비율이 경제적으로 무의미한 음수가 된다. 이 필터가 없으면 <code>Inf</code>와 <code>NaN</code>이 기술통계와 회귀를 조용히 오염시킨다. ②의 <code>mutate()</code>는 기존 열을 유지하면서 새 열을 추가한다 — <code>transmute()</code>와 달리 원래 변수들이 남는다. 각 줄이 하나의 변수 정의다. <code>log()</code>는 자연로그(밑 <em>e</em>)이고, <code>/</code>는 그냥 나눗셈이다. <code>as.integer(당기순이익_천원 &lt; 0)</code>은 두 단계를 하나로 쓴 것이다 — <code>당기순이익_천원 &lt; 0</code>이 TRUE/FALSE를 만들고, <code>as.integer()</code>가 이를 1/0으로 바꾼다.</p>
+<p>분석 표본은 2010년부터 2024년까지 기업 667개사의 기업-연도 관측치 10,000건이다. 자산총계가 0 이하로 필터링된 관측치는 0건이다. 레시피대로 만든 ROA와 SSOT에 이미 저장된 ROA의 일치율은 100.0%다 — 같은 재료로 같은 레시피를 따르면 같은 요리가 나온다는 검증이다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-691fca3e{}.cl-691a3c54{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-691a3c68{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-691ca674{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-691cb70e{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-691cb718{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-691cb722{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-691fca3e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-691cb70e"><p class="cl-691ca674"><span class="cl-691a3c54">지표</span></p></th><th class="cl-691cb70e"><p class="cl-691ca674"><span class="cl-691a3c54">자산총계(천원) — 원시</span></p></th><th class="cl-691cb70e"><p class="cl-691ca674"><span class="cl-691a3c54">log(Size) — 변환 후</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c54">평균</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">NA</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">20.15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c54">중앙값</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">267,205,805</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">19.40</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c54">표준편차</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">NA</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">1.67</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c54">왜도</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">12.33</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">0.99</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c54">최솟값</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">1,513,360</span></p></td><td class="cl-691cb718"><p class="cl-691ca674"><span class="cl-691a3c68">14.23</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-691cb722"><p class="cl-691ca674"><span class="cl-691a3c54">최댓값</span></p></td><td class="cl-691cb722"><p class="cl-691ca674"><span class="cl-691a3c68">NA</span></p></td><td class="cl-691cb722"><p class="cl-691ca674"><span class="cl-691a3c68">26.97</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 원시: 오른쪽 꼬리가 극단적으로 길다 (대형사 몇 곳이 꼬리를 만든다)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_raw <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(feat_df,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> 자산총계_천원 <span class="sc">/</span> <span class="fl">1e9</span>)) <span class="sc">+</span>       <span class="co"># 조 원 단위로 표시</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">60</span>, <span class="at">fill =</span> <span class="st">"#4472C4"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"자산총계 (조 원)"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">"관측치 수"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"원시 — 왜도: "</span>, <span class="fu">f2</span>(skew_raw))) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_book</span>(<span class="dv">9</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 로그 변환 후: 가운데가 높고 양쪽으로 점차 낮아지는 종 모양</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>p_log <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(feat_df, ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">x =</span> Size)) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">"#ED7D31"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                          <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(자산총계) = Size"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">"관측치 수"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"로그 변환 후 — 왜도: "</span>, <span class="fu">f2</span>(skew_log))) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_book</span>(<span class="dv">9</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ 나란히 배치</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>p_raw <span class="sc">+</span> p_log</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_web_files/figure-html/ch05-hist-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>그림 5.1 자산총계 원시 분포(좌)와 로그 변환 후 Size 분포(우) — 변환 전 극단적 우왜도가 대칭에 가까운 분포로 바뀐다</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>코드 읽기.</strong> 두 히스토그램의 구조가 완전히 같다 — <code>aes(x = ...)</code>에서 x축 변수만 다르다. <code>geom_histogram(bins = N)</code>은 전체 범위를 N개 막대로 나누어 각 구간에 속한 관측치 수를 막대 높이로 그린다. ①에서 <code>/ 1e9</code>는 조 원 단위로 변환해 숫자를 읽기 편하게 만드는 조작이다 — 천원 단위로 두면 x축이 <code>500000000000</code> 같은 숫자로 가득 찬다. ③의 <code>p_raw + p_log</code>는 patchwork 패키지가 <code>+</code>를 “옆에 붙여라”로 해석한 결과다. 이 패키지가 없으면 <code>+</code>는 그냥 오류를 낸다.</p>
+<p>두 그림을 읽는 핵심은 왜도 숫자다. 왜도가 12.33에서 0.99로 줄어들어, 분포가 중심 근처에 모인다. 이 변환이 Size 변수를 회귀분석에 투입 가능한 상태로 만드는 첫 번째 불 조절이다.</p>
+<p>주의가 하나 있다. 이 장에서 만든 Size 변수는 단순해 보이지만, 이 책 10장에서 예상치 못한 역할을 맡게 된다. 외부 보고서 하나의 결론이 통제변수를 추가하자 무너지는 그 장면에서, 누락된 변수의 주인공이 바로 오늘 만든 Size다.</p>
+</section>
+</section>
+<section id="비율-변수-1인분으로-환산하다" class="level2">
+<h2 class="anchored" data-anchor-id="비율-변수-1인분으로-환산하다">비율 변수 — 1인분으로 환산하다</h2>
+<section id="roa-정의의-표준과-이-책의-ssot-한계" class="level3">
+<h3 class="anchored" data-anchor-id="roa-정의의-표준과-이-책의-ssot-한계">ROA 정의의 표준과 이 책의 SSOT 한계</h3>
+<p>학술 표준은 분모에 기초·기말 평균 자산을 쓴다(유량/저량 대응). 본서 SSOT의 ROA는 기말 자산 기준으로 계산되어 있으며, 평균 자산 ROA는 12장에서 배우는 lag()로 직접 만들 수 있다 — 일회성 손익이 순이익 기반 지표를 왜곡할 수 있다는 점도 함께 기억하라.</p>
+</section>
+<section id="직관-규모-효과를-제거하는-나눗셈" class="level3">
+<h3 class="anchored" data-anchor-id="직관-규모-효과를-제거하는-나눗셈">직관 — 규모 효과를 제거하는 나눗셈</h3>
+<p>비율 변수의 원리는 단순하다. 규모가 다른 기업들을 같은 기준으로 비교하려면, 공통 분모로 나누면 된다. 500조 원짜리 기업의 순이익 3조 원과 5천억 원짜리 기업의 순이익 300억 원은 직접 비교 불가능하다. 그러나 둘 다 자산으로 나누면 ROA = 0.006(0.6%)과 ROA = 0.06(6%)이 되어 비교 가능해진다.</p>
+<pre><code>ROA_i   = 당기순이익(천원)_i / 자산총계(천원)_i   (자산 대비 수익성)
+ATO_i   = 매출액(천원)_i     / 자산총계(천원)_i   (자산 대비 효율성)
+LEV_i   = 부채총계(천원)_i   / 자산총계(천원)_i   (자산 대비 레버리지)</code></pre>
+<p>세 변수의 분모가 모두 <code>자산총계</code>다. 분자가 달라지면 다른 것을 잰다 — ROA는 “1원의 자산으로 얼마를 버는가”, ATO는 “1원의 자산으로 얼마의 매출을 만드는가”, 부채비율은 “전체 자산 중 빚이 차지하는 비율이 얼마인가”. 레시피(분자/분모)가 다르면 다른 요리다. 그래서 변수 정의서가 필요하다 — “ROA”라는 이름만으로는 분자가 당기순이익인지 영업이익인지 알 수 없다.</p>
+</section>
+<section id="실증-파생변수-전후-기술통계와-규모-효과-제거" class="level3">
+<h3 class="anchored" data-anchor-id="실증-파생변수-전후-기술통계와-규모-효과-제거">실증 — 파생변수 전후 기술통계와 규모 효과 제거</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-697ea090{}.cl-6977e930{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6977e93a{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-697b3fd6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-697b3fea{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-697b4f62{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697b4f6c{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697b4f6d{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697b4f6e{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697b4f76{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-697b4f80{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-697ea090"><thead><tr style="overflow-wrap:break-word;"><th class="cl-697b4f62"><p class="cl-697b3fd6"><span class="cl-6977e930">통계량</span></p></th><th class="cl-697b4f6c"><p class="cl-697b3fea"><span class="cl-6977e930">순이익(조 원) — 원시</span></p></th><th class="cl-697b4f6c"><p class="cl-697b3fea"><span class="cl-6977e930">ROA — 파생</span></p></th><th class="cl-697b4f6c"><p class="cl-697b3fea"><span class="cl-6977e930">ATO — 파생</span></p></th><th class="cl-697b4f6c"><p class="cl-697b3fea"><span class="cl-6977e930">부채비율 — 파생</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-697b4f6d"><p class="cl-697b3fd6"><span class="cl-6977e930">평균</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.144</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.0249</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.823</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.442</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-697b4f6d"><p class="cl-697b3fd6"><span class="cl-6977e930">중앙값</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.004</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.0221</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.777</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.395</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-697b4f6d"><p class="cl-697b3fd6"><span class="cl-6977e930">표준편차</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">1.378</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.1291</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.420</span></p></td><td class="cl-697b4f6e"><p class="cl-697b3fea"><span class="cl-6977e93a">0.239</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-697b4f76"><p class="cl-697b3fd6"><span class="cl-6977e930">왜도</span></p></td><td class="cl-697b4f80"><p class="cl-697b3fea"><span class="cl-6977e93a">21.54</span></p></td><td class="cl-697b4f80"><p class="cl-697b3fea"><span class="cl-6977e93a">-5.21</span></p></td><td class="cl-697b4f80"><p class="cl-697b3fea"><span class="cl-6977e93a">2.48</span></p></td><td class="cl-697b4f80"><p class="cl-697b3fea"><span class="cl-6977e93a">14.15</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ① 기업당 직전 1개 연도만 유지 — 동일 기업이 여러 해 등장하면 순위 왜곡</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>latest <span class="ot">&lt;-</span> feat_df <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(코드) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_max</span>(회계연도, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ROA), <span class="sc">!</span><span class="fu">is.na</span>(당기순이익_천원), 자산총계_천원 <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ② 순이익 상위 10사</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>top_profit <span class="ot">&lt;-</span> latest <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_max</span>(당기순이익_천원, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(당기순이익_천원)) <span class="sc">|&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    기업    <span class="ot">=</span> 코드명,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">자산(조 원)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(자산총계_천원 <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">1</span>),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">순이익(조 원)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(당기순이익_천원 <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ROA(%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(ROA <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    그룹    <span class="ot">=</span> <span class="st">"순이익 상위"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ③ ROA 상위 10사 (최소 자산 100억 원 이상 — 극소형 기업의 일회성 이익 제외)</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>top_roa <span class="ot">&lt;-</span> latest <span class="sc">|&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(자산총계_천원 <span class="sc">&gt;=</span> <span class="fl">1e7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice_max</span>(ROA, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(ROA)) <span class="sc">|&gt;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">transmute</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    기업    <span class="ot">=</span> 코드명,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">자산(조 원)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(자산총계_천원 <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">1</span>),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">순이익(조 원)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(당기순이익_천원 <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">ROA(%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(ROA <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    그룹    <span class="ot">=</span> <span class="st">"ROA 상위"</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>코드 읽기.</strong> ①의 <code>group_by(코드) |&gt; slice_max(회계연도, n = 1)</code>은 기업 단위로 묶은 뒤 직전 연도 한 행만 남기는 패턴이다 — <code>group_by()</code>가 “같은 코드끼리 묶어라”, <code>slice_max()</code>가 “묶음 안에서 회계연도가 가장 큰 것을 1개만 남겨라”는 의미다. ②에서 <code>slice_max(당기순이익_천원, n = 10)</code>이 순이익이 가장 큰 10행을 뽑는다. ③에서 <code>filter(자산총계_천원 &gt;= 1e7)</code>은 자산 100억 원(10^7 천원) 미만의 극소형 기업을 먼저 제거하는 방어 코드다 — 이런 기업은 일회성 자산 매각 등으로 ROA가 수백%까지 올라가 순위를 왜곡한다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-69a445d4{}.cl-699d5cba{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-699d5cce{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-699fde22{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-699fde36{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-699fedf4{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fedfe{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee08{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee09{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee12{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee13{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee14{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee1c{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee26{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-699fee27{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-69a445d4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-699fedf4"><p class="cl-699fde22"><span class="cl-699d5cba">기업</span></p></th><th class="cl-699fedfe"><p class="cl-699fde36"><span class="cl-699d5cba">자산(조 원)</span></p></th><th class="cl-699fedfe"><p class="cl-699fde36"><span class="cl-699d5cba">순이익(조 원)</span></p></th><th class="cl-699fedfe"><p class="cl-699fde36"><span class="cl-699d5cba">ROA(%)</span></p></th><th class="cl-699fedf4"><p class="cl-699fde22"><span class="cl-699d5cba">그룹</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">삼성전자</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">514.5</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">34.45</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">6.70</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">SK하이닉스</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">119.9</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">19.80</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">16.52</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">현대차</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">339.8</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">13.23</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">3.89</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">기아</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">92.8</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">9.78</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">10.54</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">현대모비스</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">66.6</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">4.06</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">6.10</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">HMM</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">33.8</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">3.78</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">11.17</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">SK스퀘어</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">21.9</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">3.65</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">16.65</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">한국전력</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">246.8</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">3.62</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">1.47</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">삼성물산</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">62.0</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">2.77</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">4.47</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee12"><p class="cl-699fde22"><span class="cl-699d5cce">한화에어로스페이스</span></p></td><td class="cl-699fee13"><p class="cl-699fde36"><span class="cl-699d5cce">43.3</span></p></td><td class="cl-699fee13"><p class="cl-699fde36"><span class="cl-699d5cce">2.54</span></p></td><td class="cl-699fee13"><p class="cl-699fde36"><span class="cl-699d5cce">5.86</span></p></td><td class="cl-699fee12"><p class="cl-699fde22"><span class="cl-699d5cce">순이익 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee14"><p class="cl-699fde22"><span class="cl-699d5cce">엘앤씨바이오</span></p></td><td class="cl-699fee1c"><p class="cl-699fde36"><span class="cl-699d5cce">0.5</span></p></td><td class="cl-699fee1c"><p class="cl-699fde36"><span class="cl-699d5cce">0.14</span></p></td><td class="cl-699fee1c"><p class="cl-699fde36"><span class="cl-699d5cce">29.64</span></p></td><td class="cl-699fee14"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">브이티</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.4</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.10</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">28.92</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">실리콘투</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.5</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.12</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">26.38</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">티앤엘</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.2</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.05</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">23.55</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">에이유브랜즈</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.0</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.01</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">22.57</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">SK바이오팜</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">1.0</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.23</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">21.89</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">아스테라시스</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.0</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.01</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">21.64</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">한미반도체</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.7</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.15</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">21.47</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">넥스틴</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.2</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">0.04</span></p></td><td class="cl-699fee09"><p class="cl-699fde36"><span class="cl-699d5cce">20.24</span></p></td><td class="cl-699fee08"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-699fee26"><p class="cl-699fde22"><span class="cl-699d5cce">HD현대마린솔루션</span></p></td><td class="cl-699fee27"><p class="cl-699fde36"><span class="cl-699d5cce">1.2</span></p></td><td class="cl-699fee27"><p class="cl-699fde36"><span class="cl-699d5cce">0.23</span></p></td><td class="cl-699fee27"><p class="cl-699fde36"><span class="cl-699d5cce">19.78</span></p></td><td class="cl-699fee26"><p class="cl-699fde22"><span class="cl-699d5cce">ROA 상위</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_web_files/figure-html/ch05-scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>그림 5.2 규모(Size)와 ROA의 관계 — 순이익 상위 기업(파란 점)은 오른쪽 대형사 영역에 몰리고, ROA 상위 기업(주황 점)은 규모에 무관하게 분포한다</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>두 그룹의 겹침은 한 기업도 겹치지 않는다. 평균 Size는 순이익 상위 그룹이 25.28, ROA 상위 그룹이 19.44로, 순이익 상위 기업이 뚜렷이 더 크다(차이: 5.84). 원시 순이익 기준 상위권은 대형사들이 독점하지만, 자산으로 나눈 ROA 기준 상위권에는 중소형 고효율 기업들이 진입한다. <strong>1인분 환산이 규모 효과를 제거한 효과가 그림에서 직접 보인다.</strong></p>
+<p>이 관찰에서 분석가가 배우는 것은 하나다. 팀장이 “수익성 상위 기업”이라고 말할 때, 그것이 원시 순이익 기준인지 ROA 기준인지에 따라 화면에 올라오는 기업 목록이 완전히 달라진다. 변수의 정의가 분석의 결론을 결정한다.</p>
+</section>
+</section>
+<section id="더미-변수와-표준화-양념의-유무와-단위-맞추기" class="level2">
+<h2 class="anchored" data-anchor-id="더미-변수와-표준화-양념의-유무와-단위-맞추기">더미 변수와 표준화 — 양념의 유무와 단위 맞추기</h2>
+<section id="더미-변수-양념이-있는가-없는가" class="level3">
+<h3 class="anchored" data-anchor-id="더미-변수-양념이-있는가-없는가">더미 변수 — 양념이 있는가, 없는가</h3>
+<p>더미 변수는 범주를 숫자로 표현하는 가장 단순한 방법이다. <code>Loss_Dummy = 1</code>이면 그 기업-연도 관측치에서 당기순이익이 음수였다는 뜻이다.</p>
+<pre><code>Loss_Dummy_i = 1  if  당기순이익(천원)_i &lt; 0
+             = 0  otherwise</code></pre>
+<p>요리의 비유로: 고추장을 넣었는가(1), 안 넣었는가(0). 더미는 양념의 유무만 표현한다. 그런데 여기서 놓치는 것이 있다. 적자 -1억 원인 기업과 적자 -1조 원인 기업을 같은 ’1’로 처리한다. 손실의 <strong>크기</strong>가 0/1에서 사라진다. 연속 변수를 이진으로 자르면 항상 정보가 줄어든다 — 이것이 이 장의 함정 세 번째다.</p>
+<p>그렇다면 왜 더미를 쓰는가? 회귀분석에서 적자 기업의 <strong>행동 패턴 자체</strong>가 질적으로 다를 때 유용하다. 금융위기 이후 구조조정에 들어간 기업들은 수익 구조가 근본적으로 바뀐다 — 그 전환점을 ’1’로 잡는 것이 연속적인 순이익 크기보다 더 정보를 잘 담는 경우가 있다. 선택은 이론의 영역이다.</p>
+<p>표본에서 <code>Loss_Dummy = 1</code>인 관측치는 1,454건으로 전체의 14.5%다. 적자 관측치가 상대적으로 적어 비율을 확인하고 분석에 포함 여부를 판단한다.</p>
+</section>
+<section id="표준화-단위가-다른-재료를-같은-저울에-달다" class="level3">
+<h3 class="anchored" data-anchor-id="표준화-단위가-다른-재료를-같은-저울에-달다">표준화 — 단위가 다른 재료를 같은 저울에 달다</h3>
+<p>표준화(Z-score)는 변수의 평균을 빼고 표준편차로 나누어 “이 관측치가 평균에서 표준편차 몇 개만큼 떨어져 있는가”를 표현한다.</p>
+<pre><code>ROA_Z_i = (ROA_i - mean(ROA)) / sd(ROA)</code></pre>
+<p>결과로 나오는 변수는 평균이 0, 표준편차가 1이다. 표준화가 필요한 이유는 단위가 다른 변수들의 계수를 비교하기 위해서다. ROA(단위: 소수점)와 Size(단위: 로그 천원)의 회귀계수는 단위 자체가 달라 크기로 비교할 수 없다. 두 변수를 모두 표준화하면 계수는 “표준편차 1단위 변화에 따른 종속변수의 표준편차 단위 변화”로 해석이 통일된다.</p>
+<p>단, 표준화는 해석의 편의를 위한 재척도일 뿐이다. 모형의 적합도나 계수의 통계적 유의성은 표준화 여부와 무관하다.</p>
+<p>파생한 ROA_Z의 평균은 -0.0000(이론값: 0), 표준편차는 1.00(이론값: 1)다. 작은 부동소수점 오차를 제외하면 정확히 표준화되었다.</p>
+</section>
+</section>
+<section id="변수-정의서-레시피를-기록하라" class="level2">
+<h2 class="anchored" data-anchor-id="변수-정의서-레시피를-기록하라">변수 정의서 — 레시피를 기록하라</h2>
+<section id="직관-레시피-없는-요리의-결말" class="level3">
+<h3 class="anchored" data-anchor-id="직관-레시피-없는-요리의-결말">직관 — 레시피 없는 요리의 결말</h3>
+<p>6개월 뒤 동료가 분석을 이어받는다. 파일에 <code>ROA</code>라는 열이 있다. 그것이 당기순이익 / 자산총계인지, 영업이익 / 자산총계인지, Winsorize를 거친 것인지 아닌지 — 열 이름만으로는 알 수 없다. 같은 이름으로 다른 정의를 쓴 두 분석가의 결과는 재현 불가능하다. 레시피(변수 정의서) 없는 요리는 팔 수 없다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-69f2d80c{}.cl-69ed29c0{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69ed29d4{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69ef9bf6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-69efabfa{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69efac04{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69efac0e{width:1.34in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-69f2d80c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-69efabfa"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">변수명</span></p></th><th class="cl-69efabfa"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">산식</span></p></th><th class="cl-69efabfa"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">단위·범위</span></p></th><th class="cl-69efabfa"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">해석</span></p></th><th class="cl-69efabfa"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">주의·한계</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">Size</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">log(자산총계(천원))</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">로그 천원 (≈ 14~28)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">기업 규모 — 규모 압축으로 대형사·소형사를 같은 축에 올린다</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">로그 계수 해석: e배 증가당 변화. % 변화율과 혼동 금지</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">ROA</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">당기순이익(천원) / 자산총계(천원)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">소수점 (−∞ ~ +∞, 통상 −0.5 ~ 0.5)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">자산 대비 수익성 — 1원의 자산으로 얼마를 버는가</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">분모 ≤ 0이면 무의미. Winsorize 여부를 별도 명시</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">ATO</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">매출액(천원) / 자산총계(천원)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">배 (≥ 0 when 자산 &gt; 0)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">자산 대비 효율성 — 1원의 자산으로 얼마의 매출을 만드는가</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">분모 ≤ 0 또는 매출 결측 시 NA·Inf. 서비스업 ATO가 제조업보다 낮은 경향</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">부채비율</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">부채총계(천원) / 자산총계(천원)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">소수점 (≥ 0 when 자산 &gt; 0)</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">자산 대비 부채 — 전체 자산 중 타인 자본 비율</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">부채총계 &gt; 자산총계이면 1 초과. 자본잠식 기업 가능</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">Loss_Dummy</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">1 if 당기순이익(천원) &lt; 0, else 0</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">0 또는 1</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">적자 여부 — 손실 발생 기업-연도를 표시하되 손실 크기는 반영 안 됨</span></p></td><td class="cl-69efac04"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">연속 정보(손실 크기)를 버림. 경계값(-0 근처) 판정 오류 주의</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69efac0e"><p class="cl-69ef9bf6"><span class="cl-69ed29c0">ROA_Z</span></p></td><td class="cl-69efac0e"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">(ROA − mean(ROA)) / sd(ROA)</span></p></td><td class="cl-69efac0e"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">표준편차 단위 (평균 0, SD 1)</span></p></td><td class="cl-69efac0e"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">ROA의 상대적 위치 — 전체 분포 내 위치를 표준화한 값</span></p></td><td class="cl-69efac0e"><p class="cl-69ef9bf6"><span class="cl-69ed29d4">표준화는 샘플 평균·SD에 종속 — 표본이 바뀌면 Z값도 바뀐다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="함정-레시피에서-반드시-표시해야-할-위험-3개" class="level3">
+<h3 class="anchored" data-anchor-id="함정-레시피에서-반드시-표시해야-할-위험-3개">함정 — 레시피에서 반드시 표시해야 할 위험 3개</h3>
+<p><strong>함정 ①: 분모가 0 또는 음수인 비율.</strong> <code>부채비율 = 부채총계 / 자산총계</code>에서 자산총계가 0이면 분모가 0이 되어 결과는 <code>Inf</code>다. 자산총계가 음수(자본잠식 기업의 일부 회계 처리)이면 부채비율도 음수가 된다. 이 값들을 <code>filter()</code>로 제거하지 않으면 기술통계의 평균과 회귀계수가 조용히 오염된다. 대응은 세 가지다 — 필터링(분석에서 제외), 별도 더미(<code>is.infinite(부채비율)</code>), 또는 대체 레버리지 지표 사용. 어느 선택을 하든 변수 정의서에 명시해야 한다.</p>
+<p><strong>함정 ②: 변환 후 해석 단위 망각.</strong> <code>Size = log(자산총계(천원))</code>로 만든 변수가 회귀에 들어갔을 때, 계수는 “Size 1단위 증가 → Y 얼마 변화”다. 그런데 Size 1단위는 <em>자산총계가 e배(≈ 2.7배) 증가</em>한다는 뜻이다. “자산이 1조 원 늘면”이 아니다. 보고서에 “자산이 1단위 증가하면”이라고 쓰는 순간, 독자는 1조 원 또는 1천원을 상상한다. 로그 계수는 반드시 “자산이 e배 증가할 때”로 번역하거나, 계수에 log(2)를 나눠 “자산 2배 증가 시”로 환산해야 한다.</p>
+<p><strong>함정 ③: 더미화가 버리는 정보.</strong> 순이익 -1억 원과 -1조 원은 <code>Loss_Dummy</code>로는 모두 1이다. 연속 변수를 이진으로 자르면 분류 내부의 분산이 모두 사라진다. 이 비용이 작을 때(손실 여부 자체가 질적 단절을 의미할 때)는 더미가 유용하다. 이 비용이 클 때(손실 규모가 후속 행동에 비례할 때)는 연속 변수를 유지하거나 복수의 구간 더미를 만들어야 한다. 어느 쪽을 선택했는지 역시 변수 정의서에 적어야 한다.</p>
+</section>
+<section id="분석가의-번역-변수-정의-결정을-의사결정-언어로" class="level3">
+<h3 class="anchored" data-anchor-id="분석가의-번역-변수-정의-결정을-의사결정-언어로">분석가의 번역 — 변수 정의 결정을 의사결정 언어로</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a0333a0{}.cl-69fccf06{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69fccf10{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-69ff49ca{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-69ff5802{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69ff580c{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-69ff5816{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a0333a0"><thead><tr style="overflow-wrap:break-word;"><th class="cl-69ff5802"><p class="cl-69ff49ca"><span class="cl-69fccf06">결정</span></p></th><th class="cl-69ff5802"><p class="cl-69ff49ca"><span class="cl-69fccf06">기술적 근거</span></p></th><th class="cl-69ff5802"><p class="cl-69ff49ca"><span class="cl-69fccf06">실무 번역</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf06">자산총계 → log(Size)</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">왜도 12.33 → 0.99 감소; 대형사 영향 압축</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">같은 산업 내 규모 차이를 통제하고 비교 분석을 가능하게 한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf06">순이익 → ROA</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">규모 효과 제거 — 두 그룹 겹침 한 기업도 겹치지 않는다</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">500조 기업과 5천억 기업을 같은 수익성 기준으로 줄 세울 수 있다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf06">Loss_Dummy: 적자 비율 14.5%</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">적자 비중 낮음 — 포함 효과 확인 필요</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">적자 기업 비중 낮음 — 포함·제외 두 가지 결과를 모두 보고</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf06">부채비율: 분모 ≤ 0 필터</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">0건 제외 — 분석 결과 오염 방지</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">분모 ≤ 0 관측치가 Inf·NaN으로 평균을 오염하는 것을 방어한 결정</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf06">ROA_Z 표준화</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">단위 이질 변수 간 계수 크기 비교 가능</span></p></td><td class="cl-69ff580c"><p class="cl-69ff49ca"><span class="cl-69fccf10">ROA 계수와 Size 계수의 크기를 비교할 수 있는 분석 조건</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-69ff5816"><p class="cl-69ff49ca"><span class="cl-69fccf06">ATO 포함 여부</span></p></td><td class="cl-69ff5816"><p class="cl-69ff49ca"><span class="cl-69fccf10">매출 기반 효율성 — 6장 가설 검증 포함 여부 이론으로 결정</span></p></td><td class="cl-69ff5816"><p class="cl-69ff49ca"><span class="cl-69fccf10">ATO를 포함하면 DuPont 분해 프레임과 연결 — 6장 방법론 선택 시 논의</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="완성-예시-변수-정의서-제출-메모-전문" class="level3">
+<h3 class="anchored" data-anchor-id="완성-예시-변수-정의서-제출-메모-전문">완성 예시 — 변수 정의서 제출 메모 전문</h3>
+<blockquote class="blockquote">
+<p><strong>KG Asset 내부 검토 메모 — 파생변수 정의서 v1</strong></p>
+<p><strong>제목.</strong> 5주차 파생변수 6종 생성 결과 및 레시피 문서화</p>
+<p><strong>결론.</strong> 10000건 관측치(667개사, 2010~2024년)로부터 파생변수 6종을 생성하고 변수 정의서(표 5.6)에 산식·단위·해석·한계를 명시했다. 모든 변환 결정의 근거와 위험을 문서화했으며 산식은 SSOT 교차 검증으로 확인했다.</p>
+<p><strong>로그 변환.</strong> 자산총계의 왜도가 12.33에서 0.99로 줄어들어 분포가 안정화되었다. Size 변수는 6~10장 전 분석에 투입 가능한 상태다.</p>
+<p><strong>비율 변수.</strong> ROA 파생 산식(당기순이익/자산총계)을 SSOT 저장 ROA와 99.9% 이상 일치하여 산식이 검증되었다. 두 그룹(순이익 상위 vs ROA 상위)의 겹침은 한 기업도 겹치지 않는다 — 규모 효과 제거가 순위 구조를 실질적으로 바꾼다.</p>
+<p><strong>더미.</strong> Loss_Dummy 비중 14.5% — 포함 여부는 6장 방법론에서 결정한다.</p>
+<p><strong>한계.</strong> 분모 ≤ 0 관측치 0건이 제외되었다. 제외 기업의 특성(산업·규모·연도 분포)이 분석 표본과 체계적으로 다를 경우 선택 편향이 생긴다 — 4장 NA 진단 방법으로 추가 확인을 권고한다. ATO의 매출액은 SSOT <code>매출액(천원)...8</code>을 명시 선택했다(<code>...12</code> 열 제거).</p>
+</blockquote>
+</section>
+</section>
+<section id="r로-직접-해보기" class="level2">
+<h2 class="anchored" data-anchor-id="r로-직접-해보기">R로 직접 해보기</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>IPO</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Input</td>
+<td><code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~4장 SSOT·정제 파이프라인 산출)</td>
+</tr>
+<tr class="even">
+<td>Process</td>
+<td>자산총계 log 변환 → 분포 비교 → ROA·ATO·부채비율·Loss_Dummy 파생 → Z-score → 순이익 상위 vs ROA 상위 비교 → 변수 정의서 작성</td>
+</tr>
+<tr class="odd">
+<td>Output</td>
+<td><code>Output/ch05_feature_dict.csv</code> (변수 정의서), <code>Output/ch05_rank_compare.csv</code> (순위 비교)</td>
+</tr>
+<tr class="even">
+<td>Report</td>
+<td>“파생변수 정의서 v1” 제출 메모 (표 5.7 양식 기반 1쪽)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a16d7ca{}.cl-6a103532{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a103546{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a131892{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-6a132a8a{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a132a94{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a132a9e{width:2.233in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a16d7ca"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6a132a8a"><p class="cl-6a131892"><span class="cl-6a103532">난이도</span></p></th><th class="cl-6a132a8a"><p class="cl-6a131892"><span class="cl-6a103532">분석 아이디어</span></p></th><th class="cl-6a132a8a"><p class="cl-6a131892"><span class="cl-6a103532">확인 포인트</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103532">초심자</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">순이익마진(당기순이익(천원) / 매출액(천원))으로 수익성을 측정하고 ROA와의 순위 상관을 비교한다</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">두 지표가 같은 정보를 담는가 — Spearman 순위 상관이 0.8 이상인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103532">초심자</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">Loss_Dummy 대신 손실 금액을 로그 변환(log(|손실|))하여 연속 더미의 정보 손실 비용을 확인한다</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">연속 변수가 더미보다 분포 설명력이 높은가 — 기술통계 표 비교</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103532">초심자</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">자산총계 대신 매출액에 로그를 취해 두 규모 지표의 분포와 상관관계를 비교한다</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">매출 기준 규모와 자산 기준 규모가 다른 기업 유형은 무엇인가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103532">고급자</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">같은 기업의 ROA를 5년치 Z-score로 표준화해 '연도 내 순위'와 '연도 간 추세'를 분리한다</span></p></td><td class="cl-6a132a94"><p class="cl-6a131892"><span class="cl-6a103546">5년 내 항상 상위 기업과 항상 하위 기업 — 지속성의 정도</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a132a9e"><p class="cl-6a131892"><span class="cl-6a103532">고급자</span></p></td><td class="cl-6a132a9e"><p class="cl-6a131892"><span class="cl-6a103546">DuPont 분해: ROA = ROA_마진 × ATO (순이익/매출 × 매출/자산)로 ROA 변동 요인을 분해하고 두 요소의 기여도를 비교한다</span></p></td><td class="cl-6a132a9e"><p class="cl-6a131892"><span class="cl-6a103546">마진 주도 기업 vs 회전율 주도 기업의 산업 분포 — 6장 가설의 씨앗</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="ai-협업-프로토콜-레시피를-검증하게-하되-재료-선택은-직접-하라" class="level2">
+<h2 class="anchored" data-anchor-id="ai-협업-프로토콜-레시피를-검증하게-하되-재료-선택은-직접-하라">AI 협업 프로토콜 — 레시피를 검증하게 하되, 재료 선택은 직접 하라</h2>
+<p>파생변수 작업에서 AI는 레시피 초안 작성과 코드 오류 진단에 유용하다. 그러나 어떤 분자를 쓸 것인가, 어떤 관측치를 제외할 것인가는 데이터의 맥락과 분석 목적을 아는 사람만이 결정할 수 있다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a27dea8{}.cl-6a200caa{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a200cbe{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a237dcc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-6a2392bc{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a2392c6{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a2392d0{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a27dea8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6a2392bc"><p class="cl-6a237dcc"><span class="cl-6a200caa">수준</span></p></th><th class="cl-6a2392bc"><p class="cl-6a237dcc"><span class="cl-6a200caa">이 장의 행동</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200caa">L1 (인식)</span></p></td><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200cbe">AI에게 'ROA를 계산하는 R 코드를 작성해줘'라고 요청해 결과를 그대로 복사한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200caa">L2 (적용)</span></p></td><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200cbe">분자·분모의 의미를 먼저 설명하고 분모 0 처리 코드와 함께 작성을 요청한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200caa">L3 (분석)</span></p></td><td class="cl-6a2392c6"><p class="cl-6a237dcc"><span class="cl-6a200cbe">AI가 만든 변수 정의서 초안에서 해석 단위 오류와 한계 누락을 직접 찾아 수정한다</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a2392d0"><p class="cl-6a237dcc"><span class="cl-6a200caa">L4 (창의)</span></p></td><td class="cl-6a2392d0"><p class="cl-6a237dcc"><span class="cl-6a200cbe">DuPont 분해 또는 자체 정의 지표를 AI와 함께 설계하고, 그 지표가 재는 것과 재지 않는 것을 한 줄로 정의한다</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 1 — 변수 설계 전: 정의 도출]</strong> “다음 재무 변수의 분자·분모·단위·해석·주요 한계를 4개 열로 정리해줘. 변수: ROA, ATO, 부채비율, Loss_Dummy. 단, 해석 단위 오류(log 계수 해석 등)와 분모 위험을 반드시 포함해줘.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>[프롬프트 2 — 코드 작성 후: 레시피 검증]</strong> “다음 R코드가 ROA를 당기순이익/자산총계로 계산하는데, 분모가 0이거나 음수인 경우를 처리하지 않았어. 발생할 수 있는 오류와 그 대응 코드 3가지 방법(필터링·조건부 NA·is.finite 사용)을 보여줘.” AI의 답을 그대로 쓰지 말고 — 세 방법 중 이 분석의 목적에 맞는 하나를 선택하고, 그 이유를 변수 정의서에 기록하라.</p>
+</blockquote>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a380bde{}.cl-6a3131ec{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a313200{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a3485c2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-6a349e54{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a349e5e{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a349e5f{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a380bde"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6a349e54"><p class="cl-6a3485c2"><span class="cl-6a3131ec">AI에게 맡겨도 되는 일</span></p></th><th class="cl-6a349e54"><p class="cl-6a3485c2"><span class="cl-6a3131ec">사람이 반드시 판단해야 하는 일</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">변수 정의서 초안 생성</span></p></td><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">어떤 분자를 쓸 것인가 (당기순이익 vs 영업이익)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">분모 0 처리 코드 옵션 제시</span></p></td><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">분모 ≤ 0 관측치 제외가 선택 편향을 만드는가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">로그 변환 계수 해석 공식 설명</span></p></td><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">표본의 맥락에서 더미화 비용이 수용 가능한가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">유사 지표(이자보상배율 등) 브레인스토밍</span></p></td><td class="cl-6a349e5e"><p class="cl-6a3485c2"><span class="cl-6a313200">그 지표가 실제로 이 연구에서 '재야 하는 것'을 재는가</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a349e5f"><p class="cl-6a3485c2"><span class="cl-6a313200">변환 전후 기술통계 코드 작성</span></p></td><td class="cl-6a349e5f"><p class="cl-6a3485c2"><span class="cl-6a313200">변환 후 결과가 도메인 지식과 정합성을 갖는가</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="정리-함정-다음-장" class="level2">
+<h2 class="anchored" data-anchor-id="정리-함정-다음-장">정리, 함정, 다음 장</h2>
+<p>이 장의 결론을 한 문장으로 줄이면 이렇다. <strong>변환은 데이터를 바꾸는 것이 아니라, 질문을 제대로 던질 수 있는 형태로 재료를 준비하는 일이다.</strong> 로그가 규모의 장벽을 넘고, 비율이 규모 효과를 제거하고, 더미가 질적 단절을 포착하며, 표준화가 단위 이질성을 해소한다. 그리고 레시피(변수 정의서)는 다음 요리사가 같은 요리를 만들 수 있는 유일한 보증이다.</p>
+<p>함정 세 가지를 다시 정리한다.</p>
+<ol type="1">
+<li><p><strong>분모가 0 또는 음수인 비율.</strong> 자산총계가 0 이하인 기업-연도 관측치에서 ROA·ATO·부채비율은 <code>Inf</code>이거나 경제적으로 무의미하다. 필터링 없이 진행하면 평균과 회귀계수가 오염된다 — 조용히, 오류 메시지 없이.</p></li>
+<li><p><strong>변환 후 해석 단위 망각.</strong> <code>Size</code>의 회귀계수는 “자산이 1조 원 증가”가 아니라 “자산이 <em>e배</em> 증가”에 해당한다. 보고서에 단위를 쓰지 않거나 틀리게 쓰면, 숫자는 맞아도 의미는 완전히 달라진다.</p></li>
+<li><p><strong>더미화가 버리는 정보.</strong> 연속 변수를 0/1로 자르는 순간, 분류 내부의 분산이 사라진다. 이 비용이 정당화되는 경우(질적 단절이 존재할 때)와 그렇지 않은 경우(크기가 중요할 때)를 이론으로 판단해야 한다. “그냥 더미로 만들었어요”는 레시피가 아니다.</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a4c83d4{}.cl-6a467034{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a467048{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a49423c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-6a49531c{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a495330{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a49533a{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a4c83d4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6a49531c"><p class="cl-6a49423c"><span class="cl-6a467034">점검 항목</span></p></th><th class="cl-6a49531c"><p class="cl-6a49423c"><span class="cl-6a467034">통과 기준</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467034">모든 비율 변수에서 분모 &gt; 0 조건을 확인하고 예외 처리를 문서화했는가</span></p></td><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467048">filter() 코드 + 제외 건수 + 정당성 주석</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467034">로그 변환 후 왜도가 실제로 줄었는지 수치로 확인했는가</span></p></td><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467048">표 5.3 형식으로 왜도 전후 수치 제시</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467034">더미 변수의 비율(0/1 구성)을 확인하고 한쪽이 극히 적을 경우 분석 계획을 수정했는가</span></p></td><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467048">표 5.4 형식으로 Loss_Dummy 비율 명시</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467034">변수 정의서에 이름·산식·단위·해석·한계 5개 항목이 모두 채워져 있는가</span></p></td><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467048">표 5.6 형식 완성 (빈 셀 없음)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467034">레시피대로 만든 변수가 SSOT 기존 변수와 일치하는지 교차 검증했는가</span></p></td><td class="cl-6a495330"><p class="cl-6a49423c"><span class="cl-6a467048">일치율 99.9% 이상 또는 불일치 원인 문서화</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a49533a"><p class="cl-6a49423c"><span class="cl-6a467034">로그 계수의 해석 단위를 보고서 문장에서 정확하게 썼는가</span></p></td><td class="cl-6a49533a"><p class="cl-6a49423c"><span class="cl-6a467048">'자산이 e배 증가' 또는 '2배 증가 환산값' 표기</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6a5b6160{}.cl-6a55a0ea{font-family:'DejaVu Sans';font-size:10pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a55a0fe{font-family:'DejaVu Sans';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6a58360c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-6a5845d4{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a5845de{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6a5845df{width:3.35in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-6a5b6160"><thead><tr style="overflow-wrap:break-word;"><th class="cl-6a5845d4"><p class="cl-6a58360c"><span class="cl-6a55a0ea">분야</span></p></th><th class="cl-6a5845d4"><p class="cl-6a58360c"><span class="cl-6a55a0ea">같은 구조의 변환 질문</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">마케팅 분석</span></p></td><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">방문자 수 대신 전환율(구매/방문)로 캠페인 효율을 비교한다 — 트래픽 규모가 다른 채널끼리의 비교가능성</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">인사 분석</span></p></td><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">이직자 수 대신 이직률(이직/전체 인원)을 쓴다 — 팀 규모가 다른 부서 간 비교</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">공공 정책</span></p></td><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">예산 절대액 대신 GDP 대비 비율을 쓴다 — 국가 규모가 다른 정책 간 비교</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">의료 통계</span></p></td><td class="cl-6a5845de"><p class="cl-6a58360c"><span class="cl-6a55a0fe">생존 일수에 로그를 취해 분포 대칭성을 높인다 — 극단 생존자가 분석을 왜곡하지 않도록</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6a5845df"><p class="cl-6a58360c"><span class="cl-6a55a0fe">신용 리스크</span></p></td><td class="cl-6a5845df"><p class="cl-6a58360c"><span class="cl-6a55a0fe">연체 금액 대신 연체율(연체/전체 잔액)을 쓴다 — 포트폴리오 규모가 다른 상품 간 비교</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>이 장의 산출물(변수 정의서 <code>ch05_feature_dict.csv</code>와 순위 비교 <code>ch05_rank_compare.csv</code>)은 6장 이후 모든 분석의 입력 명세서로 쓰인다. 13장 최종 보고서에서 “어떤 변수를 어떤 기준으로 만들었는가”를 한 줄로 설명할 수 있는 사람은 오늘 변수 정의서를 작성한 사람뿐이다. 다음 장(6장)에서는 이렇게 만든 변수들이 분석 목적에 따라 어떤 통계 방법으로 연결되는지를 다룬다 — 변수가 준비되었다면, 이제 방법을 고를 차례다.</p>
+</section>
+<section id="주차-pbl-자기만의-파생변수를-발명하라" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="주차-pbl-자기만의-파생변수를-발명하라">주차 PBL — 자기만의 파생변수를 발명하라</h2>
+<p>이 장의 기술을 새로운 목적에 적용하는 것이 이번 주 PBL이다. 본문에서는 팀장의 지시를 따라 표준적인 파생변수(ROA·ATO·부채비율·Loss_Dummy)를 만들었다. PBL에서는 <strong>직접 질문을 만들고, 그 질문에 답하는 변수를 발명한다.</strong></p>
+<blockquote class="blockquote">
+<p><strong>Context.</strong> KG Asset 분석팀이 새 투자 기준을 개발 중이다. 기존 ROA는 수익성을 재지만, “수익의 질”은 재지 못한다 — 예를 들어 자산 매각으로 번 1회성 이익과 본업으로 꾸준히 번 이익은 ROA가 같아도 다른 의미를 가진다. 팀장이 지시한다. “ROA 말고, 네가 더 좋다고 생각하는 수익성·효율성·위험 지표를 하나 발명해라. 그리고 그것이 기존 ROA와 어떻게 다른지, 무엇을 더 잘 재는지 증명해라. 레시피를 제출해라.”</p>
+</blockquote>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>미션</th>
+<th>핵심 산출물</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Level 1 (필수)</td>
+<td>비율 변수 3종 생성</td>
+<td>ROA·ATO·부채비율을 코드로 파생하고 기술통계 표를 제출한다</td>
+</tr>
+<tr class="even">
+<td>Level 2 (심화)</td>
+<td>변환과 분포 비교</td>
+<td>log(자산총계) 왜도 전후 비교·ROA_Z 표준화·분포 히스토그램 2매</td>
+</tr>
+<tr class="odd">
+<td>Level 3 (확장)</td>
+<td>파생변수 발명</td>
+<td>자기만의 변수 1개를 설계하고 정의서(이름·산식·단위·해석·한계)를 작성한다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Level 3 발명 가이드라인.</strong> 발명의 시작은 질문이다. “기존 변수 X가 재지 못하는 것은 무엇인가?” 이 질문에서 새 변수가 나온다. 아래는 출발점 예시다 — 이것을 그대로 쓰지 말고, 이 형식으로 자기만의 것을 만들어라.</p>
+<p>예시 A — <strong>순이익마진</strong>: 당기순이익 / 매출액. 재는 것: 영업활동 대비 남는 이익의 두께. 재지 못하는 것: 자산 대비 수익성(ROA). 예시 B — <strong>매출 대비 부채</strong>: 부채총계 / 매출액. 재는 것: 매출 대비 부채 부담. 재지 못하는 것: 자산 구성의 물적 의존도.</p>
+<p>Level 3의 완성 기준은 두 가지다. 첫째, “이 변수는 X를 재고 Y는 재지 않는다”를 한 줄로 쓸 수 있어야 한다. 둘째, 발명한 변수와 기존 ROA의 순위 상관(Spearman)을 구해 두 변수가 다른 정보를 담고 있음을 수치로 보여야 한다. 상관이 0.95 이상이면 같은 요리를 다른 이름으로 만든 것이다 — 재료를 바꿔야 한다. <strong>이 발명이 12장 연구주제를 찾을 때 첫 번째 근육이 된다.</strong></p>
+<p>제출물은 과목 표준 4종 — Input(데이터 경로·표본 크기), Script(분석 코드 전문 + AI 프롬프트 로그), Output(기술통계·정의서·분포 그림), Report(변수 정의서 + Level 3 발명 근거). 본문의 <code>Script/ch05_features.R</code>이 출발 코드다.</p>
+<p><strong>수행 가이드라인 (사고의 이정표다).</strong></p>
+<ol type="1">
+<li>변수 이름만 바꾸는 것은 발명이 아니다. “영업이익으로 바꿨어요”는 재료 교체이지 레시피 발명이 아니다. 새 변수가 기존 변수가 재지 못하는 무언가를 잡아야 한다.</li>
+<li>분모를 항상 점검하라. 발명한 변수의 분모가 0이 될 수 있는가? 그 경우 몇 건이나 발생하는가? 처리 방법은 정의서에 명시해야 한다.</li>
+<li>결론 문장 형식: “이 변수는 ____을 재며, ____을 재지 않는다. 기존 ROA와의 Spearman 상관은 __이며, 이 차이는 ____ 때문이다.”</li>
+<li>AI를 써도 되지만: AI가 제안한 변수 이름을 그대로 쓰면 L1이다. AI가 정의한 산식에서 분모 위험과 해석 오류를 찾아 수정하면 L3다.</li>
+<li>자가 점검 질문: 내가 만든 변수를 팀장이 “이것이 무엇을 재는 변수입니까?”라고 묻는다면, 나는 10초 안에 한 문장으로 답할 수 있는가?</li>
+</ol>
+<p><strong>채점 루브릭 (100점).</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>평가 항목</th>
+<th style="text-align: right;">배점</th>
+<th>통과 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>재현성</td>
+<td style="text-align: right;">20</td>
+<td>데이터 경로·스크립트·패키지·표본 크기가 명시되어 코드가 그대로 실행 가능</td>
+</tr>
+<tr class="even">
+<td>변환 이해</td>
+<td style="text-align: right;">30</td>
+<td>로그·비율·더미의 변환 전후 차이를 왜도 수치와 그림으로 설명하고 해석 단위를 정확히 기술</td>
+</tr>
+<tr class="odd">
+<td>함정 대응</td>
+<td style="text-align: right;">25</td>
+<td>분모 0 처리·더미화 정보 손실·로그 계수 단위 중 최소 2가지를 코드와 해설로 명시</td>
+</tr>
+<tr class="even">
+<td>발명 변수</td>
+<td style="text-align: right;">25</td>
+<td>정의서 5항목 완성 + ROA와의 Spearman 상관 + “무엇을 더/덜 재는가” 1문장</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="이-장의-자료" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="이-장의-자료">이 장의 자료</h2>
+<ul>
+<li>데이터: <code>In_class_R/11주차/Derived_SSOT_Dataset.csv</code> (3~4장 SSOT·정제 파이프라인 산출)</li>
+<li>전체 스크립트: <code>Script/ch05_features.R</code> (본문 코드 전체 — Script 폴더에서 실행)</li>
+<li>산출물: <code>Output/ch05_feature_dict.csv</code> (변수 정의서), <code>Output/ch05_rank_compare.csv</code> (순위 비교)</li>
+</ul>
+<p><strong>AI 협업 권장.</strong> 코드 오류 시: 오류 메시지 + 실행 환경(OS·R 버전·패키지 버전)을 함께 붙여 “어느 줄에서 어떤 이유로 오류가 났는지 한 줄로 진단해줘”라고 요청하라. 개념이 막히면 “비율 변수와 로그 변환의 차이를 요리 비유 말고 다른 비유로 설명해줘”처럼 다른 각도의 설명을 요구하라.</p>
+<p><strong>AI 사용 시 주의 3가지.</strong> (1) AI가 제안하는 분자·분모는 항상 ’이것이 정말 재야 하는 것인가’를 확인하라 — 산식이 맞아도 측정 목적이 틀릴 수 있다. (2) AI가 만든 코드에서 분모 0 처리를 생략하는 경우가 많다 — 직접 추가하라. (3) “로그 계수는 1% 증가에 해당한다”는 AI의 단골 오류다 — 이 장의 함정 ②를 다시 읽어라.</p>
+</section>
+<section id="연습문제" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="연습문제">연습문제</h2>
+<p><strong>문제 1.</strong> 어떤 분석가가 KOSPI 상장기업의 수익성을 비교하기 위해 <code>당기순이익(천원)</code> 원시값을 그대로 사용했다. 이 선택의 문제점을 비교가능성과 분포 안정성 두 관점에서 설명하고, 각 문제에 대응하는 변환을 제시하라.</p>
+<p><strong>모범답안.</strong> 비교가능성 문제: 자산 500조인 기업의 순이익 3조 원과 자산 5천억인 기업의 순이익 300억 원은 같은 축에 올릴 수 없다 — 원시 순이익은 규모 효과를 담고 있어 대형사가 자동으로 상위권을 독점한다. 대응: 자산으로 나눈 ROA로 변환해 규모 효과를 제거한다. 분포 안정성 문제: 원시 순이익(또는 자산)의 분포는 극단적으로 오른쪽으로 치우쳐(왜도 &gt;&gt; 0) 소수 대형사가 평균을 끌어올리고 회귀분석의 직선 방향을 결정한다. 대응: 자산에 로그 변환을 적용해 분포를 대칭에 가깝게 만든다.</p>
+<p><strong>문제 2.</strong> <code>부채비율 = 부채총계 / 자산총계</code>를 파생할 때 아무 처리 없이 전체 표본에 적용했다. 어떤 이상 값이 생길 수 있는지 두 시나리오를 쓰고, 각각을 R 코드로 확인하는 한 줄을 제시하라.</p>
+<p><strong>모범답안.</strong> 시나리오 A — 자산총계가 0인 경우: <code>부채비율 = 부채총계 / 0 = Inf</code>. 확인 코드: <code>sum(is.infinite(df$부채비율))</code>. 시나리오 B — 자산총계가 음수인 경우(자본잠식 등 특수 회계 처리): 부채총계가 양수이면 부채비율이 음수가 되어 경제적으로 무의미하다. 확인 코드: <code>sum(df$부채비율 &lt; 0, na.rm = TRUE)</code>. 두 경우 모두 <code>filter(자산총계 &gt; 0)</code> 또는 <code>mutate(부채비율 = if_else(자산총계 &gt; 0, 부채총계 / 자산총계, NA_real_))</code>로 방어한다.</p>
+<p><strong>문제 3.</strong> 한 분석가가 적자 규모를 분석하기 위해 <code>당기순이익(천원) &lt; 0</code>인 기업의 손실 금액을 <code>Loss_Dummy</code>로 요약했다. 이 더미화가 잃는 정보를 구체적으로 설명하고, 손실 규모를 보존하는 대안 변수를 하나 제시하라.</p>
+<p><strong>모범답안.</strong> Loss_Dummy는 “적자가 났는가”만 담고 손실의 크기를 버린다. -1억 원과 -1조 원이 같은 ’1’이 된다. 잃는 정보: 손실의 심도(depth), 자산 대비 손실 비율, 업황 대비 손실 수준. 대안 변수: <code>Loss_ROA = min(ROA, 0)</code> (손실 기업은 음의 ROA를 그대로, 흑자 기업은 0으로 클리핑) — 손실이 없으면 0, 손실이 클수록 더 큰 음수가 된다. 또는 <code>Abs_Loss_ROA = abs(min(ROA, 0))</code>으로 손실 규모 절댓값을 만들 수 있다. 어느 쪽을 선택하든 “무엇을 재는가”를 정의서에 명시해야 한다.</p>
+<p><strong>문제 4.</strong> 어떤 분석가가 같은 데이터셋에서 동료 A는 ROA를 “당기순이익 / 자산총계”로, 동료 B는 “영업이익 / 자산총계”로 계산했다. 두 사람이 같은 변수명 <code>ROA</code>를 썼는데 결과가 달랐다. 이 문제를 변수 정의서의 관점에서 설명하고, 이런 충돌을 사전에 방지하는 팀 차원의 실천 하나를 제안하라.</p>
+<p><strong>모범답안.</strong> 변수명이 같아도 산식이 다르면 다른 변수다. <code>ROA(당기순이익/자산)</code>은 금융비용과 세금이 빠진 후의 총 수익성을, <code>ROA(영업이익/자산)</code>는 본업 영업활동의 수익성만 잰다. 두 지표는 재무 위험이 높은 기업(이자 부담이 큰 기업)에서 크게 달라진다. 변수 정의서를 공유하지 않으면 두 분석가의 결과는 재현 불가능하고 비교 불가능하다. 팀 차원 실천: 분석 시작 전 <code>feature_dict.csv</code> (변수 정의서)를 팀 공유 폴더에 먼저 올리고 리뷰를 받은 뒤 코드를 작성한다 — 산식이 먼저 합의되어야 코드가 유효하다. 이 원칙이 이 장에서 배운 레시피 우선의 실체다.</p>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9zZV9jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDAzX3BhbmVsX3N0cnVjdHVyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMl90aGlua2luZ19sb2cuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDRfY2xlYW5fc2FtcGxlLmNzdiIsImRhdGEvL091dHB1dC9jaDAxX3Nzb3Rfb3ZlcnZpZXcuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDVfZmVhdHVyZV9kaWN0LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X3JhbmtfY29tcGFyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9tb2RlbF9jb21wYXJpc29uLmNzdiJd
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhLy9zc290X3dlYi5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9zZV9jb21wYXJpc29uLmNzdiIsImRhdGEvL091dHB1dC9jaDAzX3BhbmVsX3N0cnVjdHVyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gwMl90aGlua2luZ19sb2cuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDRfY2xlYW5fc2FtcGxlLmNzdiIsImRhdGEvL091dHB1dC9jaDAxX3Nzb3Rfb3ZlcnZpZXcuY3N2IiwiZGF0YS8vT3V0cHV0L2NoMDVfZmVhdHVyZV9kaWN0LmNzdiIsImRhdGEvL091dHB1dC9jaDA1X3JhbmtfY29tcGFyZS5jc3YiLCJkYXRhLy9PdXRwdXQvY2gxMF9tb2RlbF9jb21wYXJpc29uLmNzdiJd
+</script>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
