@@ -1,0 +1,329 @@
+<style>
+:root {
+  --incorrect: #983E82;
+  --incorrect_alpha: #edaddd;
+  --correct: #59935B;
+  --correct_alpha: #c0edc2;
+  --highlight: #467AAC;
+}
+
+.webex-check {}
+
+.webex-box {
+  border: 2px solid var(--highlight);
+  padding: 0.5em 0.25em;
+  margin: 1em 0;
+  border-radius: .25em;
+  background-color: rgba(127, 127, 127, 0.05);
+}
+
+.webex-total_correct {
+  margin-left: 1em;
+}
+
+.unchecked .webex-total_correct {
+  display: none;
+}
+
+.unchecked .webex-incorrect,
+.unchecked .webex-correct {
+  border: 2px dotted grey !important;
+  background-color: white !important;
+}
+
+/* styles for webex-solveme */
+.webex-select, input.webex-solveme,
+.unchecked .webex-radiogroup label.webex-incorrect,
+.unchecked .webex-radiogroup label.webex-correct{
+    border: 2px dotted grey;
+    background-color: white;
+    border-radius: 0.25em;
+}
+
+.webex-incorrect,
+input.webex-solveme.webex-incorrect,
+.webex-radiogroup label.webex-incorrect {
+    border: 2px dotted var(--incorrect);
+    background-color: var(--incorrect_alpha);
+    color: black;
+    border-radius: 0.25em;
+}
+.webex-correct,
+input.webex-solveme.webex-correct,
+.webex-radiogroup label.webex-correct {
+    border: 2px solid var(--correct);
+    background-color: var(--correct_alpha);
+    color: black;
+    border-radius: 0.25em;
+}
+
+.unchecked .webex-incorrect span::before,
+.unchecked .webex-incorrect + .webex-icon::after,
+.unchecked .webex-correct span::before,
+.unchecked .webex-correct + .webex-icon::after {
+  content: "  ";
+}
+
+.webex-incorrect span::before,
+.webex-incorrect + .webex-icon::after {
+  content: "\274C  ";
+}
+
+.webex-correct span::before,
+.webex-correct + .webex-icon::after {
+  content: "\2705  ";
+}
+
+
+/* styles for hidden solutions */
+.webex-solution {
+    height: 2.5em;
+    overflow-y: hidden;
+    padding: 0.5em;
+    margin-bottom: 10px;
+}
+.webex-solution.open {
+    height: auto;
+    border: 2px solid var(--highlight);
+    border-radius: 5px;
+}
+.webex-solution button, .webex-check-button {
+    height: 2em;
+    margin-bottom: 0.5em;
+    border-radius: 0.5em;
+    background-color: var(--highlight);
+    color: white;
+    padding: 0 0.5em;
+}
+.webex-solution pre.sourceCode {
+    border-color: var(--correct);
+}
+
+.webex-radiogroup label {
+  margin-left: 2em;
+  text-indent: -1em;
+  padding-left: 0.5em;
+  font-weight: 400;
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0);
+  background-color: inherit;
+  border-radius: 0.25em;
+}
+
+.webex-radiogroup label input {
+  position: relative;
+  left: -1em;
+}
+
+.webex-radiogroup {
+  margin: 1em 0;
+}
+
+
+</style>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>

@@ -13,11 +13,8 @@ jobs:
       - run: Rscript -e 'install.packages(c("knitr","rmarkdown","dplyr","kableExtra","flextable","officer","readr","ggplot2","tidyr","stringr","tibble","broom","car","patchwork","scales","sandwich","yaml","gt","pROC"), repos="https://packagemanager.posit.co/cran/__linux__/noble/latest")'
       - run: quarto add r-wasm/quarto-live --no-prompt
         working-directory: web
-      - run: |
-          for f in index 01_web 02_web 03_web 04_web 05_web 06_web 07_web 08_web 09_web ch10_web 11_web 12_web 13_web; do
-            quarto render "${f}.qmd" --to live-html
-          done
+      - run: quarto render --to live-html
         working-directory: web
       - uses: actions/upload-pages-artifact@v3
-        with: { path: web }
+        with: { path: web/_book }
       - uses: actions/deploy-pages@v4

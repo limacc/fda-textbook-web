@@ -1,4 +1,5 @@
 ---
+title: "단 하나의 진실 — 변수선정, 데이터수집, SSOT 구축"
 chapter-id: "Ch:03"
 chapter-num: "03"
 chapter-title: "단 하나의 진실 — 변수선정, 데이터수집, SSOT 구축"
@@ -747,3 +748,12 @@ result <- dplyr::left_join(fin_df, esg_df, by = "코드")
 **문제 4.** 재무 데이터에 `(코드, 회계연도)` 키 중복이 남아 기업 A의 2020년이 3행 존재하고, ESG 데이터에 같은 키가 2행 존재한다. (a) `left_join(재무, ESG, by = c("코드", "회계연도"))` 결과에서 기업 A의 2020년은 몇 행이 되는가. (b) 이 중복 폭발을 join 전에 탐지하는 dplyr 코드 한 줄을 제시하라.
 
 **모범답안.** (a) 3행(재무) × 2행(ESG) = 6행. left_join은 왼쪽 각 행에 오른쪽 일치 행을 모두 결합하므로, 키 중복이 있으면 두 쪽 중복 수의 곱만큼 행이 생성된다. (b) `dplyr::count(df, 코드, 회계연도) |> dplyr::filter(n > 1)` — 이 코드는 복합키 기준으로 2회 이상 등장하는 조합을 반환한다. join 전에 이 결과가 빈 데이터프레임(0행)이어야 행 폭발이 없음을 보장할 수 있다. 중복이 발견되면 `dplyr::distinct(코드, 회계연도, .keep_all = TRUE)` 또는 집계 후 join이 표준 처방이다.
+
+## 확인 문제 {.unnumbered}
+
+```{r ch03-webex, echo=FALSE, results="asis"}
+library(webexercises)
+cat("1. SSOT(Single Source of Truth) 원칙에서 가장 중요한 것은?\n")
+cat(mcq(c(answer="데이터를 한 곳에서 관리하여 모든 분석이 같은 원본을 참조한다", "데이터를 여러 곳에 백업한다", "가장 최근 데이터만 사용한다", "CSV보다 Excel을 사용한다")))
+cat("\n\n2. (코드, 회계연도)가 함께 고유 키 역할을 하므로, 이를 ", fitb("복합키"), " 라고 한다.\n")
+```

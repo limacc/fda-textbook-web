@@ -1,4 +1,5 @@
 ---
+title: "직선을 믿기 전에 — 회귀분석, 누락변수, 그리고 진단"
 chapter-id: "Ch:10"
 chapter-num: "10"
 chapter-title: "직선을 믿기 전에 — 회귀분석, 누락변수, 그리고 진단"
@@ -285,6 +286,32 @@ m2 <- lm(ROA_w ~ ESG평가 + Size, data = reg_df)
 m3 <- lm(ROA_w ~ ESG평가 + Size + 부채비율, data = reg_df)
 m4 <- lm(ROA_w ~ ESG평가 + Size + 부채비율 + factor(회계연도), data = reg_df)
 vif_m3 <- car::vif(m3)
+```
+
+```{webr}
+#| context: setup
+#| include: false
+# webr 환경 공통 setup — 본문 코드 복붙 시 즉시 에러 방지
+read_book_csv <- function(path, ...) {
+  read.csv(path, check.names = FALSE, ...)
+}
+ssot_path <- "data/ssot_web.csv"
+f2 <- function(x) formatC(x, format = "f", digits = 2)
+f3 <- function(x) formatC(x, format = "f", digits = 3)
+f4 <- function(x) formatC(x, format = "f", digits = 4)
+fcomma <- function(x) formatC(x, format = "d", big.mark = ",")
+sig_label <- function(p) {
+  if (p < 0.01) "1% 수준에서 통계적으로 유의하다"
+  else if (p < 0.05) "5% 수준에서 통계적으로 유의하다"
+  else if (p < 0.10) "10% 수준에서만 약하게 유의하다"
+  else "통계적으로 유의하지 않다"
+}
+pp <- function(x) sprintf("%+.2f%%p", x * 100)
+winsorize <- function(x, probs = c(0.01, 0.99)) {
+  lo <- stats::quantile(x, probs[1], na.rm = TRUE)
+  hi <- stats::quantile(x, probs[2], na.rm = TRUE)
+  pmin(pmax(x, lo), hi)
+}
 ```
 
 ```{webr}
@@ -834,3 +861,12 @@ ft_book(flextable::set_caption(flextable::flextable(tbl_transfer),
 **문제 4 (좋은 통제와 나쁜 통제).** 어떤 분석가가 ESG 평가 여부와 ROA의 관계를 추정하면서, "통제는 많을수록 좋다"는 생각으로 **신용등급**을 통제변수로 추가했다. 신용등급이 ESG 활동의 결과로 개선될 수 있는 변수라면, 이 통제가 왜 위험한지 설명하라.
 
 **모범답안.** 좋은 통제변수는 X(ESG 평가) *이전에* 결정되어 X와 Y를 동시에 교란하는 변수다(예: 기업 규모). 반면 신용등급이 ESG 활동의 *결과*로 개선되는 변수라면, 신용등급은 X에서 Y로 가는 경로 위에 놓여 있다. 이를 통제하면 X가 Y에 닿는 통로 일부를 인위적으로 막아버려, 관계의 일부를 지워버린 왜곡된 계수를 얻는다 — 이것이 과잉 통제(bad control)다. 통제는 양의 문제가 아니라 **변수의 시간적·인과적 위치**의 문제이며, "VIF가 낮고 R²가 오른다"는 사실은 그 변수를 넣어도 된다는 근거가 전혀 아니다.
+
+## 확인 문제 {.unnumbered}
+
+```{r ch10-webex, echo=FALSE, results="asis"}
+library(webexercises)
+cat("1. 누락변수편의(OVB)가 발생하기 위한 두 조건은?\n")
+cat(mcq(c(answer="누락된 변수가 Y(종속)와 관련되고, X(설명)와도 관련될 때", "표본이 클 때", "R 버전이 낮을 때", "데이터가 정규분포가 아닐 때")))
+cat("\n\n2. 다중공선성은 표준오차의 문제(계수가 불안정)이고, 누락변수편의는 ", fitb("계수"), " 자체의 문제(체계적으로 틀림)다.\n")
+```

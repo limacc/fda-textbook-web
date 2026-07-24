@@ -5,4 +5,4 @@
 "10장","Script/ch10_regression.R","Derived_SSOT_Dataset.csv","Output/ch10_se_comparison.csv",1,1,"일치"
 "11장","Script/ch11_logit.R","Derived_SSOT_Dataset.csv","Output/ch11_classification_perf.csv",4,4,"일치"
 "12장","Script/ch12_causal_topics.R","Derived_SSOT_Dataset.csv","Output/ch12_lag_comparison.csv",2,2,"일치"
-"13장","Script/ch13_report.R","Derived_SSOT_Dataset.csv","Output/ch13_manifest.csv",7,NA,"미생성"
+"13장","Script/ch13_report.R","Derived_SSOT_Dataset.csv","Output/ch13_manifest.csv",7,7,"일치"

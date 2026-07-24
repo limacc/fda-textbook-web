@@ -47,9 +47,10 @@ function main(): void {
   const chNum = yamlText.match(/chapter-num:\s*"([^"]+)"/)?.[1] ?? "";
   const chTitle = yamlText.match(/chapter-title:\s*"([^"]+)"/)?.[1] ?? "";
 
-  // 새 YAML (live-html, ch10_web.qmd와 동일 구조)
+  // 새 YAML (live-html, book 프로젝트 사이드바용 title 포함)
   const newYaml = [
     "---",
+    `title: "${chTitle}"`,
     `chapter-id: "${chId}"`,
     `chapter-num: "${chNum}"`,
     `chapter-title: "${chTitle}"`,

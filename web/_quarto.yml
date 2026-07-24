@@ -1,0 +1,35 @@
+project:
+  type: book
+book:
+  title: AI powered SW 기반 재무데이터분석 (웹 인터랙티브판)
+  chapters:
+  - index.qmd
+  - 01_web.qmd
+  - 02_web.qmd
+  - 03_web.qmd
+  - 04_web.qmd
+  - 05_web.qmd
+  - 06_web.qmd
+  - 07_web.qmd
+  - 08_web.qmd
+  - 09_web.qmd
+  - ch10_web.qmd
+  - 11_web.qmd
+  - 12_web.qmd
+  - 13_web.qmd
+format:
+  live-html:
+    theme: cosmo
+    toc: true
+    include-after-body: include/webex_combined.html
+engine: knitr
+filters: [live]
+resources: data/
+webr:
+  packages:
+  - dplyr
+  - tidyr
+  - ggplot2
+  - stringr
+  - gt
+  - broom
