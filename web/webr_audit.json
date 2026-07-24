@@ -1,0 +1,469 @@
+[
+  {
+    "chapter": "01",
+    "title": "분석 환경과 재현성",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "quarto",
+      "readr",
+      "renv",
+      "scales",
+      "tibble"
+    ],
+    "table_calls": {
+      "ft_book": 11,
+      "book_table": 0,
+      "flextable": 33,
+      "set_caption": 11
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(11)",
+      "flextable(33)",
+      "set_caption(11)"
+    ],
+    "migration_effort": "중간 (테이블 55개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "02",
+    "title": "사고의 알고리즘",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "scales",
+      "stats",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 14,
+      "book_table": 0,
+      "flextable": 42,
+      "set_caption": 14
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(14)",
+      "flextable(42)",
+      "set_caption(14)"
+    ],
+    "migration_effort": "중간 (테이블 70개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "03",
+    "title": "SSOT",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "stringr",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 14,
+      "book_table": 0,
+      "flextable": 42,
+      "set_caption": 14
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(14)",
+      "flextable(42)",
+      "set_caption(14)"
+    ],
+    "migration_effort": "중간 (테이블 70개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "04",
+    "title": "데이터 정제",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "stats",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 13,
+      "book_table": 0,
+      "flextable": 39,
+      "set_caption": 13
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 3,
+    "blockers": [
+      "ft_book(13)",
+      "flextable(39)",
+      "set_caption(13)"
+    ],
+    "migration_effort": "중간 (테이블 65개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "05",
+    "title": "파생변수",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "tibble"
+    ],
+    "table_calls": {
+      "ft_book": 12,
+      "book_table": 0,
+      "flextable": 36,
+      "set_caption": 12
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 3,
+    "blockers": [
+      "ft_book(12)",
+      "flextable(36)",
+      "set_caption(12)"
+    ],
+    "migration_effort": "중간 (테이블 60개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "06",
+    "title": "방법 선택",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 11,
+      "book_table": 0,
+      "flextable": 33,
+      "set_caption": 11
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 4,
+    "blockers": [
+      "ft_book(11)",
+      "flextable(33)",
+      "set_caption(11)"
+    ],
+    "migration_effort": "중간 (테이블 55개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "07",
+    "title": "거시 관점",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "scales",
+      "tibble"
+    ],
+    "table_calls": {
+      "ft_book": 6,
+      "book_table": 0,
+      "flextable": 18,
+      "set_caption": 6
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(6)",
+      "flextable(18)",
+      "set_caption(6)"
+    ],
+    "migration_effort": "중간 (테이블 30개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "08",
+    "title": "기술통계 비교",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 11,
+      "book_table": 0,
+      "flextable": 33,
+      "set_caption": 11
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 5,
+    "blockers": [
+      "ft_book(11)",
+      "flextable(33)",
+      "set_caption(11)"
+    ],
+    "migration_effort": "중간 (테이블 55개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "09",
+    "title": "상관관계",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 12,
+      "book_table": 0,
+      "flextable": 33,
+      "set_caption": 11
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 0
+    },
+    "ggplot_calls": 4,
+    "blockers": [
+      "ft_book(12)",
+      "flextable(33)",
+      "set_caption(11)"
+    ],
+    "migration_effort": "중간 (테이블 56개 → book_table/gt)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "10",
+    "title": "회귀분석 진단",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "broom",
+      "car",
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "patchwork",
+      "readr",
+      "sandwich",
+      "stats",
+      "tibble",
+      "tidyr",
+      "패키지명"
+    ],
+    "table_calls": {
+      "ft_book": 13,
+      "book_table": 0,
+      "flextable": 39,
+      "set_caption": 13
+    },
+    "blocked_functions": {
+      "car::vif": 4,
+      "sandwich": 2,
+      "pROC": 0
+    },
+    "ggplot_calls": 6,
+    "blockers": [
+      "ft_book(13)",
+      "flextable(39)",
+      "set_caption(13)",
+      "car::vif(4)",
+      "sandwich(2)"
+    ],
+    "migration_effort": "높음 (테이블 65개 + 특수함수 6개 수동구현)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "11",
+    "title": "로지스틱 회귀",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "broom",
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "pROC",
+      "readr",
+      "stats",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 13,
+      "book_table": 0,
+      "flextable": 39,
+      "set_caption": 13
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 0,
+      "pROC": 6
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(13)",
+      "flextable(39)",
+      "set_caption(13)",
+      "pROC(6)"
+    ],
+    "migration_effort": "높음 (테이블 65개 + 특수함수 6개 수동구현)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "12",
+    "title": "인과추론",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "broom",
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "readr",
+      "sandwich",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 11,
+      "book_table": 0,
+      "flextable": 33,
+      "set_caption": 11
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 2,
+      "pROC": 0
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(11)",
+      "flextable(33)",
+      "set_caption(11)",
+      "sandwich(2)"
+    ],
+    "migration_effort": "높음 (테이블 55개 + 특수함수 2개 수동구현)",
+    "webr_feasible": true
+  },
+  {
+    "chapter": "13",
+    "title": "최종 보고서",
+    "has_webr_cells": false,
+    "webr_cell_count": 0,
+    "packages_used": [
+      "broom",
+      "dplyr",
+      "flextable",
+      "ggplot2",
+      "knitr",
+      "pROC",
+      "readr",
+      "sandwich",
+      "stats",
+      "tibble",
+      "tidyr"
+    ],
+    "table_calls": {
+      "ft_book": 13,
+      "book_table": 0,
+      "flextable": 39,
+      "set_caption": 13
+    },
+    "blocked_functions": {
+      "car::vif": 0,
+      "sandwich": 1,
+      "pROC": 6
+    },
+    "ggplot_calls": 2,
+    "blockers": [
+      "ft_book(13)",
+      "flextable(39)",
+      "set_caption(13)",
+      "sandwich(1)",
+      "pROC(6)"
+    ],
+    "migration_effort": "높음 (테이블 65개 + 특수함수 7개 수동구현)",
+    "webr_feasible": true
+  }
+]
