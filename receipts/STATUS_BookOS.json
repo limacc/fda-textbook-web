@@ -1,0 +1,157 @@
+{
+  "project": "BookOS",
+  "checked_at": "2026-07-25T01:02:22.891024+00:00",
+  "live_remote_commit": "d70dbaf",
+  "local_latest_commit": "8b810ae",
+  "unpushed_commits": 2,
+  "pages": {
+    "index": {
+      "http": 200,
+      "size": 22846,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": true
+    },
+    "01_web": {
+      "http": 200,
+      "size": 111837,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "02_web": {
+      "http": 200,
+      "size": 104700,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "03_web": {
+      "http": 200,
+      "size": 130054,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "04_web": {
+      "http": 200,
+      "size": 119272,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "05_web": {
+      "http": 200,
+      "size": 126594,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "06_web": {
+      "http": 200,
+      "size": 125254,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "07_web": {
+      "http": 200,
+      "size": 67530,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "08_web": {
+      "http": 200,
+      "size": 119947,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "09_web": {
+      "http": 200,
+      "size": 125018,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "ch10_web": {
+      "http": 200,
+      "size": 153879,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "11_web": {
+      "http": 200,
+      "size": 134136,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "12_web": {
+      "http": 200,
+      "size": 104293,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    },
+    "13_web": {
+      "http": 200,
+      "size": 118572,
+      "sidebar_links": 0,
+      "prev": false,
+      "next": false,
+      "mcq": false,
+      "fitb": false,
+      "exaggerated_text": false
+    }
+  },
+  "summary": {
+    "total_pages": 14,
+    "pages_with_sidebar": 0,
+    "pages_with_webexercises": 0,
+    "pages_with_exaggerated_text": 1,
+    "live_matches_local": false,
+    "note": "라이브는 d70dbaf (CQI/네비게이션/webexercises 미반영). 로컬 d348995+8b810ae 미push."
+  }
+}

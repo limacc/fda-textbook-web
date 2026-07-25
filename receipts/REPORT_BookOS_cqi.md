@@ -1,7 +1,21 @@
-# REPORT_BookOS_cqi — CQI 백로그 처리 (2026-07-24)
+# REPORT_BookOS_cqi — CQI 백로그 처리
 
+> 최종 갱신: 2026-07-24 (타임스탬프 갱신)
 > 작업경로: ~/workspace/fda-textbook-web
 > HARD LAW: git push 금지
+
+## 라이브 배포 상태 (2026-07-24 확인)
+
+| 항목 | 라이브 | 로컬 | 비고 |
+|------|-------|------|------|
+| 커밋 | d70dbaf | 8b810ae | 로컬 2커밋 미push |
+| 사이드바 | 0/14 | 14/14 | 미push → 라이브 미반영 |
+| webexercises | 0/14 | 14/14 | 미push → 라이브 미반영 |
+| 과장 문구 | index에 존재 | 수정됨 | 미push → 라이브 미반영 |
+
+상세: `receipts/STATUS_BookOS.json`
+
+**핵심**: 로컬 작업 완료 상태이나 push 금지로 라이브 미반영. 감독 세션 정체 원인 = REPORT 미갱신 + 라이브-로컬 불일치.
 
 ## CQI-1: webR/WASM 지원여부 감사 → 전환 가능 챕터 리포트
 
