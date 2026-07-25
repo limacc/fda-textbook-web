@@ -7,6 +7,14 @@
   "wip_pushed": true,
   "unpushed_commits": 0,
   "filebus_lock": true,
+  "rclone_write_policy": "cli-direct",
+  "cloudflare_tunnel": {
+    "url": "https://expressed-possibilities-sullivan-loc.trycloudflare.com",
+    "local_port": 8090,
+    "serving_dir": "~/workspace/fda-textbook-web/web/_book/",
+    "verified_pages": ["index", "01_web", "ch10_web", "13_web"],
+    "all_pass": true
+  },
   "pages": {
     "index": {
       "http": 200,

@@ -10,18 +10,28 @@
 - 작업 브랜치: `hermes/wip` (origin에 push 완료, 커밋 d348995..487af0a)
 - 병합 검토: `receipts/COMMANDER_ACTION_REQUIRED_BookOS.md` — 사령관이 hermes/wip → master 병합 결정
 
-## 라이브 배포 상태 (2026-07-24 확인)
+## 라이브 배포 상태 (2026-07-25 갱신)
 
-| 항목 | 라이브 | 로컬 hermes/wip | 비고 |
-|------|-------|------|------|
-| 커밋 | d70dbaf | 487af0a | hermes/wip에 4커밋 push됨 |
-| 사이드바 | 0/14 | 14/14 | master 병합 시 라이브 반영 |
-| webexercises | 0/14 | 14/14 | master 병합 시 라이브 반영 |
-| 과장 문구 | index에 존재 | 수정됨 | master 병합 시 라이브 반영 |
+### Cloudflare Quick Tunnel 호스팅 전환 완료
 
-상세: `receipts/STATUS_BookOS.json`
+- URL: `https://expressed-possibilities-sullivan-loc.trycloudflare.com`
+- 로컬 서빙: `python3 -m http.server 8090` (~/workspace/fda-textbook-web/web/_book/)
+- Cloudflare quick tunnel: `cloudflared tunnel --url http://127.0.0.1:8090`
+- 검증: 4페이지 fetch 전부 HTTP 200, sidebar=14, mcq/fitb 정상
 
-**핵심**: hermes/wip에 작업 push 완료. master 병합은 사령관 결정. file-bus lock 적용 완료.
+| 항목 | 이전(GitHub Pages) | 현재(Cloudflare Tunnel) |
+|------|-------|------|
+| 호스팅 | GitHub Actions → Pages | 서버PC 로컬 + cloudflared |
+| 커밋 반영 | push+CI 필요 | _book/ 즉시 반영 |
+| 사이드바 | 0/14 (미push) | 14/14 |
+| webexercises | 0/14 | 14/14 |
+| 과장 문구 | index에 존재 | 수정됨 |
+
+### rclone CLI 직접쓰기 정책 강제
+
+- fuse mount(~/gdrive) 경유 쓰기 금지 — 30s+ 타임아웃 재발 방지
+- skill 등록: `devops/rclone-drive-write-policy`
+- file-bus lock 적용 완료
 
 ## CQI-1: webR/WASM 지원여부 감사 → 전환 가능 챕터 리포트
 
