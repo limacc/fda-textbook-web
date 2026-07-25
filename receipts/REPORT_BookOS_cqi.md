@@ -1,21 +1,27 @@
 # REPORT_BookOS_cqi — CQI 백로그 처리
 
-> 최종 갱신: 2026-07-24 (타임스탬프 갱신)
+> 최종 갱신: 2026-07-25 (push 정책 갱신)
 > 작업경로: ~/workspace/fda-textbook-web
-> HARD LAW: git push 금지
+> PUSH 정책: main/master 직접 push 절대 금지 (Cloudflare Pages 자동배포). hermes/wip 브랜치만 push.
+
+## Push 정책 갱신 (2026-07-25)
+
+- main/master 직접 push → Cloudflare Pages 자동배포 트리거 → 절대 금지
+- 작업 브랜치: `hermes/wip` (origin에 push 완료, 커밋 d348995..487af0a)
+- 병합 검토: `receipts/COMMANDER_ACTION_REQUIRED_BookOS.md` — 사령관이 hermes/wip → master 병합 결정
 
 ## 라이브 배포 상태 (2026-07-24 확인)
 
-| 항목 | 라이브 | 로컬 | 비고 |
+| 항목 | 라이브 | 로컬 hermes/wip | 비고 |
 |------|-------|------|------|
-| 커밋 | d70dbaf | 8b810ae | 로컬 2커밋 미push |
-| 사이드바 | 0/14 | 14/14 | 미push → 라이브 미반영 |
-| webexercises | 0/14 | 14/14 | 미push → 라이브 미반영 |
-| 과장 문구 | index에 존재 | 수정됨 | 미push → 라이브 미반영 |
+| 커밋 | d70dbaf | 487af0a | hermes/wip에 4커밋 push됨 |
+| 사이드바 | 0/14 | 14/14 | master 병합 시 라이브 반영 |
+| webexercises | 0/14 | 14/14 | master 병합 시 라이브 반영 |
+| 과장 문구 | index에 존재 | 수정됨 | master 병합 시 라이브 반영 |
 
 상세: `receipts/STATUS_BookOS.json`
 
-**핵심**: 로컬 작업 완료 상태이나 push 금지로 라이브 미반영. 감독 세션 정체 원인 = REPORT 미갱신 + 라이브-로컬 불일치.
+**핵심**: hermes/wip에 작업 push 완료. master 병합은 사령관 결정. file-bus lock 적용 완료.
 
 ## CQI-1: webR/WASM 지원여부 감사 → 전환 가능 챕터 리포트
 

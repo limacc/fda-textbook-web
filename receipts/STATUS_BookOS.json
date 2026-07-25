@@ -1,9 +1,12 @@
 {
   "project": "BookOS",
-  "checked_at": "2026-07-25T01:02:22.891024+00:00",
+  "checked_at": "2026-07-25T01:35:00.000000+00:00",
   "live_remote_commit": "d70dbaf",
-  "local_latest_commit": "8b810ae",
-  "unpushed_commits": 2,
+  "local_latest_commit": "487af0a",
+  "wip_branch": "hermes/wip",
+  "wip_pushed": true,
+  "unpushed_commits": 0,
+  "filebus_lock": true,
   "pages": {
     "index": {
       "http": 200,
@@ -152,6 +155,6 @@
     "pages_with_webexercises": 0,
     "pages_with_exaggerated_text": 1,
     "live_matches_local": false,
-    "note": "라이브는 d70dbaf (CQI/네비게이션/webexercises 미반영). 로컬 d348995+8b810ae 미push."
+    "note": "라이브는 d70dbaf (CQI/네비게이션/webexercises 미반영). hermes/wip에 4커밋 push됨 (487af0a). master 병합 시 자동배포."
   }
 }
