@@ -7,12 +7,17 @@
   "wip_pushed": true,
   "unpushed_commits": 0,
   "filebus_lock": true,
-  "rclone_write_policy": "cli-direct",
+  "rclone_write_policy": "on-demand-cli",
   "cloudflare_tunnel": {
     "url": "https://expressed-possibilities-sullivan-loc.trycloudflare.com",
     "local_port": 8090,
     "serving_dir": "~/workspace/fda-textbook-web/web/_book/",
-    "verified_pages": ["index", "01_web", "ch10_web", "13_web"],
+    "verified_pages": [
+      "index",
+      "01_web",
+      "ch10_web",
+      "13_web"
+    ],
     "all_pass": true
   },
   "pages": {
@@ -164,5 +169,14 @@
     "pages_with_exaggerated_text": 1,
     "live_matches_local": false,
     "note": "라이브는 d70dbaf (CQI/네비게이션/webexercises 미반영). hermes/wip에 4커밋 push됨 (487af0a). master 병합 시 자동배포."
+  },
+  "rclone_policy_updated": "2026-07-25T23:42:00Z",
+  "rclone_policy_evidence": {
+    "observed_errors": [
+      "2026-07-25T23:42:19Z ERROR: IO error couldn't list directory: googleapi 403 Quota exceeded (Queries per minute)",
+      "2026-07-25T23:47:38Z ERROR: IO error couldn't list directory: googleapi 403 Quota exceeded"
+    ],
+    "stale_evictions": "다수 vfs cache stale file eviction (README.md, HANDOFF.md 등)",
+    "decision": "상시 FUSE mount → 필요시 rclone CLI 호출로 전환 (사령관 승인)"
   }
 }
